@@ -1,0 +1,38 @@
+// models/order.model.js
+import { Schema, model } from 'mongoose'
+
+const orderSchema = new Schema(
+    {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
+        transactionId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Transaction',
+        },
+        products: [
+            {
+                productId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Rudraksha',
+                    required: true,
+                },
+                quantity: {
+                    type: Number,
+                    required: true,
+                },
+            },
+        ],
+        status: {
+            type: String,
+            enum: ['pending', 'paid', 'failed'],
+            default: 'pending',
+        },
+    },
+    { timestamps: true },
+)
+
+const Order = model('Order', orderSchema)
+export default Order
