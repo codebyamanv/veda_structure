@@ -12,6 +12,7 @@ const axiosIntance = axios.create({
 //     },
 //     (error) => Promise.reject(error),
 // )
+
 axiosIntance.interceptors.response.use(
     (response) => response.data,
     (error) => {
