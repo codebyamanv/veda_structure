@@ -1,37 +1,30 @@
 'use client'
+import { useAuth } from "@/context/useAuth"
 
-import { allOrders } from '@/apis/controllers/orderController'
-import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+function OrdersPage() {
+    const { user, loading } = useAuth()
 
-export default function Order() {
-    const [orders, setOrders] = useState([])
-
-    const fetchOrders = async () => {
-        try {
-            const res = await allOrders()
-            setOrders(res?.data?.orders || [])
-        } catch (error) {
-            toast.error(error.message)
-        }
+    if (loading || !user) {
+        return <p className="text-center py-10">Loading your orders...</p>
     }
 
-    useEffect(() => {
-        fetchOrders()
-    }, [])
+    if (!user.orders || user.orders.length === 0) {
+        return <p className="text-center py-10">No orders found.</p>
+    }
 
     return (
-        <section className="max-w-7xl mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-6">All Orders</h1>
+        <div>
+            <h1 className="text-xl font-bold mb-4">My Orders</h1>
+            <div className="space-y-4">
+                {user.orders.map((orderWrapper) => {
+                    const order = orderWrapper.orderId
 
-            {orders.length === 0 ? (
-                <p className="text-gray-600">No orders found.</p>
-            ) : (
-                <div className="space-y-6">
-                    {orders.map((order) => (
-                        <div key={order._id} className="border rounded-lg shadow-sm p-6 bg-white">
-                            {/* Order Info */}
+                    return (
+                        <div
+                            key={order._id}
+                            className="border rounded-lg shadow-sm p-6 bg-white"
+                        >
+                            {/* Order Header */}
                             <div className="flex justify-between items-start mb-4">
                                 <div>
                                     <h2 className="font-semibold text-lg">
@@ -43,25 +36,26 @@ export default function Order() {
                                     <p className="text-sm">
                                         Status:{' '}
                                         <span
-                                            className={`px-2 py-1 rounded text-xs ${order.status === 'paid'
-                                                    ? 'bg-green-100 text-green-700'
-                                                    : order.status === 'failed'
-                                                        ? 'bg-red-100 text-red-700'
-                                                        : 'bg-yellow-100 text-yellow-700'
+                                            className={`px-2 py-1 rounded text-xs uppercase font-semibold ${order.status === 'paid'
+                                                ? 'bg-green-100 text-green-700'
+                                                : order.status === 'failed'
+                                                    ? 'bg-red-100 text-red-700'
+                                                    : 'bg-yellow-100 text-yellow-700'
                                                 }`}
                                         >
                                             {order.status}
                                         </span>
                                     </p>
                                 </div>
-                                <div className="text-right">
-                                    <p className="font-medium">{order.userId.fullname}</p>
-                                    <p className="text-sm text-gray-500">{order.userId.email}</p>
+
+                                {/* User Info */}
+                                {/* <div className="text-right">
+                                    <p className="font-medium">{user.fullname}</p>
+                                    <p className="text-sm text-gray-500">{user.email}</p>
                                     <p className="text-sm text-gray-500">
-                                        {order.userId.phone} • {order.userId.city} •{' '}
-                                        {order.userId.state} • {order.userId.pincode}
+                                        {user.phone} • {user.city} • {user.state} • {user.pincode}
                                     </p>
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* Products */}
@@ -71,11 +65,9 @@ export default function Order() {
                                         key={p._id}
                                         className="flex items-center gap-4 p-3 bg-gray-50"
                                     >
-                                        <Image
+                                        <img
                                             src={p.productId.productImage?.[0]}
                                             alt={p.productId.productName}
-                                            width={64}
-                                            height={64}
                                             className="w-16 h-16 object-cover rounded"
                                         />
                                         <div className="flex-1">
@@ -95,38 +87,39 @@ export default function Order() {
                             </div>
 
                             {/* Transaction */}
-                            <div className="flex justify-between">
-                                <div className="mt-4 text-sm text-gray-600">
-                                    <p>
+                            <div className="flex md:flex-row flex-col gap-2 justify-between mt-4 text-sm text-gray-600">
+                                <div>
+                                    {/* <p>
                                         <span className="font-medium">Transaction ID:</span>{' '}
-                                        {order.transactionId.id}
-                                    </p>
+                                        {order.transactionId._id}
+                                    </p> */}
                                     <p>
                                         <span className="font-medium">Payment ID:</span>{' '}
                                         {order.transactionId.paymentId}
                                     </p>
                                     <p>
-                                        <span className="font-medium">Amount:</span> ₹
+                                        <span className="font-medium">Total Amount:</span> ₹
                                         {order.transactionId.amount / 100}{' '}
                                         {order.transactionId.currency}
                                     </p>
                                 </div>
-                                <div className="mt-4 text-sm text-gray-600">
+                                <div>
                                     <p>
                                         <span className="font-medium">Address: </span>
-                                        {order.userId.fulladdress}
+                                        {user.fulladdress}
                                     </p>
                                     <p>
                                         <span className="font-medium">Location: </span>
-                                        {order.userId.city} • {order.userId.state} •{' '}
-                                        {order.userId.pincode}
+                                        {user.city} • {user.state} • {user.pincode}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
-            )}
-        </section>
+                    )
+                })}
+            </div>
+        </div>
     )
 }
+
+export default OrdersPage

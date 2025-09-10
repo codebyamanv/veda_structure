@@ -53,8 +53,27 @@ export const login = asyncHandler(async (req, res) => {
 })
 
 export const currentUser = asyncHandler(async (req, res) => {
-    return ApiResponse.success(req.user).send(res)
+    const user = await User.findOne({ _id: req.user._id })
+        .populate([
+            {
+                path: 'orders.orderId',
+                populate: [
+                    {
+                        path: 'products.productId',
+                        select: 'productName productImage productPrice productDiscount'
+                    },
+                    {
+                        path: 'transactionId',
+                        select: 'paymentId amount currency'
+                    }
+                ]
+            }
+        ])
+        .select('-password') // optional: don’t send password hash back
+
+    return ApiResponse.success(user).send(res)
 })
+
 
 export const logout = asyncHandler(async (req, res) => {
     const sessionToken = req.cookies.sessionToken
@@ -86,11 +105,11 @@ export const updateAddress = asyncHandler(async (req, res) => {
     return ApiResponse.success({}, 'User updated successfully').send(res)
 })
 
-export const deleteUser = asyncHandler(async (req, res) => {})
+export const deleteUser = asyncHandler(async (req, res) => { })
 
-export const forgotPassword = asyncHandler(async (req, res) => {})
+export const forgotPassword = asyncHandler(async (req, res) => { })
 
-export const resetPassword = asyncHandler(async (req, res) => {})
+export const resetPassword = asyncHandler(async (req, res) => { })
 
 export const users = asyncHandler(async (req, res) => {
     const { query } = req

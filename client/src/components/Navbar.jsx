@@ -25,9 +25,9 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
-                <div className="flex items-center">
+                <Link href="/" className="flex items-center">
                     <img src="/images/logo.png" alt="Logo" className="h-10 md:h-12" />
-                </div>
+                </Link>
 
                 <div className="hidden md:flex items-center w-1/2 max-w-xl bg-white shadow-md rounded-full overflow-hidden border border-gray-200 focus-within:ring-2 focus-within:ring-yellow-400">
                     <input
@@ -52,13 +52,13 @@ export default function Navbar() {
                                 </Link>
                             )}
                             <Link
-                                href="/profile"
-                                className="hidden md:flex items-center gap-1 hover:text-yellow-600 border border-gray-200 rounded-full px-4 py-2"
+                                href="/user/profile"
+                                className="flex items-center gap-1 hover:text-yellow-600 border border-gray-200 rounded-full px-4 py-2"
                             >
                                 <FaUser />{' '}
                                 {user ? (
                                     <>
-                                        <span>{user?.fullname}</span>
+                                        <span className='md:inline-block hidden'>{user?.fullname}</span>
                                     </>
                                 ) : (
                                     <span className="animate-pulse w-22 h-4 rounded-full bg-gray-400"></span>
@@ -218,6 +218,30 @@ export default function Navbar() {
                         Home
                     </a>
 
+                    <div>
+                        <button
+                            onClick={() => toggleDropdown('account')}
+                            className="flex justify-between w-full py-1 hover:text-yellow-600"
+                        >
+                            My Account <FaAngleDown />
+                        </button>
+                        {openDropdown === 'account' && (
+                            <div className="pl-4 space-y-1">
+                                <Link href="/user/profile" className="block hover:text-yellow-600">
+                                    Profile
+                                </Link>
+                                <Link href="/user/orders" className="block hover:text-yellow-600">
+                                    Orders
+                                </Link>
+                                <Link href="/user/setting" className="block hover:text-yellow-600">
+                                    Setting
+                                </Link>
+                                <button onClick={logout} className="block hover:text-yellow-600">
+                                    Logout
+                                </button>
+                            </div>
+                        )}
+                    </div>
                     <div>
                         <button
                             onClick={() => toggleDropdown('puja')}
