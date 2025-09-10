@@ -34,6 +34,7 @@ export default function Navbar() {
                         type="text"
                         placeholder="Search products..."
                         className="flex-1 px-4 py-2 outline-none text-gray-700"
+                        id='' name=''
                     />
                     <button className="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-400 shadow-md transform hover:scale-105 transition">
                         <FaSearch className="text-white text-lg" />
@@ -104,6 +105,7 @@ export default function Navbar() {
                         type="text"
                         placeholder="Search products..."
                         className="flex-1 px-3 py-2 outline-none text-gray-700"
+                        id='' name=''
                     />
                     <button className="flex items-center justify-center w-12 h-12 rounded-full bg-yellow-500 shadow-md transform hover:scale-105 transition">
                         <FaSearch className="text-white text-lg" />

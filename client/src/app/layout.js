@@ -1,12 +1,19 @@
+import { DM_Sans } from 'next/font/google'
 import ClientWrappers from '@/utils/ClientWrappers'
 import './globals.css'
-import { DM_Sans } from 'next/font/google'
 import Script from 'next/script'
 
 export const metadata = {
     title: 'Veda Structure',
     description: 'Cool App',
+    icons: {
+        icon: "/images/favicon.png",
+    },
 }
+
+export const viewport = {
+    themeColor: "#f4b61e",
+};
 
 const dm_sans = DM_Sans({
     subsets: ['latin'],
