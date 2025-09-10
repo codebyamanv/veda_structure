@@ -1,5 +1,6 @@
 'use client'
 import { useAuth } from "@/context/useAuth"
+import Image from "next/image"
 
 function OrdersPage() {
     const { user, loading } = useAuth()
@@ -65,7 +66,9 @@ function OrdersPage() {
                                         key={p._id}
                                         className="flex items-center gap-4 p-3 bg-gray-50"
                                     >
-                                        <img
+                                        <Image
+                                            width={64}
+                                            height={64}
                                             src={p.productId.productImage?.[0]}
                                             alt={p.productId.productName}
                                             className="w-16 h-16 object-cover rounded"
