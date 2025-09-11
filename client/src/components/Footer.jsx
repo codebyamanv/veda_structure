@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
     return (
         <footer className="mt-20 relative  overflow-hidden ">
@@ -35,11 +37,7 @@ export default function Footer() {
                     <div data-aos="fade-right" data-aos-delay="200">
                         <img src="/images/footer-logo.png" className="h-12" alt="Logo" />
                         <p className="mt-6 text-sm leading-relaxed text-gray-300">
-                            #1 Canadian top rated online dispensary that meets the consistent needs
-                            in every single medical marijuana aspect. The team here at TopShelfBC is
-                            heavily involved in the Canadian cannabis industry for over 15 years. We
-                            strive to provide the top quality products, service and care at the
-                            lowest prices you'll ever find.
+                            We bring you authentic spiritual products like Rudraksha, healing bracelets, and sacred items, along with trusted Puja and Astrology services. Our aim is to guide you on your spiritual journey with purity, devotion, and care.
                         </p>
                     </div>
 
@@ -47,34 +45,29 @@ export default function Footer() {
                         <h3 className="text-lg font-semibold mb-4">QUICK LINK</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Track Your Order
-                                </a>
+                                <Link href="/astrology" className="hover:text-yellow-300">
+                                    Astrology
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Rudraksha All
-                                </a>
+                                <Link href="/bracelet" className="hover:text-yellow-300">
+                                    Buy Bracelets
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Flower
-                                </a>
+                                <Link href="/rudraksha" className="hover:text-yellow-300">
+                                    Buy Rudraksha
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Edibles
-                                </a>
+                                <Link href="/puja" className="hover:text-yellow-300">
+                                    Puja
+                                </Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Concentrates
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:text-yellow-300">
-                                    Refunds
-                                </a>
+                                <Link href="/contact" className="hover:text-yellow-300">
+                                    Contact us
+                                </Link>
                             </li>
                         </ul>
                     </div>
@@ -139,15 +132,15 @@ export default function Footer() {
             <div className="relative z-20 bg-[#111827] py-4 px-6 flex flex-col md:flex-row items-center justify-between text-xs text-gray-300 gap-3 overflow-hidden ">
                 <div>© 2025 Rudraksha Store. All Rights Reserved.</div>
                 <div className="flex gap-4">
-                    <a href="#" className="hover:text-white">
-                        Out Of Stock
-                    </a>
-                    <a href="#" className="hover:text-white">
-                        Privacy Policy
-                    </a>
-                    <a href="#" className="hover:text-white">
+                    <Link href="terms-and-condition" className="hover:text-white">
                         Terms & Conditions
-                    </a>
+                    </Link>
+                    <Link href="privacy-policy" className="hover:text-white">
+                        Privacy Policy
+                    </Link>
+                    <Link href="refund-policy" className="hover:text-white">
+                        Refund Policy
+                    </Link>
                 </div>
             </div>
         </footer>

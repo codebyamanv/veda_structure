@@ -126,6 +126,9 @@ export default function Navbar() {
                             Puja Essentials <FaAngleDown />
                         </button>
                         <div className="dropdown hidden absolute left-0 top-full bg-white shadow-lg border rounded-md w-40 z-10 group-hover:block">
+                            <Link href="/puja" className="block px-4 py-2 hover:bg-yellow-100">
+                                Puja Homepage
+                            </Link>
                             <a href="#" className="block px-4 py-2 hover:bg-yellow-100">
                                 Puja Samagri
                             </a>
@@ -139,9 +142,9 @@ export default function Navbar() {
                     </li>
 
                     <li>
-                        <a href="#" className="hover:text-yellow-600 px-2">
+                        <Link href="/astrology" className="hover:text-yellow-600 px-2">
                             Astrology
-                        </a>
+                        </Link>
                     </li>
 
                     <li className="relative group">
@@ -192,9 +195,9 @@ export default function Navbar() {
                             Support <FaAngleDown />
                         </button>
                         <div className="dropdown hidden absolute left-0 top-full bg-white shadow-lg border rounded-md w-44 z-10 group-hover:block">
-                            <a href="#" className="block px-4 py-2 hover:bg-yellow-100">
+                            <Link href="/contact" className="block px-4 py-2 hover:bg-yellow-100">
                                 Contact Us
-                            </a>
+                            </Link>
                             <a href="#" className="block px-4 py-2 hover:bg-yellow-100">
                                 FAQ
                             </a>
@@ -253,6 +256,9 @@ export default function Navbar() {
                         </button>
                         {openDropdown === 'puja' && (
                             <div className="pl-4 space-y-1">
+                                <Link href="/puja" className="block px-4 py-2 hover:bg-yellow-100">
+                                    Puja Homepage
+                                </Link>
                                 <a href="#" className="block hover:text-yellow-600">
                                     Puja Samagri
                                 </a>
@@ -266,9 +272,9 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    <a href="#" className="block py-1 hover:text-yellow-600">
+                    <Link href="/astrology" className="block py-1 hover:text-yellow-600">
                         Astrology
-                    </a>
+                    </Link>
 
                     <div>
                         <button
@@ -330,9 +336,9 @@ export default function Navbar() {
                         </button>
                         {openDropdown === 'support' && (
                             <div className="pl-4 space-y-1">
-                                <a href="#" className="block hover:text-yellow-600">
+                                <Link href="/contact" className="block hover:text-yellow-600">
                                     Contact Us
-                                </a>
+                                </Link>
                                 <a href="#" className="block hover:text-yellow-600">
                                     FAQ
                                 </a>
