@@ -3,24 +3,6 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, PhoneCall, Facebook, Instagram } from "lucide-react";
 
 function page() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-    });
-    const [success, setSuccess] = useState("");
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setSuccess("✅ Your message has been sent successfully!");
-        setFormData({ name: "", email: "", phone: "", message: "" });
-        setTimeout(() => setSuccess(""), 4000);
-    };
 
     return (
         <>
@@ -71,11 +53,10 @@ function page() {
 
                         {/* Form */}
                         <form
-                            onSubmit={handleSubmit}
                             className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 space-y-6 border border-yellow-200 relative"
                         >
                             {/* Floating Inputs */}
-                            {["name", "email", "phone"].map((field, idx) => (
+                            {/* {["name", "email", "phone"].map((field, idx) => (
                                 <div key={idx} className="relative">
                                     <input
                                         type={field === "email" ? "email" : field === "phone" ? "tel" : "text"}
@@ -90,27 +71,52 @@ function page() {
                                         {field.charAt(0).toUpperCase() + field.slice(1)}
                                     </label>
                                 </div>
-                            ))}
-
-                            {/* Message */}
+                            ))} */}
+                            <div className="relative">
+                                <input
+                                    type={"text"}
+                                    name={'name'}
+                                    required
+                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                />
+                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                    Name
+                                </label>
+                            </div>
+                            <div className="relative">
+                                <input
+                                    type={"email"}
+                                    name={'email'}
+                                    required
+                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                />
+                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                    Email
+                                </label>
+                            </div>
+                            <div className="relative">
+                                <input
+                                    type={"number"}
+                                    name={'mobile'}
+                                    required
+                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                />
+                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                    Mobile
+                                </label>
+                            </div>
                             <div className="relative">
                                 <textarea
                                     name="message"
                                     rows="4"
                                     required
-                                    value={formData.message}
-                                    onChange={handleChange}
                                     className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
                                     placeholder="Message"
                                 />
-                                <label className="absolute left-3 top-2 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-2 peer-focus:text-sm peer-focus:text-orange-600">
+                                <label className="absolute left-3 top-0 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
                                     Message
                                 </label>
                             </div>
-
-                            {success && (
-                                <p className="text-green-600 font-medium text-sm">{success}</p>
-                            )}
 
                             <button
                                 type="submit"

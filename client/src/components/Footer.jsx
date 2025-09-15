@@ -1,4 +1,6 @@
+import { Mail, Phone } from "lucide-react"
 import Link from "next/link"
+import { FaWhatsapp } from "react-icons/fa"
 
 export default function Footer() {
     return (
@@ -87,8 +89,9 @@ export default function Footer() {
                     <div data-aos="fade-left" data-aos-delay="500">
                         <h3 className="mb-4 text-lg font-semibold">CONTACT US</h3>
                         <ul className="space-y-2 text-sm">
-                            <li className="hover:text-yellow-300">support@vedastructure.com</li>
-                            <li className="hover:text-yellow-300">+91 89692 44564</li>
+                            <li className="hover:text-yellow-300"><Mail className="inline h-4 text-yellow-500 " /> support@vedastructure.com</li>
+                            <li className="hover:text-yellow-300"><Phone className="inline h-4 text-yellow-500 " /> +91 9621340116</li>
+                            <li className="hover:text-yellow-300"><FaWhatsapp className="inline w-6 h-4 text-yellow-500 " /> +91 9621340116</li>
                         </ul>
                     </div>
                 </div>
