@@ -45,7 +45,7 @@ export const login = asyncHandler(async (req, res) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        // domain: '.vedastructure.com',
+        domain: '.vedastructure.com',
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
@@ -60,20 +60,19 @@ export const currentUser = asyncHandler(async (req, res) => {
                 populate: [
                     {
                         path: 'products.productId',
-                        select: 'productName productImage productPrice productDiscount'
+                        select: 'productName productImage productPrice productDiscount',
                     },
                     {
                         path: 'transactionId',
-                        select: 'paymentId amount currency'
-                    }
-                ]
-            }
+                        select: 'paymentId amount currency',
+                    },
+                ],
+            },
         ])
         .select('-password') // optional: don’t send password hash back
 
     return ApiResponse.success(user).send(res)
 })
-
 
 export const logout = asyncHandler(async (req, res) => {
     const sessionToken = req.cookies.sessionToken
@@ -83,7 +82,7 @@ export const logout = asyncHandler(async (req, res) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        // domain: '.vedastructure.com',
+        domain: '.vedastructure.com',
     })
     return ApiResponse.success({}, 'Logout successful').send(res)
 })
@@ -105,11 +104,11 @@ export const updateAddress = asyncHandler(async (req, res) => {
     return ApiResponse.success({}, 'User updated successfully').send(res)
 })
 
-export const deleteUser = asyncHandler(async (req, res) => { })
+export const deleteUser = asyncHandler(async (req, res) => {})
 
-export const forgotPassword = asyncHandler(async (req, res) => { })
+export const forgotPassword = asyncHandler(async (req, res) => {})
 
-export const resetPassword = asyncHandler(async (req, res) => { })
+export const resetPassword = asyncHandler(async (req, res) => {})
 
 export const users = asyncHandler(async (req, res) => {
     const { query } = req
