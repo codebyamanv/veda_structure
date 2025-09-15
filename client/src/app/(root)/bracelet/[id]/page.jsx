@@ -1,5 +1,5 @@
 'use client'
-import { getRudrakshaById } from '@/apis/controllers/rudrakshaController'
+import { getBraceletById } from '@/apis/controllers/braceletController.js'
 import { useCart } from '@/context/cartContext'
 import { calculateDiscount, handlePayment } from '@/utils/utils'
 import { Share } from 'lucide-react'
@@ -13,9 +13,9 @@ function ProductDetails() {
     const [product, setProduct] = useState({})
     const { addItem } = useCart()
 
-    const fetchRudraksha = async () => {
-        const res = await getRudrakshaById(id)
-        setProduct(res.data.rudraksha)
+    const fetchBracelet = async () => {
+        const res = await getBraceletById(id)
+        setProduct(res.data.bracelet)
     }
     const tabData = [
         {
@@ -78,7 +78,7 @@ function ProductDetails() {
     ]
 
     useEffect(() => {
-        fetchRudraksha()
+        fetchBracelet()
     }, [])
 
     const [mainImageIdx, setMainImageIdx] = useState(0)
@@ -87,7 +87,7 @@ function ProductDetails() {
     const [tab, setTab] = useState('about')
 
     const copyLink = () => {
-        navigator.clipboard.writeText(`https://vedastructure.com/rudraksha/${id}`)
+        navigator.clipboard.writeText(`https://vedastructure.com/bracelet/${id}`)
         toast.success('Link Copied! 📋')
     }
 
@@ -96,8 +96,8 @@ function ProductDetails() {
             <div className="max-w-7xl mx-auto px-6 py-3 text-sm text-gray-600">
                 <button className="font-semibold hover:text-yellow-600"> Home &gt; </button>
                 <button className="font-semibold hover:text-yellow-600"> Store &gt; </button>
-                <button className="font-semibold hover:text-yellow-600">Rudraksha &gt;</button>
-                <span className="text-red-600 font-bold">1 Mukhi Rudraksha</span>
+                <button className="font-semibold hover:text-yellow-600">Bracelet &gt;</button>
+                <span className="text-red-600 font-bold">1 Mukhi Bracelet</span>
             </div>
             <section className="max-w-7xl mx-auto p-6 grid md:grid-cols-2 gap-8">
                 <div>
@@ -127,7 +127,7 @@ function ProductDetails() {
                 <div>
                     <div className="flex items-start justify-between">
                         <div>
-                            <h2 className="text-gray-500">Rudraksha</h2>
+                            <h2 className="text-gray-500">Bracelet</h2>
                             <h1 className="text-3xl font-bold text-gray-800">
                                 {product.productName}
                             </h1>
@@ -147,7 +147,7 @@ function ProductDetails() {
                                 </p>
                             </div>
                             <p className="text-lg font-semibold text-gray-500">
-                                100% Authentic Rudraksha
+                                100% Authentic Bracelet
                             </p>
                         </div>
                         <div className="flex space-x-3">
@@ -230,7 +230,7 @@ function ProductDetails() {
                 <div className="fixed inset-0 bg-black/80 bg-opacity-40 flex items-center justify-center z-50">
                     <div className="bg-white rounded-xl shadow-lg p-6 w-80 border-2 border-yellow-500 animate-fadeIn">
                         <h2 className="text-lg font-bold text-yellow-600 mb-3">
-                            Share this Rudraksha
+                            Share this Bracelet
                         </h2>
                         <div className="flex items-center mb-4">
                             <input

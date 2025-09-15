@@ -39,9 +39,13 @@ const data = {
                     url: '/admin/rudraksha',
                 },
                 {
-                    title: 'Add Rudraksha',
-                    url: '/admin/add-rudraksha',
+                    title: 'All Bracelets',
+                    url: '/admin/bracelet',
                 },
+                // {
+                //     title: 'Add Rudraksha',
+                //     url: '/admin/add-rudraksha',
+                // },
                 {
                     title: 'Orders',
                     url: '/admin/orders',

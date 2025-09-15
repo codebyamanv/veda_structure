@@ -12,7 +12,7 @@ import bookingRouter from './routes/booking.routes.js'
 import rudrakshaRouter from './routes/rudraksha.routes.js'
 import paymentRouter from './routes/payment.routes.js'
 import orderRouter from './routes/order.routes.js'
-
+import braceletRouter from './routes/bracelet.routes.js'
 
 const app = express()
 
@@ -41,6 +41,7 @@ app.use('/', baseRouter)
 app.use('/api/users', userRouter)
 app.use('/api/bookings', bookingRouter)
 app.use('/api/product/rudraksha', rudrakshaRouter)
+app.use('/api/product/bracelet', braceletRouter)
 app.use('/api/payments', paymentRouter)
 app.use('/api/orders', orderRouter)
 

@@ -1,5 +1,5 @@
-import { getRudraksha } from '@/apis/controllers/rudrakshaController'
-import { useEffect, useState } from 'react'
+import { getRudraksha } from "@/apis/controllers/rudrakshaController"
+import { useEffect, useState } from "react"
 
 export default function useRudraksha() {
     const [rudraksha, setRudraksha] = useState([])
