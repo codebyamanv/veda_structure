@@ -16,6 +16,12 @@ import braceletRouter from './routes/bracelet.routes.js'
 
 const app = express()
 
+app.use((req, res, next) => {
+    console.log('request url', req.url)
+    console.log('request origin', req.headers.origin)
+    next()
+})
+
 app.use(
     cors({
         origin: [

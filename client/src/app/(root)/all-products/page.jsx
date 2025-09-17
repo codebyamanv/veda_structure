@@ -7,13 +7,13 @@ function page() {
             <div>
                 <Image src="/images/all-products.jpeg" width={1920} height={1080} alt="all products" className="w-full" />
             </div>
-            <div className="max-w-7xl mx-auto lg:py-16 md:py-12 py-10 px-4">
-                <div className="flex sm:flex-row flex-col gap-2 justify-between border-b pb-4 mb-6">
-                    <h1 className="text-2xl md:text-4xl font-bold text-gray-800">All Products</h1>
-                    <div className="flex gap-2 items-center">
-                        <button className="bg-yellow-100 px-4 h-8 rounded-full border border-dashed border-red-950 cursor-pointer hover:bg-yellow-300 duration-200">All</button>
-                        <button className="bg-yellow-100 px-4 h-8 rounded-full border border-dashed border-red-950 cursor-pointer hover:bg-yellow-300 duration-200">Rudraksha</button>
-                        <button className="bg-yellow-100 px-4 h-8 rounded-full border border-dashed border-red-950 cursor-pointer hover:bg-yellow-300 duration-200">Bracelet</button>
+            <div className="mx-auto max-w-7xl px-4 py-10 md:py-12 lg:py-16">
+                <div className="mb-6 flex flex-col justify-between gap-2 border-b pb-4 sm:flex-row">
+                    <h1 className="text-2xl font-bold text-gray-800 md:text-4xl">All Products</h1>
+                    <div className="flex items-center gap-2">
+                        <button className="h-8 cursor-pointer rounded-full border border-dashed border-red-950 bg-yellow-100 px-4 duration-200 hover:bg-yellow-300">All</button>
+                        <button className="h-8 cursor-pointer rounded-full border border-dashed border-red-950 bg-yellow-100 px-4 duration-200 hover:bg-yellow-300">Rudraksha</button>
+                        <button className="h-8 cursor-pointer rounded-full border border-dashed border-red-950 bg-yellow-100 px-4 duration-200 hover:bg-yellow-300">Bracelet</button>
                     </div>
                 </div>
                 <AllProductPage />

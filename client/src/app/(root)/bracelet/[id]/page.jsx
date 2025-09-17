@@ -1,14 +1,14 @@
-'use client'
-import { getBraceletById } from '@/apis/controllers/braceletController.js'
-import { useCart } from '@/context/cartContext'
-import useBracelet from '@/hooks/useBracelet'
-import { calculateDiscount, handlePayment } from '@/utils/utils'
-import { Share } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useParams, useRouter } from 'next/navigation'
-import React, { useState, useEffect } from 'react'
-import { toast } from 'sonner'
+"use client"
+import { getBraceletById } from "@/apis/controllers/braceletController.js"
+import { useCart } from "@/context/cartContext"
+import useBracelet from "@/hooks/useBracelet"
+import { calculateDiscount, handlePayment } from "@/utils/utils"
+import { Share } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { useParams, useRouter } from "next/navigation"
+import React, { useState, useEffect } from "react"
+import { toast } from "sonner"
 
 function ProductDetails() {
     const { id } = useParams()
@@ -24,48 +24,30 @@ function ProductDetails() {
     }
     const tabData = [
         {
-            key: 'about',
-            label: 'About Product',
+            key: "about",
+            label: "About Product",
             content: (
-                <div
-                    className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
-                    dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}
-                ></div>
+                <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>
             ),
         },
         {
-            key: 'benefits',
-            label: 'Benefits',
-            content: (
-                <div
-                    className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
-                    dangerouslySetInnerHTML={{ __html: product.productBenefits }}
-                ></div>
-            ),
+            key: "benefits",
+            label: "Benefits",
+            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productBenefits }}></div>,
         },
         {
-            key: 'faq',
+            key: "faq",
             label: "FAQ's",
-            content: (
-                <div
-                    className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
-                    dangerouslySetInnerHTML={{ __html: product.productFaqs }}
-                ></div>
-            ),
+            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFaqs }}></div>,
         },
         {
-            key: 'shipping',
-            label: 'Shipping & Return',
-            content: (
-                <div
-                    className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
-                    dangerouslySetInnerHTML={{ __html: product.productShipping }}
-                ></div>
-            ),
+            key: "shipping",
+            label: "Shipping & Return",
+            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productShipping }}></div>,
         },
         {
-            key: 'reviews',
-            label: 'Product reviews',
+            key: "reviews",
+            label: "Product reviews",
             content: (
                 <div>
                     <h2 className="text-lg font-bold">Customer Reviews</h2>
@@ -89,11 +71,11 @@ function ProductDetails() {
     const [mainImageIdx, setMainImageIdx] = useState(0)
     const [fav, setFav] = useState(false)
     const [showShare, setShowShare] = useState(false)
-    const [tab, setTab] = useState('about')
+    const [tab, setTab] = useState("about")
 
     const copyLink = () => {
         navigator.clipboard.writeText(`https://vedastructure.com/bracelet/${id}`)
-        toast.success('Link Copied! 📋')
+        toast.success("Link Copied! 📋")
     }
 
     const [selected, setSelected] = useState(false)
@@ -108,29 +90,22 @@ function ProductDetails() {
 
     return (
         <>
-            <div className="max-w-7xl mx-auto px-6 py-3 text-sm text-gray-600">
+            <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
                 <button className="font-semibold hover:text-yellow-600"> Home &gt; </button>
                 <button className="font-semibold hover:text-yellow-600"> Store &gt; </button>
                 <button className="font-semibold hover:text-yellow-600">Bracelet &gt;</button>
-                <span className="text-red-600 font-bold">1 Mukhi Bracelet</span>
+                <span className="font-bold text-red-600">1 Mukhi Bracelet</span>
             </div>
-            <section className="max-w-7xl mx-auto sm:p-6 p-4 grid md:grid-cols-2 gap-8">
+            <section className="mx-auto grid max-w-7xl gap-8 p-4 sm:p-6 md:grid-cols-2">
                 <div>
-                    <Image
-                        src={product.productImage?.[mainImageIdx]}
-                        alt="Product Image"
-                        width={500}
-                        height={500}
-                        className="rounded-lg shadow-md mb-4 w-full"
-                    />
-                    <div className="flex space-x-3 overflow-auto hiderScrollbar">
+                    <Image src={product.productImage?.[mainImageIdx]} alt="Product Image" width={500} height={500} className="mb-4 w-full rounded-lg shadow-md" />
+                    <div className="hiderScrollbar flex space-x-3 overflow-auto">
                         {product.productImage?.map((img, idx) => (
                             <Image
                                 key={img + idx}
                                 src={img}
                                 onClick={() => setMainImageIdx(idx)}
-                                className={`w-20 h-20 rounded cursor-pointer border hover:border-2 border-yellow-700 ${mainImageIdx === idx ? 'border-yellow-700' : ''
-                                    }`}
+                                className={`h-20 w-20 cursor-pointer rounded border border-yellow-700 hover:border-2 ${mainImageIdx === idx ? "border-yellow-700" : ""}`}
                                 width={100}
                                 height={100}
                                 alt="thumb"
@@ -142,77 +117,46 @@ function ProductDetails() {
                     <div className="flex items-start justify-between">
                         <div>
                             <h2 className="text-gray-500">Bracelet</h2>
-                            <h1 className="text-3xl font-bold text-gray-800">
-                                {product.productName}
-                            </h1>
-                            <div className="flex gap-2 items-end">
-                                <p className="text-orange-500 text-xl font-bold mt-2">
-                                    ₹
-                                    {calculateDiscount(
-                                        product.productPrice,
-                                        product.productDiscount,
-                                    )}
-                                </p>
-                                <p className="text-gray-300 line-through text-xl font-semibold mt-2">
-                                    ₹{product.productPrice}
-                                </p>
-                                <p className="text-green-600 text-md font-bold mt-2">
-                                    {product.productDiscount}% OFF
-                                </p>
+                            <h1 className="text-3xl font-bold text-gray-800">{product.productName}</h1>
+                            <div className="flex items-end gap-2">
+                                <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(product.productPrice, product.productDiscount)}</p>
+                                <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{product.productPrice}</p>
+                                <p className="text-md mt-2 font-bold text-green-600">{product.productDiscount}% OFF</p>
                             </div>
-                            <p className="text-lg font-semibold text-gray-500">
-                                100% Authentic Bracelet
-                            </p>
+                            <p className="text-lg font-semibold text-gray-500">100% Authentic Bracelet</p>
                         </div>
                         <div className="flex space-x-3">
-                            <button
-                                className={`w-10 h-10 border rounded-full flex items-center justify-center hover:bg-red-100 hover:text-red-500 ${fav ? 'bg-red-500 text-white' : ''
-                                    }`}
-                                onClick={() => {
-                                    setFav((f) => !f)
-                                    toast.success('Added to wishlist!')
-                                }}
-                            >
-                                ❤️
-                            </button>
-                            <button
-                                className="w-10 h-10 border rounded-full flex items-center justify-center hover:bg-yellow-100 hover:text-yellow-600"
-                                onClick={() => setShowShare(true)}
-                            >
+                            <button className="flex h-10 w-10 items-center justify-center rounded-full border hover:bg-yellow-100 hover:text-yellow-600" onClick={() => setShowShare(true)}>
                                 <Share />
                             </button>
                         </div>
                     </div>
-                    <marquee
-                        behavior="alternate"
-                        direction="right"
-                        className="text-red-500 font-bold"
-                    >
+                    <marquee behavior="alternate" direction="right" className="font-bold text-red-500">
                         Offer Available: 25/08/25-20/09/25
                     </marquee>
                     <div className="border-t pt-4 text-sm">
-                        <ul className="grid sm:grid-cols-3 grid-cols-2  gap-y-2">
+                        <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
                             <li>
-                                Width:{' '}
-                                <span className="font-semibold">00</span>
+                                Width: <span className="font-semibold">00</span>
                             </li>
                             <li>
-                                Bead size:{' '}
-                                <span className="font-semibold">00</span>
+                                Bead size: <span className="font-semibold">00</span>
                             </li>
                             <li>
-                                Origin:{' '}
-                                <span className="font-semibold">00</span>
+                                Origin: <span className="font-semibold">00</span>
                             </li>
-                            <li className="sm:col-span-3 col-span-2">
-                                Certification / Energization process:{' '} <br />
-                                <span className="font-semibold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus, eveniet nam enim iure porro.</span>
+                            <li className="col-span-2 sm:col-span-3">
+                                Certification / Energization process: <br />
+                                <span className="font-semibold">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus,
+                                    eveniet nam enim iure porro.
+                                </span>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <label className="block mt-4 font-semibold">Pooja/Energization</label>
-                        <select className="border rounded-lg w-full p-2 mt-1">
+                        <label className="mt-4 block font-semibold">Pooja/Energization</label>
+                        <select className="mt-1 w-full rounded-lg border p-2">
                             <option>--choose--</option>
                             {product.energization?.map((item) => (
                                 <option className="capitalize" value={item.title} data-isHaveForm={item.isHaveForm}>
@@ -223,24 +167,32 @@ function ProductDetails() {
                     </div>
 
                     {selected?.isHaveForm && (
-                        <div className="mt-2 space-y-2 border p-4 rounded-xl bg-yellow-50">
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="name" className="font-medium">Name of wearer:</label>
+                        <div className="mt-2 space-y-2 rounded-xl border bg-yellow-50 p-4">
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="name" className="font-medium">
+                                    Name of wearer:
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="dob" className="font-medium">Date of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="dob" className="font-medium">
+                                    Date of Birth:
+                                </label>
                                 <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="place" className="font-medium">Place of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="place" className="font-medium">
+                                    Place of Birth:
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="time" className="font-medium">Time of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="time" className="font-medium">
+                                    Time of Birth:
+                                </label>
                                 <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="time" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label className="font-medium">Gender:</label>
                                 <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="">
                                     <option value="male">Male</option>
@@ -248,12 +200,16 @@ function ProductDetails() {
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="gotra" className="font-medium">Clan/Gotra (If Available):</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="gotra" className="font-medium">
+                                    Clan/Gotra (If Available):
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="name" className="font-medium">Primary Purpose:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="name" className="font-medium">
+                                    Primary Purpose:
+                                </label>
                                 <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="">
                                     <option value="general">General</option>
                                     <option value="health">Health</option>
@@ -265,7 +221,7 @@ function ProductDetails() {
                         </div>
                     )}
 
-                    <div className="flex items-center space-x-3 mt-4">
+                    <div className="mt-4 flex items-center space-x-3">
                         {/* <button
                             className="px-3 py-1 border rounded-lg hover:bg-yellow-300"
                             onClick={() => decreaseQty(product._id)}
@@ -294,7 +250,7 @@ function ProductDetails() {
                                 addItem(product)
                                 toast.success("Added to cart!")
                             }}
-                            className="mt-4 w-full rounded-lg text-yellow-600 px-6 py-3 font-semibold border border-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                            className="mt-4 w-full rounded-lg border border-yellow-600 px-6 py-3 font-semibold text-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
                         >
                             Add to Cart
                         </button>
@@ -308,31 +264,17 @@ function ProductDetails() {
                             Buy now
                         </button>
                     </div>
-                    <div
-                        className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
-                        dangerouslySetInnerHTML={{ __html: product.productFeatures }}
-                    ></div>
+                    <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFeatures }}></div>
                 </div>
             </section>
             {/* Share Popup */}
             {showShare && (
-                <div className="fixed inset-0 bg-black/80 bg-opacity-40 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-xl shadow-lg p-6 w-80 border-2 border-yellow-500 animate-fadeIn">
-                        <h2 className="text-lg font-bold text-yellow-600 mb-3">
-                            Share this Bracelet
-                        </h2>
-                        <div className="flex items-center mb-4">
-                            <input
-                                id="pageLink"
-                                type="text"
-                                value="http://127.0.0.1:5500/index.html"
-                                readOnly
-                                className="flex-1 border rounded-l-lg px-2 py-1 text-sm"
-                            />
-                            <button
-                                onClick={copyLink}
-                                className="bg-yellow-500 text-white px-3 py-1 rounded-r-lg"
-                            >
+                <div className="bg-opacity-40 fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+                    <div className="animate-fadeIn w-80 rounded-xl border-2 border-yellow-500 bg-white p-6 shadow-lg">
+                        <h2 className="mb-3 text-lg font-bold text-yellow-600">Share this Bracelet</h2>
+                        <div className="mb-4 flex items-center">
+                            <input id="pageLink" type="text" value="http://127.0.0.1:5500/index.html" readOnly className="flex-1 rounded-l-lg border px-2 py-1 text-sm" />
+                            <button onClick={copyLink} className="rounded-r-lg bg-yellow-500 px-3 py-1 text-white">
                                 Copy
                             </button>
                         </div>
@@ -340,54 +282,40 @@ function ProductDetails() {
                             <a
                                 href="https://api.whatsapp.com/send?text=https://yourwebsite.com/product/red-jasper"
                                 target="_blank"
-                                className="bg-green-500 text-white py-2 rounded-lg hover:opacity-90"
+                                className="rounded-lg bg-green-500 py-2 text-white hover:opacity-90"
                             >
                                 WhatsApp
                             </a>
                             <a
                                 href="https://www.facebook.com/sharer/sharer.php?u=https://yourwebsite.com/product/red-jasper"
                                 target="_blank"
-                                className="bg-blue-600 text-white py-2 rounded-lg hover:opacity-90"
+                                className="rounded-lg bg-blue-600 py-2 text-white hover:opacity-90"
                             >
                                 Facebook
                             </a>
-                            <a
-                                href="https://www.instagram.com/"
-                                target="_blank"
-                                className="bg-pink-500 text-white py-2 rounded-lg hover:opacity-90"
-                            >
+                            <a href="https://www.instagram.com/" target="_blank" className="rounded-lg bg-pink-500 py-2 text-white hover:opacity-90">
                                 Instagram
                             </a>
                         </div>
-                        <button
-                            onClick={() => setShowShare(false)}
-                            className="mt-5 w-full bg-yellow-600 text-white py-2 rounded-lg font-semibold"
-                        >
+                        <button onClick={() => setShowShare(false)} className="mt-5 w-full rounded-lg bg-yellow-600 py-2 font-semibold text-white">
                             Close
                         </button>
                     </div>
                 </div>
             )}
-            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
-                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600 overflow-auto hideScrollbar">
+            <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
+                <div className="hideScrollbar flex space-x-6 overflow-auto border-b pb-2 font-semibold text-gray-600">
                     {tabData.map((t) => (
-                        <button
-                            key={t.key}
-                            className={`tab-btn text-nowrap ${tab === t.key ? 'text-yellow-600 border-b-2 border-yellow-600' : ''
-                                }`}
-                            onClick={() => setTab(t.key)}
-                        >
+                        <button key={t.key} className={`tab-btn text-nowrap ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
                             {t.label}
                         </button>
                     ))}
                 </div>
-                <div className="mt-6 text-gray-700 leading-relaxed">
-                    {tabData.find((t) => t.key === tab)?.content}
-                </div>
+                <div className="mt-6 leading-relaxed text-gray-700">{tabData.find((t) => t.key === tab)?.content}</div>
             </div>
-            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
-                <p className="text-2xl font-bold text-gray-800 mb-4">Related Products</p>
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4 mt-12">
+            <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
+                <p className="mb-4 text-2xl font-bold text-gray-800">Related Products</p>
+                <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4">
                     {/* {!bracelet?.length && (
                         <div className="flex h-64 items-center justify-center">
                             <p className="text-2xl font-semibold text-gray-600">No products found</p>

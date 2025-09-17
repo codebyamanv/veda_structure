@@ -25,7 +25,9 @@ function ProductDetails() {
         {
             key: "about",
             label: "About Product",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>,
+            content: (
+                <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>
+            ),
         },
         {
             key: "benefits",
@@ -66,7 +68,6 @@ function ProductDetails() {
     }, [])
 
     const [mainImageIdx, setMainImageIdx] = useState(0)
-    const [fav, setFav] = useState(false)
     const [showShare, setShowShare] = useState(false)
     const [tab, setTab] = useState("about")
 
@@ -81,10 +82,8 @@ function ProductDetails() {
         const selectedOption = e.target.options[e.target.selectedIndex]
         const value = selectedOption.value
         const isHaveForm = selectedOption.dataset.ishaveform === "true"
-
         setSelected({ value, isHaveForm })
     }
-
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
@@ -93,10 +92,10 @@ function ProductDetails() {
                 <button className="font-semibold hover:text-yellow-600">Rudraksha &gt;</button>
                 <span className="font-bold text-red-600">1 Mukhi Rudraksha</span>
             </div>
-            <section className="mx-auto grid max-w-7xl gap-8 sm:p-6 p-4 md:grid-cols-2">
+            <section className="mx-auto grid max-w-7xl gap-8 p-4 sm:p-6 md:grid-cols-2">
                 <div>
                     <Image src={product?.productImage?.[mainImageIdx]} alt="Product Image" width={500} height={500} className="mb-4 w-full rounded-lg shadow-md" />
-                    <div className="flex space-x-3 overflow-auto hideScrollbar">
+                    <div className="hideScrollbar flex space-x-3 overflow-auto">
                         {product.productImage?.map((img, idx) => (
                             <Image
                                 key={img + idx}
@@ -116,48 +115,39 @@ function ProductDetails() {
                             <h2 className="text-gray-500">Rudraksha</h2>
                             <h1 className="text-3xl font-bold text-gray-800">{product.productName}</h1>
                             <div className="flex items-end gap-2">
-                                <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(product.productPrice, product.productDiscount)}</p>
-                                <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{product.productPrice}</p>
+                                <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(product.productPrice + Number(selectedEnergy), product.productDiscount)}</p>
+                                <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{product.productPrice + Number(selectedEnergy)}</p>
                                 <p className="text-md mt-2 font-bold text-green-600">{product.productDiscount}% OFF</p>
                             </div>
                             <p className="text-lg font-semibold text-gray-500">100% Authentic Rudraksha</p>
                         </div>
                         <div className="flex space-x-3">
-                            <button
-                                className={`flex h-10 w-10 items-center justify-center rounded-full border hover:bg-red-100 hover:text-red-500 ${fav ? "bg-red-500 text-white" : ""}`}
-                                onClick={() => {
-                                    setFav((f) => !f)
-                                    toast.success("Added to wishlist!")
-                                }}
-                            >
-                                ❤️
-                            </button>
                             <button className="flex h-10 w-10 items-center justify-center rounded-full border hover:bg-yellow-100 hover:text-yellow-600" onClick={() => setShowShare(true)}>
                                 <Share />
                             </button>
                         </div>
                     </div>
-                    <marquee behavior="alternate" direction="right" className="font-bold text-red-500">
+                    {/* <marquee behavior="alternate" direction="right" className="font-bold text-red-500">
                         Offer Available: 25/08/25-20/09/25
-                    </marquee>
+                    </marquee> */}
 
                     <div className="border-t pt-4 text-sm">
-                        <ul className="grid sm:grid-cols-3 grid-cols-2  gap-y-2">
+                        <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
                             <li>
-                                Width:{' '}
-                                <span className="font-semibold">00</span>
+                                Width: <span className="font-semibold">00</span>
                             </li>
                             <li>
-                                Bead size:{' '}
-                                <span className="font-semibold">00</span>
+                                Bead size: <span className="font-semibold">00</span>
                             </li>
                             <li>
-                                Origin:{' '}
-                                <span className="font-semibold">00</span>
+                                Origin: <span className="font-semibold">00</span>
                             </li>
-                            <li className="sm:col-span-3 col-span-2">
-                                Certification / Energization process:{' '} <br />
-                                <span className="font-semibold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus, eveniet nam enim iure porro.</span>
+                            <li className="col-span-2 sm:col-span-3">
+                                Certification / Energization process: <br />
+                                <span className="font-semibold">
+                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus,
+                                    eveniet nam enim iure porro.
+                                </span>
                             </li>
                         </ul>
                     </div>
@@ -167,31 +157,39 @@ function ProductDetails() {
                         <select className="mt-1 w-full rounded-lg border p-2" onChange={handleChange}>
                             <option hidden>--choose--</option>
                             {product.energization?.map((item, idx) => (
-                                <option className="capitalize" key={idx} value={item.title} data-isHaveForm={item.isHaveForm}>
+                                <option className="capitalize" key={idx} value={item.price} data-isHaveForm={item.isHaveForm}>
                                     {item.title}- ₹{item.price}
                                 </option>
                             ))}
                         </select>
                     </div>
                     {selected?.isHaveForm && (
-                        <div className="mt-2 space-y-2 border p-4 rounded-xl bg-yellow-50">
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="name" className="font-medium">Name of wearer:</label>
+                        <div className="mt-2 space-y-2 rounded-xl border bg-yellow-50 p-4">
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="name" className="font-medium">
+                                    Name of wearer:
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="dob" className="font-medium">Date of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="dob" className="font-medium">
+                                    Date of Birth:
+                                </label>
                                 <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="place" className="font-medium">Place of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="place" className="font-medium">
+                                    Place of Birth:
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="time" className="font-medium">Time of Birth:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="time" className="font-medium">
+                                    Time of Birth:
+                                </label>
                                 <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="time" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label className="font-medium">Gender:</label>
                                 <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="">
                                     <option value="male">Male</option>
@@ -199,12 +197,16 @@ function ProductDetails() {
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="gotra" className="font-medium">Clan/Gotra (If Available):</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="gotra" className="font-medium">
+                                    Clan/Gotra (If Available):
+                                </label>
                                 <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" />
                             </div>
-                            <div className="grid sm:grid-cols-2 gap-1 items-center">
-                                <label htmlFor="name" className="font-medium">Primary Purpose:</label>
+                            <div className="grid items-center gap-1 sm:grid-cols-2">
+                                <label htmlFor="name" className="font-medium">
+                                    Primary Purpose:
+                                </label>
                                 <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="">
                                     <option value="general">General</option>
                                     <option value="health">Health</option>
@@ -216,36 +218,13 @@ function ProductDetails() {
                         </div>
                     )}
 
-                    <div className="mt-4 flex items-center space-x-3">
-                        {/* <button
-                            className="px-3 py-1 border rounded-lg hover:bg-yellow-300"
-                            onClick={() => decreaseQty(product._id)}
-                        >
-                            -
-                        </button>
-                        <span id="qty">
-                            {cart.items.find((i) => i._id === product._id)?.quantity || 1}
-                        </span>
-                        <button
-                            className="px-3 py-1 border rounded-lg hover:bg-yellow-300"
-                            onClick={() => increaseQty(product._id)}
-                        >
-                            +
-                        </button> */}
-                        {/* <button
-                            onClick={() => addItem(product)}
-                            className="bg-yellow-600 px-6 py-3 rounded-lg text-white transition duration-300 hover:shadow-md hover:bg-yellow-500 font-semibold mt-4 w-full"
-                        >
-                            Add to Cart
-                        </button> */}
-                    </div>
                     <div className="flex items-center space-x-3">
                         <button
                             onClick={() => {
                                 addItem(product)
                                 toast.success("Added to cart!")
                             }}
-                            className="mt-4 w-full rounded-lg text-yellow-600 px-6 py-3 font-semibold border border-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                            className="mt-4 w-full rounded-lg border border-yellow-600 px-6 py-3 font-semibold text-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
                         >
                             Add to Cart
                         </button>
@@ -298,8 +277,8 @@ function ProductDetails() {
                     </div>
                 </div>
             )}
-            <div className="mx-auto mt-10 max-w-7xl sm:px-6 px-4">
-                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600 overflow-auto hideScrollbar">
+            <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6">
+                <div className="hideScrollbar flex space-x-6 overflow-auto border-b pb-2 font-semibold text-gray-600">
                     {tabData.map((t) => (
                         <button key={t.key} className={`tab-btn text-nowrap ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
                             {t.label}
@@ -308,14 +287,11 @@ function ProductDetails() {
                 </div>
                 <div className="mt-6 leading-relaxed text-gray-700">{tabData.find((t) => t.key === tab)?.content}</div>
             </div>
-            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
-                <p className="text-2xl font-bold text-gray-800 mb-4">Related Products</p>
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4 mt-12">
+            <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
+                <p className="mb-4 text-2xl font-bold text-gray-800">Related Products</p>
+                <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4">
                     {rudraksha?.slice(0, 4).map((item) => (
-                        <div
-                            key={item._id}
-                            className="bg-white rounded-2xl shadow-md overflow-hidden hover:scale-105 hover:shadow-xl transition-all relative"
-                        >
+                        <div key={item._id} className="relative overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-105 hover:shadow-xl">
                             {/* Make image + text a clickable link */}
                             <Link href={`/rudraksha/${item._id}`}>
                                 <div className="relative h-64 w-full">
@@ -326,28 +302,14 @@ function ProductDetails() {
                                         height={1000}
                                         className="h-full w-full object-cover object-bottom transition-transform duration-500"
                                     />
-                                    <span className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
-                                        Rudraksha
-                                    </span>
+                                    <span className="absolute top-3 left-3 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white shadow">Rudraksha</span>
                                 </div>
                                 <div className="p-4 text-center">
-                                    <h3 className="font-semibold text-lg text-gray-800">
-                                        {item.productName}
-                                    </h3>
-                                    <div className="flex gap-2 items-end justify-center">
-                                        <p className="text-orange-500 text-xl font-bold mt-2">
-                                            ₹
-                                            {calculateDiscount(
-                                                item.productPrice,
-                                                item.productDiscount,
-                                            )}
-                                        </p>
-                                        <p className="text-gray-300 line-through text-xl font-semibold mt-2">
-                                            ₹{item.productPrice}
-                                        </p>
-                                        <p className="text-green-600 text-md font-bold mt-2">
-                                            {item.productDiscount}% OFF
-                                        </p>
+                                    <h3 className="text-lg font-semibold text-gray-800">{item.productName}</h3>
+                                    <div className="flex items-end justify-center gap-2">
+                                        <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(item.productPrice, item.productDiscount)}</p>
+                                        <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{item.productPrice}</p>
+                                        <p className="text-md mt-2 font-bold text-green-600">{item.productDiscount}% OFF</p>
                                     </div>
                                 </div>
                             </Link>
@@ -357,10 +319,10 @@ function ProductDetails() {
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation() // stop click bubbling
-                                        addItem(item)
-                                        toast.success('Item added to cart!')
+                                        addItem({ ...item, selectedEnergy })
+                                        toast.success("Item added to cart!")
                                     }}
-                                    className="cursor-pointer mt-3 w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-2 rounded-full font-semibold shadow-md hover:shadow-lg transition-all"
+                                    className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"
                                 >
                                     Add to Cart
                                 </button>
