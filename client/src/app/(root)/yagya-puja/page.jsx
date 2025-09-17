@@ -349,7 +349,7 @@ function page() {
                         {/* Features */}
                         <div className="mt-8 grid grid-cols-2 gap-5">
                             <div className="flex items-center gap-4 rounded-2xl bg-white/80 p-5 shadow-md backdrop-blur-md transition hover:shadow-lg" data-aos="flip-left" data-aos-delay="1000">
-                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-200 text-xl font-bold text-orange-600">﷽</div>
+                                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-200 text-xl font-bold text-orange-600">ॐ</div>
                                 <div>
                                     <div className="font-semibold">Authentic Vedic</div>
                                     <div className="text-sm text-gray-500">Priests with proper lineage</div>
@@ -567,11 +567,10 @@ function page() {
                                             setFilter(cat.key)
                                             setCurrentPage(1)
                                         }}
-                                        className={`filter-btn flex w-full items-center gap-2 rounded-xl border px-5 py-3 text-left font-semibold shadow-md transition-all duration-300 ease-out ${
-                                            filter === cat.key
-                                                ? "scale-105 bg-gradient-to-r from-orange-400 to-yellow-400 text-white shadow-lg"
-                                                : "border-orange-100 bg-white/80 hover:scale-[1.03] hover:-rotate-1 hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 hover:text-orange-700 hover:shadow-lg"
-                                        }`}
+                                        className={`filter-btn flex w-full items-center gap-2 rounded-xl border px-5 py-3 text-left font-semibold shadow-md transition-all duration-300 ease-out ${filter === cat.key
+                                            ? "scale-105 bg-gradient-to-r from-orange-400 to-yellow-400 text-white shadow-lg"
+                                            : "border-orange-100 bg-white/80 hover:scale-[1.03] hover:-rotate-1 hover:bg-gradient-to-r hover:from-orange-50 hover:to-yellow-50 hover:text-orange-700 hover:shadow-lg"
+                                            }`}
                                     >
                                         {cat.label}
                                     </button>

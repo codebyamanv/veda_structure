@@ -11,7 +11,7 @@ export default function Footer() {
                 data-aos-delay="100"
                 data-aos-duration="1200"
             >
-                <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">UNLOCK 20% OFF YOUR FIRST ORDER</h2>
+                <h2 className="text-2xl font-bold sm:text-3xl md:text-4xl">UNLOCK 10% OFF YOUR FIRST ORDER</h2>
                 <p className="mt-2 text-base sm:text-lg">Reveal coupon code by entering your email</p>
 
                 <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row" data-aos="fade-up" data-aos-delay="400">
@@ -53,8 +53,8 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/puja" className="hover:text-yellow-300">
-                                    Puja
+                                <Link href="/yagya-puja" className="hover:text-yellow-300">
+                                    Yagya Puja
                                 </Link>
                             </li>
                             <li>

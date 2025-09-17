@@ -1,10 +1,12 @@
 'use client'
 import { getBraceletById } from '@/apis/controllers/braceletController.js'
 import { useCart } from '@/context/cartContext'
+import useBracelet from '@/hooks/useBracelet'
 import { calculateDiscount, handlePayment } from '@/utils/utils'
 import { Share } from 'lucide-react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
 import React, { useState, useEffect } from 'react'
 import { toast } from 'sonner'
 
@@ -12,6 +14,9 @@ function ProductDetails() {
     const { id } = useParams()
     const [product, setProduct] = useState({})
     const { addItem } = useCart()
+    const { bracelet } = useBracelet()
+
+    const router = useRouter()
 
     const fetchBracelet = async () => {
         const res = await getBraceletById(id)
@@ -91,6 +96,16 @@ function ProductDetails() {
         toast.success('Link Copied! 📋')
     }
 
+    const [selected, setSelected] = useState(false)
+
+    const handleChange = (e) => {
+        const selectedOption = e.target.options[e.target.selectedIndex]
+        const value = selectedOption.value
+        const isHaveForm = selectedOption.dataset.ishaveform === "true"
+
+        setSelected({ value, isHaveForm })
+    }
+
     return (
         <>
             <div className="max-w-7xl mx-auto px-6 py-3 text-sm text-gray-600">
@@ -99,7 +114,7 @@ function ProductDetails() {
                 <button className="font-semibold hover:text-yellow-600">Bracelet &gt;</button>
                 <span className="text-red-600 font-bold">1 Mukhi Bracelet</span>
             </div>
-            <section className="max-w-7xl mx-auto p-6 grid md:grid-cols-2 gap-8">
+            <section className="max-w-7xl mx-auto sm:p-6 p-4 grid md:grid-cols-2 gap-8">
                 <div>
                     <Image
                         src={product.productImage?.[mainImageIdx]}
@@ -108,15 +123,14 @@ function ProductDetails() {
                         height={500}
                         className="rounded-lg shadow-md mb-4 w-full"
                     />
-                    <div className="flex space-x-3">
+                    <div className="flex space-x-3 overflow-auto hiderScrollbar">
                         {product.productImage?.map((img, idx) => (
                             <Image
                                 key={img + idx}
                                 src={img}
                                 onClick={() => setMainImageIdx(idx)}
-                                className={`w-20 h-20 rounded cursor-pointer border hover:border-2 border-yellow-700 ${
-                                    mainImageIdx === idx ? 'border-yellow-700' : ''
-                                }`}
+                                className={`w-20 h-20 rounded cursor-pointer border hover:border-2 border-yellow-700 ${mainImageIdx === idx ? 'border-yellow-700' : ''
+                                    }`}
                                 width={100}
                                 height={100}
                                 alt="thumb"
@@ -152,9 +166,8 @@ function ProductDetails() {
                         </div>
                         <div className="flex space-x-3">
                             <button
-                                className={`w-10 h-10 border rounded-full flex items-center justify-center hover:bg-red-100 hover:text-red-500 ${
-                                    fav ? 'bg-red-500 text-white' : ''
-                                }`}
+                                className={`w-10 h-10 border rounded-full flex items-center justify-center hover:bg-red-100 hover:text-red-500 ${fav ? 'bg-red-500 text-white' : ''
+                                    }`}
                                 onClick={() => {
                                     setFav((f) => !f)
                                     toast.success('Added to wishlist!')
@@ -177,15 +190,80 @@ function ProductDetails() {
                     >
                         Offer Available: 25/08/25-20/09/25
                     </marquee>
-                    <label className="block mt-4 font-semibold">Pooja/Energization</label>
-                    <select className="border rounded-lg w-full p-2 mt-1">
-                        <option>--choose--</option>
-                        {product.energization?.map((item) => (
-                            <option className="capitalize">
-                                {item.title}- ₹{item.price}
-                            </option>
-                        ))}
-                    </select>
+                    <div className="border-t pt-4 text-sm">
+                        <ul className="grid sm:grid-cols-3 grid-cols-2  gap-y-2">
+                            <li>
+                                Width:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li>
+                                Bead size:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li>
+                                Origin:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li className="sm:col-span-3 col-span-2">
+                                Certification / Energization process:{' '} <br />
+                                <span className="font-semibold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus, eveniet nam enim iure porro.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label className="block mt-4 font-semibold">Pooja/Energization</label>
+                        <select className="border rounded-lg w-full p-2 mt-1">
+                            <option>--choose--</option>
+                            {product.energization?.map((item) => (
+                                <option className="capitalize" value={item.title} data-isHaveForm={item.isHaveForm}>
+                                    {item.title}- ₹{item.price}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {selected?.isHaveForm && (
+                        <div className="mt-2 space-y-2 border p-4 rounded-xl bg-yellow-50">
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="name" className="font-medium">Name of wearer:</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="dob" className="font-medium">Date of Birth:</label>
+                                <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="place" className="font-medium">Place of Birth:</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="time" className="font-medium">Time of Birth:</label>
+                                <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="time" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label className="font-medium">Gender:</label>
+                                <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="gotra" className="font-medium">Clan/Gotra (If Available):</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="name" className="font-medium">Primary Purpose:</label>
+                                <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                    <option value="general">General</option>
+                                    <option value="health">Health</option>
+                                    <option value="wealth-fortune">Wealth & Fortune</option>
+                                    <option value="education">Education</option>
+                                    <option value="personal-relations">Personal Relations</option>
+                                </select>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="flex items-center space-x-3 mt-4">
                         {/* <button
@@ -210,15 +288,26 @@ function ProductDetails() {
                             Add to Cart
                         </button> */}
                     </div>
-                    <button
-                        onClick={() => {
-                            addItem(product)
-                            toast.success('Added to cart!')
-                        }}
-                        className="bg-yellow-600 px-6 py-3 rounded-lg text-white transition duration-300 hover:shadow-md hover:bg-yellow-500 font-semibold mt-4 w-full"
-                    >
-                        Add to Cart
-                    </button>
+                    <div className="flex items-center space-x-3">
+                        <button
+                            onClick={() => {
+                                addItem(product)
+                                toast.success("Added to cart!")
+                            }}
+                            className="mt-4 w-full rounded-lg text-yellow-600 px-6 py-3 font-semibold border border-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                        >
+                            Add to Cart
+                        </button>
+                        <button
+                            onClick={() => {
+                                addItem(product)
+                                router.push("/checkout")
+                            }}
+                            className="mt-4 w-full rounded-lg bg-yellow-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                        >
+                            Buy now
+                        </button>
+                    </div>
                     <div
                         className="prose prose-gray max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_li]:ml-5 [&_p]:mb-2 mt-4"
                         dangerouslySetInnerHTML={{ __html: product.productFeatures }}
@@ -279,14 +368,13 @@ function ProductDetails() {
                     </div>
                 </div>
             )}
-            <div className="max-w-7xl mx-auto px-6 mt-10">
-                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600">
+            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
+                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600 overflow-auto hideScrollbar">
                     {tabData.map((t) => (
                         <button
                             key={t.key}
-                            className={`tab-btn ${
-                                tab === t.key ? 'text-yellow-600 border-b-2 border-yellow-600' : ''
-                            }`}
+                            className={`tab-btn text-nowrap ${tab === t.key ? 'text-yellow-600 border-b-2 border-yellow-600' : ''
+                                }`}
                             onClick={() => setTab(t.key)}
                         >
                             {t.label}
@@ -295,6 +383,55 @@ function ProductDetails() {
                 </div>
                 <div className="mt-6 text-gray-700 leading-relaxed">
                     {tabData.find((t) => t.key === tab)?.content}
+                </div>
+            </div>
+            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
+                <p className="text-2xl font-bold text-gray-800 mb-4">Related Products</p>
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4 mt-12">
+                    {/* {!bracelet?.length && (
+                        <div className="flex h-64 items-center justify-center">
+                            <p className="text-2xl font-semibold text-gray-600">No products found</p>
+                        </div>
+                    )} */}
+                    {bracelet?.slice(0, 4).map((item) => (
+                        <div key={item._id} className="relative overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-105 hover:shadow-xl">
+                            {/* Make image + text a clickable link */}
+                            <Link href={`/bracelet/${item._id}`}>
+                                <div className="relative h-64 w-full">
+                                    <Image
+                                        src={item.productImage[0]}
+                                        alt={item?.productName}
+                                        width={1000}
+                                        height={1000}
+                                        className="h-full w-full object-cover object-bottom transition-transform duration-500"
+                                    />
+                                    <span className="absolute top-3 left-3 rounded-full bg-orange-500 px-3 py-1 text-xs font-bold text-white shadow">Bracelet</span>
+                                </div>
+                                <div className="p-4 text-center">
+                                    <h3 className="text-lg font-semibold text-gray-800">{item.productName}</h3>
+                                    <div className="flex items-end justify-center gap-2">
+                                        <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(item.productPrice, item.productDiscount)}</p>
+                                        <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{item.productPrice}</p>
+                                        <p className="text-md mt-2 font-bold text-green-600">{item.productDiscount}% OFF</p>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            {/* Button OUTSIDE the Link so it only adds to cart */}
+                            <div className="p-4 pt-0">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation() // stop click bubbling
+                                        addItem(item)
+                                        toast.success("Item added to cart!")
+                                    }}
+                                    className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>

@@ -118,6 +118,7 @@
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
     }
@@ -127,6 +128,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -136,6 +138,7 @@
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(-360deg);
     }
@@ -145,10 +148,12 @@
     .animate-orbit {
         animation: orbit 6s linear infinite;
     }
+
     .animate-rotate-reverse {
         animation: rotate-reverse 8s linear infinite;
     }
 }
+
 .service-card {
     position: relative;
     overflow: hidden;
@@ -175,21 +180,183 @@
 }
 
 .service-card:hover::before {
-    border-color: #f97316; /* orange */
+    border-color: #f97316;
+    /* orange */
     box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
 }
+
 .mockup {
     opacity: 0.6;
     transform: scale(0.8) translateX(200px);
     z-index: 0;
 }
+
 .mockup.active {
     opacity: 1;
     transform: scale(1) translateX(0);
     z-index: 10;
 }
+
 .mockup.left {
     opacity: 0.6;
     transform: scale(0.8) translateX(-200px);
     z-index: 1;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-grow {
+    animation: grow 0.6s ease-out forwards;
+    transform-origin: center;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.primary {
+    color: #eab308;
+}
+
+.primary-light {
+    color: #facc15;
+}
+
+.video-thumbnail-container {
+    perspective: 1200px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.video-thumbnail-wrapper {
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+}
+
+.video-thumbnail {
+    border-radius: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.video-thumbnail-container:hover .video-thumbnail-wrapper {
+    transform: rotateY(10deg) rotateX(3deg) scale(1.02);
+}
+
+.video-thumbnail-container:hover .video-thumbnail {
+    box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.2);
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+}
+
+.play-button svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
+}
+
+.video-thumbnail-container:hover .play-button {
+    transform: translate(-50%, -50%) scale(1.1) translateZ(30px);
+    background: rgba(255, 255, 255, 1);
+}
+
+.video-thumbnail-container::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    background: linear-gradient(45deg, #ca8a04, #eab308, #facc15);
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 1.5rem;
+}
+
+.video-thumbnail-container:hover::before {
+    opacity: 0.4;
+}
+
+@media (max-width: 768px) {
+    .video-thumbnail-container {
+        perspective: 800px;
+    }
+
+    .play-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .play-button svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.hideScrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }

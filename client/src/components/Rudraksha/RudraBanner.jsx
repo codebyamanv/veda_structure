@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function RudraBanner() {
     return (
-        <section className="bg-gray-50 pt-10 pb-6 overflow-hidden">
-            <div className="flex justify-center items-end relative gap-2 flex-nowrap">
+        <section className="bg-gray-50 pb-6 overflow-hidden">
+            {/* <div className="flex justify-center items-end relative gap-2 flex-nowrap">
                 <img
                     src="images/r1.png"
                     className="rudra-img w-[12%] sm:w-[15%] object-contain relative top-6"
@@ -39,6 +39,9 @@ export default function RudraBanner() {
                     original Rudraksha sourced from sacred Himalayan regions. Real Rudraksha for
                     Real Transformation.
                 </p>
+            </div> */}
+            <div>
+                <img src="/images/rudrakhsa-hero-img.png" className='max-h-[560px] w-full overflow-hidden object-cover object-center' alt="" />
             </div>
         </section>
     )

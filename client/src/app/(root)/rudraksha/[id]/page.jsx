@@ -1,10 +1,12 @@
 "use client"
 import { getRudrakshaById } from "@/apis/controllers/rudrakshaController"
 import { useCart } from "@/context/cartContext"
+import useRudraksha from "@/hooks/useRudraksha"
 import { calculateDiscount } from "@/utils/utils"
 import { Share } from "lucide-react"
 import Image from "next/image"
-import { useParams } from "next/navigation"
+import Link from "next/link"
+import { useParams, useRouter } from "next/navigation"
 import React, { useState, useEffect } from "react"
 import { toast } from "sonner"
 
@@ -12,6 +14,8 @@ function ProductDetails() {
     const { id } = useParams()
     const [product, setProduct] = useState({})
     const { addItem } = useCart()
+    const { rudraksha } = useRudraksha()
+    const router = useRouter()
 
     const fetchRudraksha = async () => {
         const res = await getRudrakshaById(id)
@@ -21,9 +25,7 @@ function ProductDetails() {
         {
             key: "about",
             label: "About Product",
-            content: (
-                <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>
-            ),
+            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>,
         },
         {
             key: "benefits",
@@ -73,6 +75,16 @@ function ProductDetails() {
         toast.success("Link Copied! 📋")
     }
 
+    const [selected, setSelected] = useState(false)
+
+    const handleChange = (e) => {
+        const selectedOption = e.target.options[e.target.selectedIndex]
+        const value = selectedOption.value
+        const isHaveForm = selectedOption.dataset.ishaveform === "true"
+
+        setSelected({ value, isHaveForm })
+    }
+
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
@@ -81,10 +93,10 @@ function ProductDetails() {
                 <button className="font-semibold hover:text-yellow-600">Rudraksha &gt;</button>
                 <span className="font-bold text-red-600">1 Mukhi Rudraksha</span>
             </div>
-            <section className="mx-auto grid max-w-7xl gap-8 p-6 md:grid-cols-2">
+            <section className="mx-auto grid max-w-7xl gap-8 sm:p-6 p-4 md:grid-cols-2">
                 <div>
-                    <Image src={product.productImage?.[mainImageIdx]} alt="Product Image" width={500} height={500} className="mb-4 w-full rounded-lg shadow-md" />
-                    <div className="flex space-x-3">
+                    <Image src={product?.productImage?.[mainImageIdx]} alt="Product Image" width={500} height={500} className="mb-4 w-full rounded-lg shadow-md" />
+                    <div className="flex space-x-3 overflow-auto hideScrollbar">
                         {product.productImage?.map((img, idx) => (
                             <Image
                                 key={img + idx}
@@ -128,15 +140,81 @@ function ProductDetails() {
                     <marquee behavior="alternate" direction="right" className="font-bold text-red-500">
                         Offer Available: 25/08/25-20/09/25
                     </marquee>
-                    <label className="mt-4 block font-semibold">Pooja/Energization</label>
-                    <select className="mt-1 w-full rounded-lg border p-2">
-                        <option>--choose--</option>
-                        {product.energization?.map((item) => (
-                            <option className="capitalize">
-                                {item.title}- ₹{item.price}
-                            </option>
-                        ))}
-                    </select>
+
+                    <div className="border-t pt-4 text-sm">
+                        <ul className="grid sm:grid-cols-3 grid-cols-2  gap-y-2">
+                            <li>
+                                Width:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li>
+                                Bead size:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li>
+                                Origin:{' '}
+                                <span className="font-semibold">00</span>
+                            </li>
+                            <li className="sm:col-span-3 col-span-2">
+                                Certification / Energization process:{' '} <br />
+                                <span className="font-semibold">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus, eveniet nam enim iure porro.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <label className="mt-4 block font-semibold">Pooja/Energization</label>
+                        <select className="mt-1 w-full rounded-lg border p-2" onChange={handleChange}>
+                            <option hidden>--choose--</option>
+                            {product.energization?.map((item, idx) => (
+                                <option className="capitalize" key={idx} value={item.title} data-isHaveForm={item.isHaveForm}>
+                                    {item.title}- ₹{item.price}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    {selected?.isHaveForm && (
+                        <div className="mt-2 space-y-2 border p-4 rounded-xl bg-yellow-50">
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="name" className="font-medium">Name of wearer:</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="dob" className="font-medium">Date of Birth:</label>
+                                <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="place" className="font-medium">Place of Birth:</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="time" className="font-medium">Time of Birth:</label>
+                                <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="time" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label className="font-medium">Gender:</label>
+                                <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="gotra" className="font-medium">Clan/Gotra (If Available):</label>
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" />
+                            </div>
+                            <div className="grid sm:grid-cols-2 gap-1 items-center">
+                                <label htmlFor="name" className="font-medium">Primary Purpose:</label>
+                                <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                    <option value="general">General</option>
+                                    <option value="health">Health</option>
+                                    <option value="wealth-fortune">Wealth & Fortune</option>
+                                    <option value="education">Education</option>
+                                    <option value="personal-relations">Personal Relations</option>
+                                </select>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="mt-4 flex items-center space-x-3">
                         {/* <button
@@ -161,15 +239,26 @@ function ProductDetails() {
                             Add to Cart
                         </button> */}
                     </div>
-                    <button
-                        onClick={() => {
-                            addItem(product)
-                            toast.success("Added to cart!")
-                        }}
-                        className="mt-4 w-full rounded-lg bg-yellow-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-yellow-500 hover:shadow-md"
-                    >
-                        Add to Cart
-                    </button>
+                    <div className="flex items-center space-x-3">
+                        <button
+                            onClick={() => {
+                                addItem(product)
+                                toast.success("Added to cart!")
+                            }}
+                            className="mt-4 w-full rounded-lg text-yellow-600 px-6 py-3 font-semibold border border-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                        >
+                            Add to Cart
+                        </button>
+                        <button
+                            onClick={() => {
+                                addItem(product)
+                                router.push("/checkout")
+                            }}
+                            className="mt-4 w-full rounded-lg bg-yellow-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-yellow-500 hover:shadow-md"
+                        >
+                            Buy now
+                        </button>
+                    </div>
                     <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFeatures }}></div>
                 </div>
             </section>
@@ -209,15 +298,76 @@ function ProductDetails() {
                     </div>
                 </div>
             )}
-            <div className="mx-auto mt-10 max-w-7xl px-6">
-                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600">
+            <div className="mx-auto mt-10 max-w-7xl sm:px-6 px-4">
+                <div className="flex space-x-6 border-b pb-2 font-semibold text-gray-600 overflow-auto hideScrollbar">
                     {tabData.map((t) => (
-                        <button key={t.key} className={`tab-btn ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
+                        <button key={t.key} className={`tab-btn text-nowrap ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
                             {t.label}
                         </button>
                     ))}
                 </div>
                 <div className="mt-6 leading-relaxed text-gray-700">{tabData.find((t) => t.key === tab)?.content}</div>
+            </div>
+            <div className="max-w-7xl mx-auto sm:px-6 p-4 mt-10">
+                <p className="text-2xl font-bold text-gray-800 mb-4">Related Products</p>
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4 mt-12">
+                    {rudraksha?.slice(0, 4).map((item) => (
+                        <div
+                            key={item._id}
+                            className="bg-white rounded-2xl shadow-md overflow-hidden hover:scale-105 hover:shadow-xl transition-all relative"
+                        >
+                            {/* Make image + text a clickable link */}
+                            <Link href={`/rudraksha/${item._id}`}>
+                                <div className="relative h-64 w-full">
+                                    <Image
+                                        src={item.productImage[0]}
+                                        alt={item?.productName}
+                                        width={1000}
+                                        height={1000}
+                                        className="h-full w-full object-cover object-bottom transition-transform duration-500"
+                                    />
+                                    <span className="absolute top-3 left-3 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                                        Rudraksha
+                                    </span>
+                                </div>
+                                <div className="p-4 text-center">
+                                    <h3 className="font-semibold text-lg text-gray-800">
+                                        {item.productName}
+                                    </h3>
+                                    <div className="flex gap-2 items-end justify-center">
+                                        <p className="text-orange-500 text-xl font-bold mt-2">
+                                            ₹
+                                            {calculateDiscount(
+                                                item.productPrice,
+                                                item.productDiscount,
+                                            )}
+                                        </p>
+                                        <p className="text-gray-300 line-through text-xl font-semibold mt-2">
+                                            ₹{item.productPrice}
+                                        </p>
+                                        <p className="text-green-600 text-md font-bold mt-2">
+                                            {item.productDiscount}% OFF
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            {/* Button OUTSIDE the Link so it only adds to cart */}
+                            <div className="p-4 pt-0">
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation() // stop click bubbling
+                                        addItem(item)
+                                        toast.success('Item added to cart!')
+                                    }}
+                                    className="cursor-pointer mt-3 w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white py-2 rounded-full font-semibold shadow-md hover:shadow-lg transition-all"
+                                >
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </>
     )

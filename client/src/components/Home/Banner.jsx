@@ -23,17 +23,17 @@ function Banner() {
                 type: 'loop',
                 autoplay: true,
                 interval: 4000,
-                pauseOnHover: true,
+                pauseOnHover: false,
                 pauseOnFocus: false,
-                arrows: true,
-                pagination: true,
+                arrows: false,
+                pagination: false,
             }}
         >
             {/* Slide 1 */}
             <SplideSlide className="relative lg:max-h-[500px] lg:h-[500px] max-h-[600px] h-[600px] w-full">
                 <div className="relative h-full w-full">
                     <video
-                        src="/images/banner1.mp4"
+                        src="/images/praying.mp4"
                         autoPlay
                         muted
                         loop
@@ -41,8 +41,8 @@ function Banner() {
                         controls={false}
                         className="absolute inset-0 z-0 w-full h-full object-cover"
                     ></video>
-                    <div className="absolute inset-0 z-10 bg-black/70"></div>
-                    <div className="absolute z-50 p-16">
+                    <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/20 to-transparent"></div>
+                    <div className="absolute z-50 md:p-16 sm:p-12 p-8">
                         <div className="space-y-5">
                             <div className="bg-white/90 text-orange-500 px-4 py-1 rounded-full w-fit">
                                 Spiritual wellness
@@ -87,7 +87,7 @@ function Banner() {
             <SplideSlide className="relative lg:max-h-[500px] lg:h-[500px] max-h-[600px] h-[600px] w-full">
                 <div className="relative h-full w-full">
                     <video
-                        src="/images/banner2.mp4"
+                        src="/images/diya-light.mp4"
                         autoPlay
                         muted
                         loop
@@ -95,8 +95,8 @@ function Banner() {
                         controls={false}
                         className="absolute inset-0 z-0 w-full h-full object-cover"
                     ></video>
-                    <div className="absolute inset-0 z-10 bg-black/70"></div>
-                    <div className="absolute z-50 lg:p-16 p-4">
+                    <div className="absolute inset-0 z-10 bg-gradient-to-r from-black via-black/60 to-transparent"></div>
+                    <div className="absolute z-50 md:p-16 sm:p-12 p-8">
                         <div className="space-y-5">
                             <div className="bg-white/90 text-orange-500 px-4 py-1 rounded-full w-fit">
                                 Traditional Puja Services

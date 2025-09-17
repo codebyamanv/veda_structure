@@ -96,8 +96,8 @@ export default function Navbar() {
                     </li>
 
                     <li className="group relative">
-                        <Link href="/puja" className="flex items-center gap-1 px-2 hover:text-yellow-600">
-                            Puja Essentials
+                        <Link href="/yagya-puja" className="flex items-center gap-1 px-2 hover:text-yellow-600">
+                            Yagya Puja
                             {/* <FaAngleDown /> */}
                         </Link>
                         {/* <div className="dropdown absolute top-full left-0 z-10 hidden w-40 rounded-md border bg-white shadow-lg group-hover:block">
@@ -153,6 +153,9 @@ export default function Navbar() {
                             {/* <a href="#" className="block px-4 py-2 hover:bg-yellow-100">
                                 All Products
                             </a> */}
+                            <Link href="/all-products" className="block px-4 py-2 hover:bg-yellow-100">
+                                Exclusive All
+                            </Link>
                             <Link href="/rudraksha" className="block px-4 py-2 hover:bg-yellow-100">
                                 Rudraksha
                             </Link>
@@ -163,6 +166,12 @@ export default function Navbar() {
                                 Bracelet
                             </Link>
                         </div>
+                    </li>
+
+                    <li>
+                        <Link href="/about" className="px-2 hover:text-yellow-600">
+                            About us
+                        </Link>
                     </li>
 
                     <li className="group relative">
@@ -220,13 +229,18 @@ export default function Navbar() {
                         )}
                     </div>
                     <div>
+                        <Link href="/yagya-puja" className=" hover:text-yellow-600">
+                            Yagya Puja
+                        </Link>
+                    </div>
+                    {/* <div>
                         <button onClick={() => toggleDropdown("puja")} className="flex w-full justify-between py-1 hover:text-yellow-600">
                             Puja Essentials <FaAngleDown />
                         </button>
                         {openDropdown === "puja" && (
                             <div className="space-y-1 pl-4">
-                                <Link href="/puja" className="block px-4 py-2 hover:bg-yellow-100">
-                                    Puja Homepage
+                                <Link href="/yagya-puja" className="block px-4 py-2 hover:bg-yellow-100">
+                                    Yagya Puja
                                 </Link>
                                 <a href="#" className="block hover:text-yellow-600">
                                     Puja Samagri
@@ -239,13 +253,13 @@ export default function Navbar() {
                                 </a>
                             </div>
                         )}
-                    </div>
+                    </div> */}
 
                     <Link href="/astrology" className="block py-1 hover:text-yellow-600">
                         Astrology
                     </Link>
 
-                    <div>
+                    {/* <div>
                         <button onClick={() => toggleDropdown("healing")} className="flex w-full justify-between py-1 hover:text-yellow-600">
                             Healing Remedies <FaAngleDown />
                         </button>
@@ -262,11 +276,11 @@ export default function Navbar() {
                                 </a>
                             </div>
                         )}
-                    </div>
+                    </div> */}
 
-                    <a href="#" className="block py-1 hover:text-yellow-600">
+                    {/* <a href="#" className="block py-1 hover:text-yellow-600">
                         Idols & Statues
-                    </a>
+                    </a> */}
 
                     <div>
                         <button onClick={() => toggleDropdown("veda")} className="flex w-full justify-between py-1 hover:text-yellow-600">
@@ -274,9 +288,9 @@ export default function Navbar() {
                         </button>
                         {openDropdown === "veda" && (
                             <div className="space-y-1 pl-4">
-                                <a href="#" className="block hover:text-yellow-600">
-                                    All Products
-                                </a>
+                                <Link href="/all-products" className="block hover:text-yellow-600">
+                                    Explore All
+                                </Link>
                                 <Link href="/rudraksha" className="block hover:text-yellow-600">
                                     Rudraksha
                                 </Link>
@@ -289,6 +303,10 @@ export default function Navbar() {
                             </div>
                         )}
                     </div>
+
+                    <Link href="/about" className="block py-1 hover:text-yellow-600">
+                        About Us
+                    </Link>
 
                     <div>
                         <button onClick={() => toggleDropdown("support")} className="flex w-full justify-between py-1 hover:text-yellow-600">
@@ -306,12 +324,12 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    <a href="#" className="block py-1 hover:text-yellow-600">
+                    {/* <a href="#" className="block py-1 hover:text-yellow-600">
                         Rewards
                     </a>
                     <a href="#" className="block py-1 hover:text-yellow-600">
                         Veda Wisdom
-                    </a>
+                    </a> */}
                 </div>
             )}
         </div>

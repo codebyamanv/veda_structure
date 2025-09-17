@@ -1,10 +1,10 @@
 'use client'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { updateUserAddress } from '@/apis/controllers/userController'
 import { useCart } from '@/context/cartContext'
 import { useAuth } from '@/context/useAuth'
 import { calculateDiscount, handlePayment } from '@/utils/utils'
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 export default function Checkout() {
@@ -14,7 +14,8 @@ export default function Checkout() {
 
     const subtotal = cart.items.reduce((acc, item) => acc + item.productPrice * item.quantity, 0)
     const discount = subtotal - cart.totalPrice
-    const total = cart.totalPrice
+    const gst = cart.totalPrice * 3 / 100
+    const total = cart.totalPrice + gst
 
     const handleUpdateUserAddress = async (e) => {
         e.preventDefault()
@@ -104,6 +105,10 @@ export default function Checkout() {
                     <div className="flex justify-between mb-2">
                         <span>Discount</span>
                         <span className="text-green-600">-₹{discount}</span>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                        <span>GST (3%)</span>
+                        <span>₹{gst}</span>
                     </div>
                     <div className="flex justify-between font-bold text-lg">
                         <span>Total</span>
