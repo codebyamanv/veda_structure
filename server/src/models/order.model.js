@@ -25,6 +25,15 @@ const orderSchema = new Schema(
                 },
             },
         ],
+        energizationForm: {
+            wearerName: String,
+            dob: Date,
+            birthPlace: String,
+            time: String,
+            gender: String,
+            gotra: String,
+            purpose: String,
+        },
         status: {
             type: String,
             enum: ['pending', 'paid', 'failed'],
