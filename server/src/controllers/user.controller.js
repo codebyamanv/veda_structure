@@ -45,7 +45,7 @@ export const login = asyncHandler(async (req, res) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        // domain: '.vedastructure.com',
+        domain: '.vedastructure.com',
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
 
@@ -82,7 +82,7 @@ export const logout = asyncHandler(async (req, res) => {
         secure: true,
         sameSite: 'none',
         path: '/',
-        // domain: '.vedastructure.com',
+        domain: '.vedastructure.com',
     })
     return ApiResponse.success({}, 'Logout successful').send(res)
 })
