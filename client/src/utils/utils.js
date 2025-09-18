@@ -1,5 +1,5 @@
-import { createOrder, verifyPayment } from '@/apis/controllers/paymentController'
-import { toast } from 'sonner'
+import { createOrder, verifyPayment } from "@/apis/controllers/paymentController"
+import { toast } from "sonner"
 
 export function calculateDiscount(price, discountPercent) {
     if (!price || !discountPercent) return price
@@ -15,17 +15,16 @@ export const handlePayment = async (amount, cart, user, clearCart, router) => {
         const res = await createOrder({ amount })
 
         if (!res.orderId) {
-            toast.error('Something went wrong!')
+            toast.error("Something went wrong!")
             return
         }
-        console.log('from handlePayment', user)
 
         const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
             amount: res.amount,
             currency: res.currency,
-            name: 'Veda Structure',
-            description: 'Checkout Payment',
+            name: "Veda Structure",
+            description: "Checkout Payment",
             order_id: res.orderId,
             handler: async function (response) {
                 const verifyResponse = await verifyPayment({
@@ -34,18 +33,19 @@ export const handlePayment = async (amount, cart, user, clearCart, router) => {
                     products: cart.items.map((item) => ({
                         productId: item._id,
                         quantity: item.quantity,
+                        energizationForm: item?.energizationForm,
                     })),
                 })
 
                 if (verifyResponse.success) {
-                    router.push('/')
-                    toast.success('✅ Payment Successful')
+                    router.push("/")
+                    toast.success("✅ Payment Successful")
                     clearCart()
                 } else {
-                    toast.error('❌ Payment Verification Failed')
+                    toast.error("❌ Payment Verification Failed")
                 }
             },
-            theme: { color: '#F0B100' },
+            theme: { color: "#F0B100" },
         }
 
         const razor = new window.Razorpay(options)

@@ -40,7 +40,6 @@ export default function AddRudraksha() {
         formData.append('productShipping', String(productShipping))
         formData.append('energization', JSON.stringify(energization)) // send as JSON
 
-        // console.log('Final FormData:', Object.fromEntries(formData))
 
         try {
             const response = await postRudraksha(formData)

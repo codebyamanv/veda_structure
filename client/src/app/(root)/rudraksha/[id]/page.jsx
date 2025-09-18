@@ -16,6 +16,19 @@ function ProductDetails() {
     const { addItem } = useCart()
     const { rudraksha } = useRudraksha()
     const router = useRouter()
+    const [formData, setFormData] = useState({
+        wearerName: "",
+        dob: "",
+        birthPlace: "",
+        time: "",
+        gender: "",
+        gotra: "",
+        purpose: "",
+    })
+    const handleFormChange = (e) => {
+        const { name, value } = e.target
+        setFormData((prev) => ({ ...prev, [name]: value }))
+    }
 
     const fetchRudraksha = async () => {
         const res = await getRudrakshaById(id)
@@ -80,10 +93,13 @@ function ProductDetails() {
 
     const handleChange = (e) => {
         const selectedOption = e.target.options[e.target.selectedIndex]
-        const value = selectedOption.value
+        const value = Number(selectedOption.value) // price
         const isHaveForm = selectedOption.dataset.ishaveform === "true"
         setSelected({ value, isHaveForm })
     }
+    const basePrice = product.productPrice || 0
+    const energizationPrice = selected.value || 0
+    const finalPrice = basePrice + energizationPrice
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
@@ -115,10 +131,11 @@ function ProductDetails() {
                             <h2 className="text-gray-500">Rudraksha</h2>
                             <h1 className="text-3xl font-bold text-gray-800">{product.productName}</h1>
                             <div className="flex items-end gap-2">
-                                <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(product.productPrice + Number(selectedEnergy), product.productDiscount)}</p>
-                                <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{product.productPrice + Number(selectedEnergy)}</p>
+                                <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(finalPrice, product.productDiscount)}</p>
+                                <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{finalPrice}</p>
                                 <p className="text-md mt-2 font-bold text-green-600">{product.productDiscount}% OFF</p>
                             </div>
+
                             <p className="text-lg font-semibold text-gray-500">100% Authentic Rudraksha</p>
                         </div>
                         <div className="flex space-x-3">
@@ -169,29 +186,29 @@ function ProductDetails() {
                                 <label htmlFor="name" className="font-medium">
                                     Name of wearer:
                                 </label>
-                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" />
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="name" value={formData.wearerName} onChange={handleFormChange} />
                             </div>
                             <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label htmlFor="dob" className="font-medium">
                                     Date of Birth:
                                 </label>
-                                <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" />
+                                <input type="date" className="w-full rounded-lg border border-gray-400 p-2" name="dob" id="dob" value={formData.dob} onChange={handleFormChange} />
                             </div>
                             <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label htmlFor="place" className="font-medium">
                                     Place of Birth:
                                 </label>
-                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" />
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="birthPlace" id="place" value={formData.birthPlace} onChange={handleFormChange} />
                             </div>
                             <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label htmlFor="time" className="font-medium">
                                     Time of Birth:
                                 </label>
-                                <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="wearerName" id="time" />
+                                <input type="time" className="w-full rounded-lg border border-gray-400 p-2" name="time" id="time" value={formData.time} onChange={handleFormChange} />
                             </div>
                             <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label className="font-medium">Gender:</label>
-                                <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                <select name="gender" className="w-full rounded-lg border border-gray-400 p-2" id="" value={formData.gender} onChange={handleFormChange}>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>
@@ -201,13 +218,13 @@ function ProductDetails() {
                                 <label htmlFor="gotra" className="font-medium">
                                     Clan/Gotra (If Available):
                                 </label>
-                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" />
+                                <input type="text" className="w-full rounded-lg border border-gray-400 p-2" name="gotra" id="gotra" value={formData.gotra} onChange={handleFormChange} />
                             </div>
                             <div className="grid items-center gap-1 sm:grid-cols-2">
                                 <label htmlFor="name" className="font-medium">
                                     Primary Purpose:
                                 </label>
-                                <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="">
+                                <select name="purpose" className="w-full rounded-lg border border-gray-400 p-2" id="" value={formData.purpose} onChange={handleFormChange}>
                                     <option value="general">General</option>
                                     <option value="health">Health</option>
                                     <option value="wealth-fortune">Wealth & Fortune</option>
@@ -221,7 +238,12 @@ function ProductDetails() {
                     <div className="flex items-center space-x-3">
                         <button
                             onClick={() => {
-                                addItem(product)
+                                addItem({
+                                    ...product,
+                                    productPrice: finalPrice,
+                                    selectedEnergization: selected,
+                                    energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                })
                                 toast.success("Added to cart!")
                             }}
                             className="mt-4 w-full rounded-lg border border-yellow-600 px-6 py-3 font-semibold text-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
@@ -230,8 +252,14 @@ function ProductDetails() {
                         </button>
                         <button
                             onClick={() => {
-                                addItem(product)
+                                addItem({
+                                    ...product,
+                                    productPrice: finalPrice,
+                                    selectedEnergization: selected,
+                                    energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                })
                                 router.push("/checkout")
+                                toast.success("Added to cart!")
                             }}
                             className="mt-4 w-full rounded-lg bg-yellow-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-yellow-500 hover:shadow-md"
                         >
@@ -319,7 +347,7 @@ function ProductDetails() {
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation() // stop click bubbling
-                                        addItem({ ...item, selectedEnergy })
+                                        addItem(item)
                                         toast.success("Item added to cart!")
                                     }}
                                     className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"

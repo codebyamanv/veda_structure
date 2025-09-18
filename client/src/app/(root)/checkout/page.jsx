@@ -13,10 +13,13 @@ export default function Checkout() {
     const router = useRouter()
 
     const subtotal = cart.items.reduce((acc, item) => acc + item.productPrice * item.quantity, 0)
-    const discount = subtotal - cart.totalPrice
+
+    const discount = cart.items.reduce((acc, item) => acc + (item.productPrice - calculateDiscount(item.productPrice, item.productDiscount)) * item.quantity, 0)
+
     const gst = (cart.totalPrice * 3) / 100
     const total = cart.totalPrice + gst
-    
+
+
     const handleUpdateUserAddress = async (e) => {
         e.preventDefault()
         try {
@@ -50,6 +53,7 @@ export default function Checkout() {
                                             <p className="text-sm text-gray-500">
                                                 ₹{calculateDiscount(item.productPrice, item.productDiscount)} x {item.quantity}
                                             </p>
+                                            {item.selectedEnergization && <p className="text-xs text-gray-400">+ Energization: ₹{item.selectedEnergization.value}</p>}
                                         </div>
                                     </div>
                                     <div className="flex items-center space-x-2">

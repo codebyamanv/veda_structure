@@ -6,7 +6,6 @@ import Image from "next/image"
 import Link from "next/link"
 export default function Rudraksha() {
     const { rudraksha, refetchRudraksha } = useRudraksha()
-    console.log(rudraksha)
     const handleDelete = async (id) => {
         await deleteRudraksha(id)
         await refetchRudraksha()

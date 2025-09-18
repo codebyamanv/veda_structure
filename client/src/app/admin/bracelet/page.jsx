@@ -6,7 +6,6 @@ import Image from "next/image"
 import Link from "next/link"
 export default function Rudraksha() {
     const { bracelet, refetchBracelet } = useBracelet()
-    console.log(bracelet)
     const handleDelete = async (id) => {
         await deleteBracelet(id)
         await refetchBracelet()

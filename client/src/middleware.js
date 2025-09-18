@@ -1,42 +1,41 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server"
 
 export async function middleware(req) {
     const url = req.nextUrl
-    const token = req.cookies.get('sessionToken')?.value
-console.log(token)
-    const loginRoutes = ['/sign-in', '/sign-up']
+    const token = req.cookies.get("sessionToken")?.value
+    const loginRoutes = ["/sign-in", "/sign-up"]
 
     if (loginRoutes.some((path) => url.pathname.startsWith(path))) {
         if (token) {
-            return NextResponse.redirect(new URL('/', req.url))
+            return NextResponse.redirect(new URL("/", req.url))
+        }
+    }
+    if (url.pathname.startsWith("/profile")) {
+        if (!token) {
+            return NextResponse.redirect(new URL("/sign-in", req.url))
         }
     }
 
-    if (url.pathname.startsWith('/profile')) {
+    if (url.pathname.startsWith("/admin")) {
         if (!token) {
-            return NextResponse.redirect(new URL('/sign-in', req.url))
-        }
-    }
-
-    if (url.pathname.startsWith('/admin')) {
-        if (!token) {
-            return NextResponse.redirect(new URL('/sign-in', req.url))
+            return NextResponse.redirect(new URL("/sign-in", req.url))
         }
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/current-user`, {
-                method: 'POST',
+                method: "POST",
                 headers: {
                     Cookie: `sessionToken=${token}`,
                 },
             })
+
             const { data } = await res.json()
-            if (data.role !== 'admin') {
-                return NextResponse.redirect(new URL('/', req.url))
+            if (data.role !== "admin") {
+                return NextResponse.redirect(new URL("/", req.url))
             }
         } catch (err) {
-            console.error('Middleware fetch error:', err)
-            return NextResponse.redirect(new URL('/sign-in', req.url))
+            console.error("Middleware fetch error:", err)
+            return NextResponse.redirect(new URL("/sign-in", req.url))
         }
     }
 
@@ -44,5 +43,5 @@ console.log(token)
 }
 
 export const config = {
-    matcher: ['/admin/:path*', '/profile/:path*', '/sign-in', '/sign-up'],
+    matcher: ["/admin/:path*", "/profile/:path*", "/sign-in", "/sign-up"],
 }
