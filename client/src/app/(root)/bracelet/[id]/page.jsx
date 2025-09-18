@@ -22,10 +22,14 @@ function ProductDetails() {
         dob: "",
         birthPlace: "",
         time: "",
-        gender: "",
+        gender: "male",
         gotra: "",
-        purpose: "",
+        purpose: "general",
     })
+    const validateForm = () => {
+        const requiredFields = ["wearerName", "dob", "birthPlace", "time", "gender", "purpose"]
+        return requiredFields.every((field) => formData[field]?.trim())
+    }
     const handleFormChange = (e) => {
         const { name, value } = e.target
         setFormData((prev) => ({ ...prev, [name]: value }))
@@ -262,13 +266,27 @@ function ProductDetails() {
                     <div className="flex items-center space-x-3">
                         <button
                             onClick={() => {
-                                addItem({
-                                    ...product,
-                                    productPrice: finalPrice,
-                                    selectedEnergization: selected,
-                                    energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
-                                })
-                                toast.success("Added to cart!")
+                                if (selected?.isHaveForm) {
+                                    if (validateForm()) {
+                                        addItem({
+                                            ...product,
+                                            productPrice: finalPrice,
+                                            selectedEnergization: selected,
+                                            energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                        })
+                                        toast.success("Added to cart!")
+                                    } else {
+                                        toast.error("Please fill all the fields")
+                                    }
+                                } else {
+                                    addItem({
+                                        ...product,
+                                        productPrice: finalPrice,
+                                        selectedEnergization: selected,
+                                        energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                    })
+                                    toast.success("Added to cart!")
+                                }
                             }}
                             className="mt-4 w-full rounded-lg border border-yellow-600 px-6 py-3 font-semibold text-yellow-600 transition duration-300 hover:bg-yellow-500 hover:shadow-md"
                         >
@@ -276,14 +294,29 @@ function ProductDetails() {
                         </button>
                         <button
                             onClick={() => {
-                                addItem({
-                                    ...product,
-                                    productPrice: finalPrice,
-                                    selectedEnergization: selected,
-                                    energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
-                                })
-                                router.push("/checkout")
-                                toast.success("Added to cart!")
+                                if (selected?.isHaveForm) {
+                                    if (validateForm()) {
+                                        addItem({
+                                            ...product,
+                                            productPrice: finalPrice,
+                                            selectedEnergization: selected,
+                                            energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                        })
+                                        toast.success("Added to cart!")
+                                        router.push("/checkout")
+                                    } else {
+                                        toast.error("Please fill all the fields")
+                                    }
+                                } else {
+                                    addItem({
+                                        ...product,
+                                        productPrice: finalPrice,
+                                        selectedEnergization: selected,
+                                        energizationForm: selected?.isHaveForm ? formData : null, // store form if needed
+                                    })
+                                    toast.success("Added to cart!")
+                                    router.push("/checkout")
+                                }
                             }}
                             className="mt-4 w-full rounded-lg bg-yellow-600 px-6 py-3 font-semibold text-white transition duration-300 hover:bg-yellow-500 hover:shadow-md"
                         >

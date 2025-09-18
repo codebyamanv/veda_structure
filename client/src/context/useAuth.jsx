@@ -1,10 +1,12 @@
-'use client'
-import { createContext, useContext, useState, useEffect } from 'react'
-import { currentUser, logoutUser } from '@/apis/controllers/userController'
+"use client"
+import { createContext, useContext, useState, useEffect } from "react"
+import { currentUser, logoutUser } from "@/apis/controllers/userController"
+import { useRouter } from "next/navigation"
 
 const AuthContext = createContext()
 
 export function AuthProvider({ children, initialUser }) {
+    const router = useRouter()
     const [user, setUser] = useState(initialUser || null)
     const [loading, setLoading] = useState(false)
 
@@ -30,13 +32,11 @@ export function AuthProvider({ children, initialUser }) {
         await logoutUser()
         await fetchUser()
         setUser(null)
+        localStorage.removeItem("cart")
+        router.push("/")
     }
 
-    return (
-        <AuthContext.Provider value={{ user, refetchUser: fetchUser, logout, loading }}>
-            {children}
-        </AuthContext.Provider>
-    )
+    return <AuthContext.Provider value={{ user, refetchUser: fetchUser, logout, loading }}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {
