@@ -19,7 +19,6 @@ export default function Checkout() {
     const gst = (cart.totalPrice * 3) / 100
     const total = cart.totalPrice + gst
 
-
     const handleUpdateUserAddress = async (e) => {
         e.preventDefault()
         try {
@@ -34,7 +33,6 @@ export default function Checkout() {
             toast.error(error.message)
         }
     }
-console.log(cart)
     return (
         <section className="mx-auto max-w-7xl p-6">
             <h1 className="mb-4 text-2xl font-bold">Checkout</h1>
