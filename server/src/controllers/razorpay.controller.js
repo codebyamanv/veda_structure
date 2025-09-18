@@ -64,8 +64,6 @@ export const verifyPayment = asyncHandler(async (req, res) => {
                 status: 'paid',
             })
 
-            console.log(order._id)
-
             await User.findOneAndUpdate(
                 { _id: userId },
                 { $push: { orders: { orderId: order._id } } },

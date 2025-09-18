@@ -56,6 +56,7 @@ export const updateBracelet = async (req, res) => {
     try {
         const { id } = req.params
         const {
+            stock,
             productName,
             productPrice,
             productDiscount,
@@ -90,7 +91,7 @@ export const updateBracelet = async (req, res) => {
         if (!product) {
             return ApiResponse.notFound({}, 'Product not found').send(res)
         }
-
+ if (stock) product.stock = stock
         if (productName) product.productName = productName
         if (productPrice) product.productPrice = productPrice
         if (productDiscount) product.productDiscount = productDiscount

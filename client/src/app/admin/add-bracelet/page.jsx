@@ -40,7 +40,6 @@ export default function AddBracelet() {
         formData.append("productShipping", String(productShipping))
         formData.append("energization", JSON.stringify(energization)) // send as JSON
 
-
         try {
             const response = await postBracelet(formData)
             if (response.success) {
@@ -57,6 +56,10 @@ export default function AddBracelet() {
             <h1 className="text-2xl font-bold uppercase">Add Bracelet</h1>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <div className="grid gap-3">
+                    <Label htmlFor="stock">Stock</Label>
+                    <Input id="stock" name="stock" type="number" placeholder="enter product stock" />
+                </div>
                 <div className="grid gap-3">
                     <Label htmlFor="productName">Product Name</Label>
                     <Input id="productName" name="productName" type="text" placeholder="enter product name" />

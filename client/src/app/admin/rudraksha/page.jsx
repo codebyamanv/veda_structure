@@ -48,6 +48,7 @@ export default function Rudraksha() {
                             <div>
                                 <p>Price: ₹{item?.productPrice}</p>
                                 <p>Discount: {item?.productDiscount}%</p>
+                                <p>Stock: {item?.stock}</p>
                             </div>
                         </div>
                     </div>

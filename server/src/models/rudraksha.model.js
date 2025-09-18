@@ -2,6 +2,11 @@ import mongoose from 'mongoose'
 
 const rudrakshaSchema = new mongoose.Schema(
     {
+        stock: {
+            type: Number,
+            required: true,
+            default: 0,
+        },
         productName: {
             type: String,
             required: true,

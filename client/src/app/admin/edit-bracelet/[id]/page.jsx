@@ -17,6 +17,7 @@ export default function EditBracelet() {
     const braceletId = params?.id
 
     const [loading, setLoading] = useState(true)
+    const [stock, setStock] = useState(0)
     const [productName, setProductName] = useState("")
     const [productPrice, setProductPrice] = useState("")
     const [productDiscount, setProductDiscount] = useState("")
@@ -37,6 +38,7 @@ export default function EditBracelet() {
                 const res = await getBraceletById(braceletId)
                 if (res.success) {
                     const data = res.data.bracelet
+                    setStock(data.stock || 0)
                     setProductName(data.productName || "")
                     setProductPrice(data.productPrice || "")
                     setProductDiscount(data.productDiscount || "")
@@ -82,7 +84,7 @@ export default function EditBracelet() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData()
-
+        formData.append("stock", stock)
         formData.append("productName", productName)
         formData.append("productPrice", productPrice)
         formData.append("productDiscount", productDiscount)
@@ -123,6 +125,10 @@ export default function EditBracelet() {
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 {/* Basic Inputs */}
+                <div className="grid gap-3">
+                    <Label htmlFor="stock">Stock</Label>
+                    <Input id="stock" name="stock" type="number" placeholder="enter product stock" value={stock} onChange={(e) => setStock(e.target.value)} />
+                </div>
                 <div className="grid gap-3">
                     <Label htmlFor="productName">Product Name</Label>
                     <Input id="productName" name="productName" type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />

@@ -97,7 +97,7 @@ export default function Navbar() {
 
                     <li className="group relative">
                         <Link href="/yagya-puja" className="flex items-center gap-1 px-2 hover:text-yellow-600">
-                            Yagya Puja
+                            Yagya | Puja
                             {/* <FaAngleDown /> */}
                         </Link>
                         {/* <div className="dropdown absolute top-full left-0 z-10 hidden w-40 rounded-md border bg-white shadow-lg group-hover:block">

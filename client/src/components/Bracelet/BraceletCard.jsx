@@ -9,7 +9,7 @@ import { toast } from "sonner"
 export default function RudraProducts() {
     const { bracelet } = useBracelet()
     const { addItem } = useCart()
-
+    console.log(bracelet)
     return (
         <section className="bg-gray-50 py-16">
             <div className="container mx-auto px-6">
@@ -54,16 +54,28 @@ export default function RudraProducts() {
 
                             {/* Button OUTSIDE the Link so it only adds to cart */}
                             <div className="p-4 pt-0">
-                                <button
-                                    onClick={(e) => {
-                                        e.stopPropagation() // stop click bubbling
-                                        addItem(item)
-                                        toast.success("Item added to cart!")
-                                    }}
-                                    className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"
-                                >
-                                    Add to Cart
-                                </button>
+                                {item?.stock <= 0 ? (
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation()
+                                            toast.error("Out of Stock")
+                                        }}
+                                        className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"
+                                    >
+                                        Out of Stock
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation() // stop click bubbling
+                                            addItem(item)
+                                            toast.success("Item added to cart!")
+                                        }}
+                                        className="mt-3 w-full cursor-pointer rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 py-2 font-semibold text-white shadow-md transition-all hover:shadow-lg"
+                                    >
+                                        Add to Cart
+                                    </button>
+                                )}
                             </div>
                         </div>
                     ))}

@@ -3,9 +3,6 @@ import Rudraksha from '../models/rudraksha.model.js'
 import ApiResponse from '../utils/apiResponse.js'
 import ErrorResponse from '../utils/errorResponse.js'
 
-
-
-
 export const addRudraksha = async (req, res) => {
     const { body } = req
     const energization = JSON.parse(req.body.energization)
@@ -58,6 +55,7 @@ export const updateRudraksha = async (req, res) => {
     try {
         const { id } = req.params
         const {
+            stock,
             productName,
             productPrice,
             productDiscount,
@@ -67,7 +65,7 @@ export const updateRudraksha = async (req, res) => {
             productFaqs,
             productShipping,
             energization,
-            existingImages, 
+            existingImages,
         } = req.body
 
         let keepImages = []
@@ -93,6 +91,7 @@ export const updateRudraksha = async (req, res) => {
             return ApiResponse.notFound({}, 'Product not found').send(res)
         }
 
+        if (stock) product.stock = stock
         if (productName) product.productName = productName
         if (productPrice) product.productPrice = productPrice
         if (productDiscount) product.productDiscount = productDiscount

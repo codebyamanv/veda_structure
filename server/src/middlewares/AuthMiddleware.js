@@ -25,7 +25,7 @@ export const accessController = (...allowedRoles) => {
                 secure: true,
                 sameSite: 'none',
                 path: '/',
-                domain: '.vedastructure.com',
+                // domain: '.vedastructure.com',
             })
             return next(new ErrorResponse('Login to continue', 401, 'CookieNotFoundError'))
         }
@@ -38,7 +38,7 @@ export const accessController = (...allowedRoles) => {
                 secure: true,
                 sameSite: 'none',
                 path: '/',
-                domain: '.vedastructure.com',
+                // domain: '.vedastructure.com',
             })
             return next(
                 new ErrorResponse(
@@ -56,7 +56,7 @@ export const accessController = (...allowedRoles) => {
                 secure: true,
                 sameSite: 'none',
                 path: '/',
-                domain: '.vedastructure.com',
+                // domain: '.vedastructure.com',
             })
             return next(
                 new ErrorResponse(
@@ -75,7 +75,7 @@ export const accessController = (...allowedRoles) => {
                 secure: true,
                 sameSite: 'none',
                 path: '/',
-                domain: '.vedastructure.com',
+                // domain: '.vedastructure.com',
             })
             return next(new ErrorResponse('Invalid Credentials', 404))
         }
