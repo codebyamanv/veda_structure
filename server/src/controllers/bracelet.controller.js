@@ -1,27 +1,38 @@
 import fs from 'node:fs'
 import Bracelet from '../models/bracelet.model.js'
 import ApiResponse from '../utils/apiResponse.js'
-import ErrorResponse from '../utils/errorResponse.js'
 
 export const addBracelet = async (req, res) => {
-    const { body } = req
-    const energization = JSON.parse(req.body.energization)
+    try {
+        const { body } = req
 
-    const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
-    const images = req.files
-        ? req.files.map(
-              (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
-          )
-        : []
+        // Parse JSON strings for arrays
+        const energization = body.energization ? JSON.parse(body.energization) : []
+        const sizes = body.sizes ? JSON.parse(body.sizes) : []
+        const certificates = body.certificates ? JSON.parse(body.certificates) : []
 
-    const product = new Bracelet({
-        ...body,
-        energization,
-        productImage: images,
-        productPath: imagesPath,
-    })
-    await product.save()
-    return ApiResponse.created({}, 'Bracelet added successfully').send(res)
+        // Handle images
+        const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
+        const images = req.files
+            ? req.files.map(
+                  (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
+              )
+            : []
+
+        const product = new Bracelet({
+            ...body,
+            energization,
+            sizes,
+            certificates,
+            productImage: images,
+            productPath: imagesPath,
+        })
+
+        await product.save()
+        return ApiResponse.created({}, 'Bracelet added successfully').send(res)
+    } catch (error) {
+        return ApiResponse.serverError(error.message).send(res)
+    }
 }
 
 export const getBracelet = async (req, res) => {
@@ -66,6 +77,8 @@ export const updateBracelet = async (req, res) => {
             productFaqs,
             productShipping,
             energization,
+            sizes,
+            certificates,
             existingImages,
         } = req.body
 
@@ -91,10 +104,11 @@ export const updateBracelet = async (req, res) => {
         if (!product) {
             return ApiResponse.notFound({}, 'Product not found').send(res)
         }
- if (stock) product.stock = stock
+
+        if (stock !== undefined) product.stock = stock
         if (productName) product.productName = productName
-        if (productPrice) product.productPrice = productPrice
-        if (productDiscount) product.productDiscount = productDiscount
+        if (productPrice !== undefined) product.productPrice = productPrice
+        if (productDiscount !== undefined) product.productDiscount = productDiscount
 
         if (keepImages.length > 0) {
             const toDelete = product.productImage.filter((img) => !keepImages.includes(img))
@@ -130,17 +144,49 @@ export const updateBracelet = async (req, res) => {
             product.productPath = [...product.productPath, ...imagesPath]
         }
 
-        if (productAbout !== undefined) product.productAbout = [productAbout]
-        if (productFeatures !== undefined) product.productFeatures = [productFeatures]
-        if (productBenefits !== undefined) product.productBenefits = [productBenefits]
-        if (productFaqs !== undefined) product.productFaqs = [productFaqs]
-        if (productShipping !== undefined) product.productShipping = [productShipping]
+        if (productAbout !== undefined) {
+            product.productAbout = Array.isArray(productAbout) ? productAbout : [productAbout]
+        }
+        if (productFeatures !== undefined) {
+            product.productFeatures = Array.isArray(productFeatures)
+                ? productFeatures
+                : [productFeatures]
+        }
+        if (productBenefits !== undefined) {
+            product.productBenefits = Array.isArray(productBenefits)
+                ? productBenefits
+                : [productBenefits]
+        }
+        if (productFaqs !== undefined) {
+            product.productFaqs = Array.isArray(productFaqs) ? productFaqs : [productFaqs]
+        }
+        if (productShipping !== undefined) {
+            product.productShipping = Array.isArray(productShipping)
+                ? productShipping
+                : [productShipping]
+        }
 
         if (energization) {
             try {
                 product.energization = JSON.parse(energization)
             } catch (e) {
                 console.warn('Invalid energization JSON:', energization)
+            }
+        }
+
+        if (sizes) {
+            try {
+                product.sizes = JSON.parse(sizes)
+            } catch (e) {
+                console.warn('Invalid sizes JSON:', sizes)
+            }
+        }
+
+        if (certificates) {
+            try {
+                product.certificates = JSON.parse(certificates)
+            } catch (e) {
+                console.warn('Invalid certificates JSON:', certificates)
             }
         }
 

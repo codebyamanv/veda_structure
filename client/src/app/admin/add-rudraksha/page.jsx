@@ -9,6 +9,7 @@ import { postRudraksha } from "@/apis/controllers/rudrakshaController"
 import { useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
+import { X } from "lucide-react" // 👈 for delete icon
 
 export default function AddRudraksha() {
     const router = useRouter()
@@ -17,16 +18,33 @@ export default function AddRudraksha() {
     const [productBenefits, setProductBenefits] = useState("")
     const [productFaqs, setProductFaqs] = useState("")
     const [productShipping, setProductShipping] = useState("")
-    const [energization, setEnergization] = useState([{ title: "", price: "", isHaveForm: false }])
 
+    // Energization
+    const [energization, setEnergization] = useState([{ title: "", price: "", isHaveForm: false }])
     const handleListChange = (index, field, value) => {
         const updatedList = [...energization]
         updatedList[index][field] = value
         setEnergization(updatedList)
     }
-
     const addNewEnergization = () => {
         setEnergization((prev) => [...prev, { title: "", price: "", isHaveForm: false }])
+    }
+    const removeEnergization = (index) => {
+        setEnergization((prev) => prev.filter((_, i) => i !== index))
+    }
+
+    // Product Options
+    const [options, setOptions] = useState([{ title: "", price: "" }])
+    const handleOptionChange = (index, field, value) => {
+        const updated = [...options]
+        updated[index][field] = value
+        setOptions(updated)
+    }
+    const addNewOption = () => {
+        setOptions((prev) => [...prev, { title: "", price: "" }])
+    }
+    const removeOption = (index) => {
+        setOptions((prev) => prev.filter((_, i) => i !== index))
     }
 
     const handleSubmit = async (e) => {
@@ -38,7 +56,8 @@ export default function AddRudraksha() {
         formData.append("productBenefits", String(productBenefits))
         formData.append("productFaqs", String(productFaqs))
         formData.append("productShipping", String(productShipping))
-        formData.append("energization", JSON.stringify(energization)) // send as JSON
+        formData.append("energization", JSON.stringify(energization))
+        formData.append("options", JSON.stringify(options))
 
         try {
             const response = await postRudraksha(formData)
@@ -55,6 +74,7 @@ export default function AddRudraksha() {
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <h1 className="text-2xl font-bold uppercase">Add Rudraksha</h1>
 
+            {/* Basic Info */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <div className="grid gap-3">
                     <Label htmlFor="stock">Stock</Label>
@@ -81,6 +101,29 @@ export default function AddRudraksha() {
                 </div>
             </div>
 
+            {/* Product Options */}
+            <div>
+                <div className="grid gap-3">
+                    <div className="flex items-center justify-between">
+                        <Label>Product Options</Label>
+                        <Button type="button" variant="ghost" className="cursor-pointer border capitalize hover:bg-orange-500 hover:text-white" onClick={addNewOption}>
+                            add new option
+                        </Button>
+                    </div>
+
+                    {options.map((opt, index) => (
+                        <div key={index} className="grid grid-cols-2 items-center gap-2 md:grid-cols-3">
+                            <Input type="text" value={opt.title} onChange={(e) => handleOptionChange(index, "title", e.target.value)} placeholder="e.g. Only Bead / With Pendant" />
+                            <Input type="number" value={opt.price} onChange={(e) => handleOptionChange(index, "price", e.target.value)} placeholder="enter option price" />
+                            <Button type="button" variant="ghost" size="icon" onClick={() => removeOption(index)} className="text-red-500 hover:bg-red-500 hover:text-white">
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Energization */}
             <div>
                 <div className="grid gap-3">
                     <div className="flex items-center justify-between">
@@ -91,13 +134,16 @@ export default function AddRudraksha() {
                     </div>
 
                     {energization.map((item, index) => (
-                        <div key={index} className="grid grid-cols-3 gap-2">
+                        <div key={index} className="grid grid-cols-3 items-center gap-2 md:grid-cols-4">
                             <Input type="text" value={item.title} onChange={(e) => handleListChange(index, "title", e.target.value)} placeholder="enter energization name" />
                             <Input type="number" value={item.price} onChange={(e) => handleListChange(index, "price", e.target.value)} placeholder="enter energization price" />
                             <div className="flex items-center gap-2">
                                 <Checkbox id={`isHaveForm-${index}`} checked={item.isHaveForm} onCheckedChange={(checked) => handleListChange(index, "isHaveForm", checked)} className="w-4 border" />
                                 <Label htmlFor={`isHaveForm-${index}`}>IsHaveForm?</Label>
                             </div>
+                            <Button type="button" variant="ghost" size="icon" onClick={() => removeEnergization(index)} className="text-red-500 hover:bg-red-500 hover:text-white">
+                                <X className="h-4 w-4" />
+                            </Button>
                         </div>
                     ))}
                 </div>

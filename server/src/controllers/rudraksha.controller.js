@@ -6,6 +6,7 @@ import ErrorResponse from '../utils/errorResponse.js'
 export const addRudraksha = async (req, res) => {
     const { body } = req
     const energization = JSON.parse(req.body.energization)
+    const options = JSON.parse(req.body.options)
 
     const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
     const images = req.files
@@ -17,6 +18,7 @@ export const addRudraksha = async (req, res) => {
     const product = new Rudraksha({
         ...body,
         energization,
+        options,
         productImage: images,
         productPath: imagesPath,
     })
@@ -65,7 +67,9 @@ export const updateRudraksha = async (req, res) => {
             productFaqs,
             productShipping,
             energization,
+            options,
             existingImages,
+            removedImages,
         } = req.body
 
         let keepImages = []
@@ -79,10 +83,21 @@ export const updateRudraksha = async (req, res) => {
             console.warn('Invalid existingImages JSON:', existingImages)
         }
 
-        const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
+        let removedImgs = []
+        try {
+            if (removedImages) {
+                removedImgs = Array.isArray(removedImages)
+                    ? removedImages
+                    : JSON.parse(removedImages)
+            }
+        } catch (e) {
+            console.warn('Invalid removedImages JSON:', removedImages)
+        }
+
+        const imagesPath = req.files ? req.files.map((f) => f.path.replace(/\\/g, '/')) : []
         const images = req.files
             ? req.files.map(
-                  (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
+                  (f) => `${req.protocol}://${req.get('host')}/${f.path.replace(/\\/g, '/')}`,
               )
             : []
 
@@ -91,13 +106,15 @@ export const updateRudraksha = async (req, res) => {
             return ApiResponse.notFound({}, 'Product not found').send(res)
         }
 
-        if (stock) product.stock = stock
-        if (productName) product.productName = productName
-        if (productPrice) product.productPrice = productPrice
-        if (productDiscount) product.productDiscount = productDiscount
+        if (stock !== undefined) product.stock = stock
+        if (productName !== undefined) product.productName = productName
+        if (productPrice !== undefined) product.productPrice = productPrice
+        if (productDiscount !== undefined) product.productDiscount = productDiscount
 
         if (keepImages.length > 0) {
-            const toDelete = product.productImage.filter((img) => !keepImages.includes(img))
+            const toDelete = product.productImage.filter(
+                (img) => !keepImages.includes(img) || removedImgs.includes(img),
+            )
 
             toDelete.forEach((url) => {
                 const idx = product.productImage.indexOf(url)
@@ -113,12 +130,12 @@ export const updateRudraksha = async (req, res) => {
 
             const keptImagePaths = []
             product.productImage.forEach((img, idx) => {
-                if (keepImages.includes(img)) {
+                if (keepImages.includes(img) && !removedImgs.includes(img)) {
                     keptImagePaths.push(product.productPath[idx])
                 }
             })
 
-            product.productImage = keepImages
+            product.productImage = keepImages.filter((img) => !removedImgs.includes(img))
             product.productPath = keptImagePaths
         } else {
             product.productImage = []
@@ -130,17 +147,25 @@ export const updateRudraksha = async (req, res) => {
             product.productPath = [...product.productPath, ...imagesPath]
         }
 
-        if (productAbout !== undefined) product.productAbout = [productAbout]
-        if (productFeatures !== undefined) product.productFeatures = [productFeatures]
-        if (productBenefits !== undefined) product.productBenefits = [productBenefits]
-        if (productFaqs !== undefined) product.productFaqs = [productFaqs]
-        if (productShipping !== undefined) product.productShipping = [productShipping]
+        if (productAbout !== undefined) product.productAbout = productAbout
+        if (productFeatures !== undefined) product.productFeatures = productFeatures
+        if (productBenefits !== undefined) product.productBenefits = productBenefits
+        if (productFaqs !== undefined) product.productFaqs = productFaqs
+        if (productShipping !== undefined) product.productShipping = productShipping
 
         if (energization) {
             try {
                 product.energization = JSON.parse(energization)
             } catch (e) {
                 console.warn('Invalid energization JSON:', energization)
+            }
+        }
+
+        if (options) {
+            try {
+                product.options = JSON.parse(options)
+            } catch (e) {
+                console.warn('Invalid options JSON:', options)
             }
         }
 

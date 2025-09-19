@@ -5,11 +5,14 @@ import { useCart } from "@/context/cartContext"
 import Image from "next/image"
 import { CircleX, Trash2 } from "lucide-react"
 import Link from "next/link"
+import { calculateDiscount } from "@/utils/utils"
 
 export default function Cart() {
     const { cart, increaseQty, decreaseQty, removeItem, clearCart } = useCart()
     const subtotal = cart.items.reduce((acc, item) => acc + item.productPrice * item.quantity, 0)
-    const discount = subtotal - cart.totalPrice
+
+    const discount = cart.items.reduce((acc, item) => acc + (item.productPrice - calculateDiscount(item.productPrice, item.productDiscount)) * item.quantity, 0)
+
     const gst = (cart.totalPrice * 3) / 100
     const total = cart.totalPrice + gst
 

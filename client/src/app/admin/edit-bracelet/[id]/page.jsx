@@ -10,6 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { getBraceletById, updateBracelet } from "@/apis/controllers/braceletController.js"
+import { X } from "lucide-react"
 
 export default function EditBracelet() {
     const router = useRouter()
@@ -26,11 +27,16 @@ export default function EditBracelet() {
     const [productBenefits, setProductBenefits] = useState("")
     const [productFaqs, setProductFaqs] = useState("")
     const [productShipping, setProductShipping] = useState("")
+
     const [energization, setEnergization] = useState([{ title: "", price: "", isHaveForm: false }])
+    const [sizes, setSizes] = useState([{ size: "Small", price: "", stock: "" }])
+    const [certificates, setCertificates] = useState([{ type: "Without Certificate", price: "" }])
+
     const [existingImages, setExistingImages] = useState([])
     const [removedImages, setRemovedImages] = useState([])
     const [newImages, setNewImages] = useState([])
 
+    // ----------------- FETCH DATA -------------------
     useEffect(() => {
         if (!braceletId) return
         const fetchData = async () => {
@@ -43,13 +49,16 @@ export default function EditBracelet() {
                     setProductPrice(data.productPrice || "")
                     setProductDiscount(data.productDiscount || "")
 
-                    setProductAbout(Array.isArray(data.productAbout) ? data.productAbout[0] : "")
-                    setProductFeatures(Array.isArray(data.productFeatures) ? data.productFeatures[0] : "")
-                    setProductBenefits(Array.isArray(data.productBenefits) ? data.productBenefits[0] : "")
-                    setProductFaqs(Array.isArray(data.productFaqs) ? data.productFaqs[0] : "")
-                    setProductShipping(Array.isArray(data.productShipping) ? data.productShipping[0] : "")
+                    setProductAbout(data.productAbout || "")
+                    setProductFeatures(data.productFeatures || "")
+                    setProductBenefits(data.productBenefits || "")
+                    setProductFaqs(data.productFaqs || "")
+                    setProductShipping(data.productShipping || "")
 
-                    setEnergization(Array.isArray(data.energization) && data.energization.length > 0 ? data.energization : [{ title: "", price: "", isHaveForm: false }])
+                    setEnergization(data.energization?.length ? data.energization : [{ title: "", price: "", isHaveForm: false }])
+                    setSizes(data.sizes?.length ? data.sizes : [{ size: "Small", price: "", stock: "" }])
+                    setCertificates(data.certificates?.length ? data.certificates : [{ type: "Without Certificate", price: "" }])
+
                     setExistingImages(data.productImage || [])
                 }
             } catch (err) {
@@ -61,26 +70,44 @@ export default function EditBracelet() {
         fetchData()
     }, [braceletId])
 
-    const handleListChange = (index, field, value) => {
-        const updatedList = [...energization]
-        updatedList[index][field] = value
-        setEnergization(updatedList)
+    // ----------------- ENERGIZATION -------------------
+    const handleEnergizationChange = (index, field, value) => {
+        const updated = [...energization]
+        updated[index][field] = value
+        setEnergization(updated)
     }
+    const addEnergization = () => setEnergization((prev) => [...prev, { title: "", price: "", isHaveForm: false }])
+    const removeEnergization = (index) => setEnergization((prev) => prev.filter((_, i) => i !== index))
 
-    const addNewEnergization = () => {
-        setEnergization((prev) => [...prev, { title: "", price: "", isHaveForm: false }])
+    // ----------------- SIZE -------------------
+    const handleSizeChange = (index, field, value) => {
+        const updated = [...sizes]
+        updated[index][field] = value
+        setSizes(updated)
     }
+    const addSize = () => setSizes((prev) => [...prev, { size: "", price: "", stock: "" }])
+    const removeSize = (index) => setSizes((prev) => prev.filter((_, i) => i !== index))
 
+    // ----------------- CERTIFICATE -------------------
+    const handleCertificateChange = (index, field, value) => {
+        const updated = [...certificates]
+        updated[index][field] = value
+        setCertificates(updated)
+    }
+    const addCertificate = () => setCertificates((prev) => [...prev, { type: "", price: "" }])
+    const removeCertificate = (index) => setCertificates((prev) => prev.filter((_, i) => i !== index))
+
+    // ----------------- IMAGE HANDLING -------------------
     const handleRemoveImage = (url) => {
         setRemovedImages((prev) => [...prev, url])
         setExistingImages((prev) => prev.filter((img) => img !== url))
     }
-
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files)
         setNewImages(files)
     }
 
+    // ----------------- SUBMIT -------------------
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData()
@@ -89,7 +116,6 @@ export default function EditBracelet() {
         formData.append("productPrice", productPrice)
         formData.append("productDiscount", productDiscount)
 
-        // Send as plain strings (NOT arrays)
         formData.append("productAbout", productAbout)
         formData.append("productFeatures", productFeatures)
         formData.append("productBenefits", productBenefits)
@@ -97,6 +123,8 @@ export default function EditBracelet() {
         formData.append("productShipping", productShipping)
 
         formData.append("energization", JSON.stringify(energization))
+        formData.append("sizes", JSON.stringify(sizes))
+        formData.append("certificates", JSON.stringify(certificates))
         formData.append("removedImages", JSON.stringify(removedImages))
         formData.append("existingImages", JSON.stringify(existingImages))
 
@@ -123,28 +151,26 @@ export default function EditBracelet() {
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <h1 className="text-2xl font-bold uppercase">Edit Bracelet</h1>
 
+            {/* BASIC INFO */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                {/* Basic Inputs */}
                 <div className="grid gap-3">
                     <Label htmlFor="stock">Stock</Label>
-                    <Input id="stock" name="stock" type="number" placeholder="enter product stock" value={stock} onChange={(e) => setStock(e.target.value)} />
+                    <Input id="stock" type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
                 </div>
                 <div className="grid gap-3">
                     <Label htmlFor="productName">Product Name</Label>
-                    <Input id="productName" name="productName" type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
+                    <Input id="productName" type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
                 </div>
-
                 <div className="grid gap-3">
-                    <Label htmlFor="productPrice">Product Price</Label>
-                    <Input id="productPrice" type="number" name="productPrice" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+                    <Label htmlFor="productPrice">Base Price</Label>
+                    <Input id="productPrice" type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
                 </div>
-
                 <div className="grid gap-3">
                     <Label htmlFor="productDiscount">Product Discount (%)</Label>
-                    <Input id="productDiscount" type="number" name="productDiscount" value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} />
+                    <Input id="productDiscount" type="number" value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} />
                 </div>
 
-                {/* Existing Images */}
+                {/* EXISTING IMAGES */}
                 <div className="grid gap-3">
                     <Label>Existing Images</Label>
                     <div className="flex flex-wrap gap-3">
@@ -160,36 +186,77 @@ export default function EditBracelet() {
                     </div>
                 </div>
 
-                {/* Upload New Images */}
+                {/* UPLOAD NEW IMAGES */}
                 <div className="grid gap-3">
                     <Label htmlFor="productImage">Upload New Images</Label>
-                    <Input id="productImage" type="file" name="image" multiple accept="image/*" onChange={handleFileChange} />
+                    <Input id="productImage" type="file" multiple accept="image/*" onChange={handleFileChange} />
                     {newImages.length > 0 && <p className="text-sm text-gray-600">{newImages.length} files selected</p>}
                 </div>
             </div>
 
-            {/* Energization Section */}
-            <div className="grid gap-3">
+            {/* ENERGIZATION */}
+            <div>
                 <div className="flex items-center justify-between">
                     <Label>Pooja / ENERGIZATION</Label>
-                    <Button type="button" variant="ghost" className="border capitalize hover:bg-orange-500 hover:text-white" onClick={addNewEnergization}>
-                        Add new
+                    <Button type="button" variant="ghost" onClick={addEnergization}>
+                        + Add
                     </Button>
                 </div>
-
                 {energization.map((item, index) => (
-                    <div key={index} className="grid grid-cols-3 gap-2">
-                        <Input type="text" value={item.title} onChange={(e) => handleListChange(index, "title", e.target.value)} placeholder="enter energization name" />
-                        <Input type="number" value={item.price} onChange={(e) => handleListChange(index, "price", e.target.value)} placeholder="enter price" />
+                    <div key={index} className="mt-2 grid grid-cols-4 gap-2">
+                        <Input type="text" value={item.title} onChange={(e) => handleEnergizationChange(index, "title", e.target.value)} placeholder="name" />
+                        <Input type="number" value={item.price} onChange={(e) => handleEnergizationChange(index, "price", e.target.value)} placeholder="price" />
                         <div className="flex items-center gap-2">
-                            <Checkbox id={`isHaveForm-${index}`} checked={item.isHaveForm} onCheckedChange={(checked) => handleListChange(index, "isHaveForm", !!checked)} className="w-4 border" />
-                            <Label htmlFor={`isHaveForm-${index}`}>Has Form?</Label>
+                            <Checkbox checked={item.isHaveForm} onCheckedChange={(checked) => handleEnergizationChange(index, "isHaveForm", !!checked)} />
+                            <Label>Form?</Label>
                         </div>
+                        <button type="button" onClick={() => removeEnergization(index)} className="text-red-500 hover:text-red-700">
+                            <X size={20} />
+                        </button>
                     </div>
                 ))}
             </div>
 
-            {/* Editors */}
+            {/* SIZES */}
+            <div>
+                <div className="flex items-center justify-between">
+                    <Label>Available Sizes</Label>
+                    <Button type="button" variant="ghost" onClick={addSize}>
+                        + Add
+                    </Button>
+                </div>
+                {sizes.map((item, index) => (
+                    <div key={index} className="mt-2 grid grid-cols-4 gap-2">
+                        <Input type="text" value={item.size} onChange={(e) => handleSizeChange(index, "size", e.target.value)} placeholder="Small / Medium / Large" />
+                        <Input type="number" value={item.price} onChange={(e) => handleSizeChange(index, "price", e.target.value)} placeholder="price" />
+                        <Input type="number" value={item.stock} onChange={(e) => handleSizeChange(index, "stock", e.target.value)} placeholder="stock" />
+                        <button type="button" onClick={() => removeSize(index)} className="text-red-500 hover:text-red-700">
+                            <X size={20} />
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {/* CERTIFICATES */}
+            <div>
+                <div className="flex items-center justify-between">
+                    <Label>Certificates</Label>
+                    <Button type="button" variant="ghost" onClick={addCertificate}>
+                        + Add
+                    </Button>
+                </div>
+                {certificates.map((item, index) => (
+                    <div key={index} className="mt-2 grid grid-cols-3 gap-2">
+                        <Input type="text" value={item.type} onChange={(e) => handleCertificateChange(index, "type", e.target.value)} placeholder="With / Without Certificate" />
+                        <Input type="number" value={item.price} onChange={(e) => handleCertificateChange(index, "price", e.target.value)} placeholder="extra price" />
+                        <button type="button" onClick={() => removeCertificate(index)} className="text-red-500 hover:text-red-700">
+                            <X size={20} />
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {/* PRODUCT DETAILS */}
             <div className="grid gap-3">
                 <Label>Product Features</Label>
                 <TiptapEditor value={productFeatures} onChange={setProductFeatures} />

@@ -47,15 +47,23 @@ const rudrakshaSchema = new mongoose.Schema(
         productShipping: {
             type: [String],
         },
+        options: [
+            {
+                title: {
+                    type: String,
+                },
+                price: {
+                    type: Number,
+                },
+            },
+        ],
         energization: [
             {
                 title: {
                     type: String,
-                    required: true,
                 },
                 price: {
                     type: Number,
-                    required: true,
                 },
                 isHaveForm: {
                     type: Boolean,

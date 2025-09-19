@@ -1,60 +1,51 @@
-'use client'
-import { useState } from "react";
-import { Mail, Phone, MapPin, PhoneCall, Facebook, Instagram } from "lucide-react";
+"use client"
+import { useState } from "react"
+import { Mail, Phone, MapPin, PhoneCall, Facebook, Instagram } from "lucide-react"
 
 function page() {
-
     return (
         <>
-            <section className="min-h-screen bg-gradient-to-b from-orange-50 via-yellow-50 to-orange-100 py-16 px-6">
-                <div className="max-w-6xl mx-auto">
+            <section className="min-h-screen bg-gradient-to-b from-orange-50 via-yellow-50 to-orange-100 px-6 py-16">
+                <div className="mx-auto max-w-6xl">
                     {/* Title */}
-                    <h2 className="text-4xl md:text-5xl font-extrabold text-center text-yellow-800 mb-4 relative">
+                    <h2 className="relative mb-4 text-center text-4xl font-extrabold text-yellow-800 md:text-5xl">
                         Get in Touch
-                        <span className="block w-20 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 mx-auto mt-3 rounded-full shadow-md"></span>
+                        <span className="mx-auto mt-3 block h-1 w-20 rounded-full bg-gradient-to-r from-orange-500 to-yellow-500 shadow-md"></span>
                     </h2>
-                    <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-                        We’d love to hear from you. Please fill out the form below or connect
-                        through our contact details.
-                    </p>
+                    <p className="mx-auto mb-12 max-w-2xl text-center text-gray-600">We’d love to hear from you. Please fill out the form below or connect through our contact details.</p>
 
                     {/* Layout */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
-
+                    <div className="mb-16 grid grid-cols-1 items-center gap-12 md:grid-cols-2">
                         {/* Image Section */}
 
-                        <div className="flex justify-center items-center relative perspective-1000">
+                        <div className="perspective-1000 relative flex items-center justify-center">
                             {/* Main Circle Image */}
-                            <div className="transform-style-preserve-3d transition-transform duration-700 ">
+                            <div className="transform-style-preserve-3d transition-transform duration-700">
                                 <img
                                     src="/images/Contactus.jpg"
                                     alt="Main Ritual"
-                                    className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full shadow-2xl border-none hover:scale-105 transition-transform duration-500"
+                                    className="h-72 w-72 rounded-full border-none object-cover shadow-2xl transition-transform duration-500 hover:scale-105 md:h-96 md:w-96"
                                     style={{
-                                        boxShadow: "0 20px 40px rgba(0,0,0,0.3), inset 0 5px 15px rgba(255,255,255,0.2)"
+                                        boxShadow: "0 20px 40px rgba(0,0,0,0.3), inset 0 5px 15px rgba(255,255,255,0.2)",
                                     }}
                                 />
                             </div>
 
                             {/* Small Overlapping Image */}
-                            <div className="absolute bottom-1 right-10 transform-style-preserve-3d transition-transform duration-700">
+                            <div className="transform-style-preserve-3d absolute right-10 bottom-1 transition-transform duration-700">
                                 <img
                                     src="/images/havan.jpg"
                                     alt="Badge"
-                                    className="w-45 h-45 object-cover rounded-full border-none shadow-xl hover:scale-110 transition-transform duration-500"
+                                    className="h-45 w-45 rounded-full border-none object-cover shadow-xl transition-transform duration-500 hover:scale-110"
                                     style={{
-                                        boxShadow: "0 15px 30px rgba(0,0,0,0.3), inset 0 5px 10px rgba(255,255,255,0.15)"
+                                        boxShadow: "0 15px 30px rgba(0,0,0,0.3), inset 0 5px 10px rgba(255,255,255,0.15)",
                                     }}
                                 />
                             </div>
-
                         </div>
 
-
                         {/* Form */}
-                        <form
-                            className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 space-y-6 border border-yellow-200 relative"
-                        >
+                        <form className="relative space-y-6 rounded-2xl border border-yellow-200 bg-white/80 p-8 shadow-2xl backdrop-blur-md">
                             {/* Floating Inputs */}
                             {/* {["name", "email", "phone"].map((field, idx) => (
                                 <div key={idx} className="relative">
@@ -75,33 +66,33 @@ function page() {
                             <div className="relative">
                                 <input
                                     type={"text"}
-                                    name={'name'}
+                                    name={"name"}
                                     required
-                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                    className="peer w-full rounded-lg border border-yellow-300 px-3 pt-5 pb-2 placeholder-transparent transition outline-none focus:ring-2 focus:ring-orange-400"
                                 />
-                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                <label className="absolute top-1 left-3 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
                                     Name
                                 </label>
                             </div>
                             <div className="relative">
                                 <input
                                     type={"email"}
-                                    name={'email'}
+                                    name={"email"}
                                     required
-                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                    className="peer w-full rounded-lg border border-yellow-300 px-3 pt-5 pb-2 placeholder-transparent transition outline-none focus:ring-2 focus:ring-orange-400"
                                 />
-                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                <label className="absolute top-1 left-3 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
                                     Email
                                 </label>
                             </div>
                             <div className="relative">
                                 <input
                                     type={"number"}
-                                    name={'mobile'}
+                                    name={"mobile"}
                                     required
-                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                    className="peer w-full rounded-lg border border-yellow-300 px-3 pt-5 pb-2 placeholder-transparent transition outline-none focus:ring-2 focus:ring-orange-400"
                                 />
-                                <label className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                <label className="absolute top-1 left-3 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
                                     Mobile
                                 </label>
                             </div>
@@ -110,17 +101,17 @@ function page() {
                                     name="message"
                                     rows="4"
                                     required
-                                    className="peer w-full border border-yellow-300 px-3 pt-5 pb-2 rounded-lg outline-none focus:ring-2 focus:ring-orange-400 transition placeholder-transparent"
+                                    className="peer w-full rounded-lg border border-yellow-300 px-3 pt-5 pb-2 placeholder-transparent transition outline-none focus:ring-2 focus:ring-orange-400"
                                     placeholder="Message"
                                 />
-                                <label className="absolute left-3 top-0 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
+                                <label className="absolute top-0 left-3 text-sm text-gray-500 transition-all peer-placeholder-shown:top-5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-1 peer-focus:text-sm peer-focus:text-orange-600">
                                     Message
                                 </label>
                             </div>
 
                             <button
                                 type="submit"
-                                className="w-full py-3 font-semibold text-white rounded-lg bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 hover:opacity-90 hover:shadow-lg transition-all duration-300"
+                                className="w-full rounded-lg bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-600 py-3 font-semibold text-white transition-all duration-300 hover:opacity-90 hover:shadow-lg"
                             >
                                 SEND MESSAGE
                             </button>
@@ -128,17 +119,17 @@ function page() {
                     </div>
 
                     {/* Contact Info Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                    <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
                         {[
-                            { icon: <Mail />, title: "Email", detail: "care@vedastructure.com" },
-                            { icon: <Phone />, title: "Phone", detail: "+91- 9634876239" },
-                            { icon: <MapPin />, title: "Address", detail: "care@vedastructure.com" },
+                            { icon: <Mail />, title: "Email", detail: "support@vedastructure.com" },
+                            { icon: <Phone />, title: "Phone", detail: "+91 9621340116" },
+                            { icon: <MapPin />, title: "Address", detail: "Varanasi, Uttar Pradesh 221001" },
                         ].map((item, idx) => (
                             <div
                                 key={idx}
-                                className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md flex items-center gap-4 border border-yellow-200 hover:shadow-xl hover:scale-105 transition-transform duration-300"
+                                className="flex items-center gap-4 rounded-xl border border-yellow-200 bg-white/80 p-6 shadow-md backdrop-blur-sm transition-transform duration-300 hover:scale-105 hover:shadow-xl"
                             >
-                                <span className="text-orange-500 text-2xl">{item.icon}</span>
+                                <span className="text-2xl text-orange-500">{item.icon}</span>
                                 <div>
                                     <p className="font-semibold text-gray-800">{item.title}</p>
                                     <p className="text-sm text-gray-600">{item.detail}</p>
@@ -147,15 +138,14 @@ function page() {
                         ))}
                     </div>
 
-
                     {/* Map Section */}
                     <div className="mb-20">
-                        <h3 className="text-3xl font-bold text-center text-yellow-900 mb-8 relative inline-block mx-auto">
+                        <h3 className="relative mx-auto mb-8 inline-block text-center text-3xl font-bold text-yellow-900">
                             Find Us on the Map
-                            <span className="block w-16 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto mt-2 rounded-full"></span>
+                            <span className="mx-auto mt-2 block h-1 w-16 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500"></span>
                         </h3>
 
-                        <div className="relative group max-w-4xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-yellow-200/70 backdrop-blur-md">
+                        <div className="group relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-yellow-200/70 shadow-2xl backdrop-blur-md">
                             <iframe
                                 title="map"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3559.011058690995!2d83.0107637746288!3d25.31764527763627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398e2e1f3a03f4b9%3A0x3f8f3c7!2sVaranasi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1725625738291!5m2!1sen!2sin"
@@ -168,49 +158,44 @@ function page() {
                                 className="rounded-3xl"
                             />
                             {/* Animated Overlay */}
-
                         </div>
 
-                        <p className="text-center text-gray-700 mt-5 text-lg">
-                            We’re just a click away – come visit us anytime!
-                        </p>
+                        <p className="mt-5 text-center text-lg text-gray-700">We’re just a click away – come visit us anytime!</p>
                     </div>
 
                     {/* Social Icons */}
-                    <div className="flex justify-center gap-8 mt-10">
+                    <div className="mt-10 flex justify-center gap-8">
                         <a
-                            href={'#'}
+                            href={"#"}
                             target="_blank"
                             rel="noreferrer"
-                            className={`group relative bg-green-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:rotate-3`}
+                            className={`group relative transform rounded-2xl bg-green-500 p-6 text-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:rotate-3 hover:shadow-2xl`}
                         >
                             {/* Glow effect */}
-                            <span className="absolute inset-0 rounded-2xl bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 blur-md transition-opacity group-hover:opacity-100"></span>
                             <PhoneCall />
                         </a>
                         <a
-                            href={'#'}
+                            href={"#"}
                             target="_blank"
                             rel="noreferrer"
-                            className={`group relative bg-pink-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:rotate-3`}
+                            className={`group relative transform rounded-2xl bg-pink-500 p-6 text-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:rotate-3 hover:shadow-2xl`}
                         >
                             {/* Glow effect */}
-                            <span className="absolute inset-0 rounded-2xl bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 blur-md transition-opacity group-hover:opacity-100"></span>
                             <Facebook />
                         </a>
                         <a
-                            href={'#'}
+                            href={"#"}
                             target="_blank"
                             rel="noreferrer"
-                            className={`group relative bg-blue-500 text-white p-6 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:rotate-3`}
+                            className={`group relative transform rounded-2xl bg-blue-500 p-6 text-white shadow-lg transition-all duration-500 hover:-translate-y-2 hover:rotate-3 hover:shadow-2xl`}
                         >
                             {/* Glow effect */}
-                            <span className="absolute inset-0 rounded-2xl bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                            <span className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 blur-md transition-opacity group-hover:opacity-100"></span>
                             <Instagram />
                         </a>
-
                     </div>
-
                 </div>
             </section>
         </>

@@ -16,6 +16,7 @@ function ProductDetails() {
     const { addItem } = useCart()
     const { rudraksha } = useRudraksha()
     const router = useRouter()
+    const [radioSelected, setRadioSelected] = useState(null)
     const [formData, setFormData] = useState({
         wearerName: "",
         dob: "",
@@ -105,6 +106,7 @@ function ProductDetails() {
     const basePrice = product.productPrice || 0
     const energizationPrice = selected.value || 0
     const finalPrice = basePrice + energizationPrice
+
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
@@ -153,7 +155,7 @@ function ProductDetails() {
                         Offer Available: 25/08/25-20/09/25
                     </marquee> */}
 
-                    <div className="border-t pt-4 text-sm">
+                    {/* <div className="border-t pt-4 text-sm">
                         <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
                             <li>
                                 Width: <span className="font-semibold">00</span>
@@ -172,15 +174,15 @@ function ProductDetails() {
                                 </span>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
 
                     <div>
-                        <label className="mt-4 block font-semibold">Pooja/Energization</label>
-                        <select className="mt-1 w-full rounded-lg border p-2" onChange={handleChange}>
-                            <option hidden>--choose--</option>
+                        <label className="mt-4 block font-semibold">Pooja/Energization (optional)</label>
+                        <select className="mt-1 w-full rounded-lg border p-2" onChange={handleChange} defaultValue="">
+                            <option value="0">--choose energization--</option>
                             {product.energization?.map((item, idx) => (
-                                <option className="capitalize" key={idx} value={item.price} data-isHaveForm={item.isHaveForm}>
-                                    {item.title}- ₹{item.price}
+                                <option className="capitalize" key={idx} value={item.price} data-ishaveform={item.isHaveForm}>
+                                    {item.title} - ₹{item.price}
                                 </option>
                             ))}
                         </select>
@@ -240,6 +242,19 @@ function ProductDetails() {
                         </div>
                     )}
 
+                    <div className="my-2 flex flex-wrap gap-3">
+                        {product?.options?.map((item) => (
+                            <label
+                                key={item._id}
+                                className={`cursor-pointer rounded-xl border px-2 transition ${
+                                    radioSelected === item._id ? "border-gray-300 bg-orange-500 text-white shadow-md" : "border-gray-300 bg-white hover:bg-gray-100"
+                                }`}
+                            >
+                                <input type="radio" name="options" value={item.title} checked={radioSelected === item._id} onChange={() => setRadioSelected(item._id)} className="hidden" />
+                                <span className="font-medium">{item.title}</span>
+                            </label>
+                        ))}
+                    </div>
                     {product?.stock <= 0 && <p className="mt-2 text-sm text-red-500">Out of stock</p>}
                     {!product?.stock <= 0 && (
                         <div className="flex items-center space-x-3">

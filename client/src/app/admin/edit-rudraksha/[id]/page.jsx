@@ -1,4 +1,5 @@
 "use client"
+
 import { useEffect, useState } from "react"
 import { useRouter, useParams } from "next/navigation"
 import { toast } from "sonner"
@@ -10,27 +11,37 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { getRudrakshaById, updateRudraksha } from "@/apis/controllers/rudrakshaController"
 import Image from "next/image"
+import { X } from "lucide-react"
 
 export default function EditRudraksha() {
     const router = useRouter()
-    const params = useParams()
-    const rudrakshaId = params?.id
+    const { id: rudrakshaId } = useParams()
 
     const [loading, setLoading] = useState(true)
-    const [stock, setStock] = useState(0)
+
+    // Basic fields
+    const [stock, setStock] = useState("")
     const [productName, setProductName] = useState("")
     const [productPrice, setProductPrice] = useState("")
     const [productDiscount, setProductDiscount] = useState("")
+
+    // Editors
     const [productAbout, setProductAbout] = useState("")
     const [productFeatures, setProductFeatures] = useState("")
     const [productBenefits, setProductBenefits] = useState("")
     const [productFaqs, setProductFaqs] = useState("")
     const [productShipping, setProductShipping] = useState("")
+
+    // Arrays
     const [energization, setEnergization] = useState([{ title: "", price: "", isHaveForm: false }])
+    const [options, setOptions] = useState([{ title: "", price: "" }])
+
+    // Images
     const [existingImages, setExistingImages] = useState([])
     const [removedImages, setRemovedImages] = useState([])
     const [newImages, setNewImages] = useState([])
 
+    // Fetch data
     useEffect(() => {
         if (!rudrakshaId) return
         const fetchData = async () => {
@@ -38,18 +49,20 @@ export default function EditRudraksha() {
                 const res = await getRudrakshaById(rudrakshaId)
                 if (res.success) {
                     const data = res.data.rudraksha
-                    setStock(data.stock || 0)
+
+                    setStock(data.stock || "")
                     setProductName(data.productName || "")
                     setProductPrice(data.productPrice || "")
                     setProductDiscount(data.productDiscount || "")
 
-                    setProductAbout(Array.isArray(data.productAbout) ? data.productAbout[0] : "")
-                    setProductFeatures(Array.isArray(data.productFeatures) ? data.productFeatures[0] : "")
-                    setProductBenefits(Array.isArray(data.productBenefits) ? data.productBenefits[0] : "")
-                    setProductFaqs(Array.isArray(data.productFaqs) ? data.productFaqs[0] : "")
-                    setProductShipping(Array.isArray(data.productShipping) ? data.productShipping[0] : "")
+                    setProductAbout(Array.isArray(data.productAbout) ? data.productAbout[0] : data.productAbout || "")
+                    setProductFeatures(Array.isArray(data.productFeatures) ? data.productFeatures[0] : data.productFeatures || "")
+                    setProductBenefits(Array.isArray(data.productBenefits) ? data.productBenefits[0] : data.productBenefits || "")
+                    setProductFaqs(Array.isArray(data.productFaqs) ? data.productFaqs[0] : data.productFaqs || "")
+                    setProductShipping(Array.isArray(data.productShipping) ? data.productShipping[0] : data.productShipping || "")
 
-                    setEnergization(Array.isArray(data.energization) && data.energization.length > 0 ? data.energization : [{ title: "", price: "", isHaveForm: false }])
+                    setEnergization(data.energization?.length ? data.energization : [{ title: "", price: "", isHaveForm: false }])
+                    setOptions(data.options?.length ? data.options : [{ title: "", price: "" }])
                     setExistingImages(data.productImage || [])
                 }
             } catch (err) {
@@ -61,14 +74,33 @@ export default function EditRudraksha() {
         fetchData()
     }, [rudrakshaId])
 
-    const handleListChange = (index, field, value) => {
-        const updatedList = [...energization]
-        updatedList[index][field] = value
-        setEnergization(updatedList)
+    // Handlers
+    const handleEnergizationChange = (index, field, value) => {
+        const updated = [...energization]
+        updated[index][field] = value
+        setEnergization(updated)
     }
 
-    const addNewEnergization = () => {
+    const addEnergization = () => {
         setEnergization((prev) => [...prev, { title: "", price: "", isHaveForm: false }])
+    }
+
+    const removeEnergization = (index) => {
+        setEnergization((prev) => prev.filter((_, i) => i !== index))
+    }
+
+    const handleOptionChange = (index, field, value) => {
+        const updated = [...options]
+        updated[index][field] = value
+        setOptions(updated)
+    }
+
+    const addOption = () => {
+        setOptions((prev) => [...prev, { title: "", price: "" }])
+    }
+
+    const removeOption = (index) => {
+        setOptions((prev) => prev.filter((_, i) => i !== index))
     }
 
     const handleRemoveImage = (url) => {
@@ -89,7 +121,6 @@ export default function EditRudraksha() {
         formData.append("productPrice", productPrice)
         formData.append("productDiscount", productDiscount)
 
-        // Send as plain strings (NOT arrays)
         formData.append("productAbout", productAbout)
         formData.append("productFeatures", productFeatures)
         formData.append("productBenefits", productBenefits)
@@ -97,6 +128,7 @@ export default function EditRudraksha() {
         formData.append("productShipping", productShipping)
 
         formData.append("energization", JSON.stringify(energization))
+        formData.append("options", JSON.stringify(options))
         formData.append("removedImages", JSON.stringify(removedImages))
         formData.append("existingImages", JSON.stringify(existingImages))
 
@@ -123,26 +155,12 @@ export default function EditRudraksha() {
         <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
             <h1 className="text-2xl font-bold uppercase">Edit Rudraksha</h1>
 
+            {/* Basic Info */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                {/* Basic Inputs */}
-                <div className="grid gap-3">
-                    <Label htmlFor="stock">Stock</Label>
-                    <Input id="stock" name="stock" type="number" placeholder="enter product stock" value={stock} onChange={(e) => setStock(e.target.value)} />
-                </div>
-                <div className="grid gap-3">
-                    <Label htmlFor="productName">Product Name</Label>
-                    <Input id="productName" name="productName" type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
-                </div>
-
-                <div className="grid gap-3">
-                    <Label htmlFor="productPrice">Product Price</Label>
-                    <Input id="productPrice" type="number" name="productPrice" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
-                </div>
-
-                <div className="grid gap-3">
-                    <Label htmlFor="productDiscount">Product Discount (%)</Label>
-                    <Input id="productDiscount" type="number" name="productDiscount" value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} />
-                </div>
+                <InputWithLabel id="stock" label="Stock" type="number" value={stock} onChange={(e) => setStock(e.target.value)} />
+                <InputWithLabel id="productName" label="Product Name" type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
+                <InputWithLabel id="productPrice" label="Product Price" type="number" value={productPrice} onChange={(e) => setProductPrice(e.target.value)} />
+                <InputWithLabel id="productDiscount" label="Product Discount (%)" type="number" value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} />
 
                 {/* Existing Images */}
                 <div className="grid gap-3">
@@ -168,60 +186,85 @@ export default function EditRudraksha() {
                 </div>
             </div>
 
-            {/* Energization Section */}
-            <div className="grid gap-3">
-                <div className="flex items-center justify-between">
-                    <Label>Pooja / ENERGIZATION</Label>
-                    <Button type="button" variant="ghost" className="border capitalize hover:bg-orange-500 hover:text-white" onClick={addNewEnergization}>
-                        Add new
-                    </Button>
-                </div>
-
-                {energization.map((item, index) => (
-                    <div key={index} className="grid grid-cols-3 gap-2">
-                        <Input type="text" value={item.title} onChange={(e) => handleListChange(index, "title", e.target.value)} placeholder="enter energization name" />
-                        <Input type="number" value={item.price} onChange={(e) => handleListChange(index, "price", e.target.value)} placeholder="enter price" />
-                        <div className="flex items-center gap-2">
-                            <Checkbox id={`isHaveForm-${index}`} checked={item.isHaveForm} onCheckedChange={(checked) => handleListChange(index, "isHaveForm", !!checked)} className="w-4 border" />
-                            <Label htmlFor={`isHaveForm-${index}`}>Has Form?</Label>
-                        </div>
+            {/* Options */}
+            <Section label="Product Options" onAdd={addOption}>
+                {options.map((opt, index) => (
+                    <div key={index} className="grid grid-cols-2 items-center gap-2 md:grid-cols-3">
+                        <Input type="text" value={opt.title} onChange={(e) => handleOptionChange(index, "title", e.target.value)} placeholder="e.g. Only Bead / With Pendant" />
+                        <Input type="number" value={opt.price} onChange={(e) => handleOptionChange(index, "price", e.target.value)} placeholder="enter option price" />
+                        <Button type="button" variant="ghost" size="icon" onClick={() => removeOption(index)} className="text-red-500 hover:bg-red-500 hover:text-white">
+                            <X className="h-4 w-4" />
+                        </Button>
                     </div>
                 ))}
-            </div>
+            </Section>
+
+            {/* Energization */}
+            <Section label="Pooja / Energization" onAdd={addEnergization}>
+                {energization.map((item, index) => (
+                    <div key={index} className="grid grid-cols-3 items-center gap-2 md:grid-cols-4">
+                        <Input type="text" value={item.title} onChange={(e) => handleEnergizationChange(index, "title", e.target.value)} placeholder="enter name" />
+                        <Input type="number" value={item.price} onChange={(e) => handleEnergizationChange(index, "price", e.target.value)} placeholder="enter price" />
+                        <div className="flex items-center gap-2">
+                            <Checkbox
+                                id={`isHaveForm-${index}`}
+                                checked={item.isHaveForm}
+                                onCheckedChange={(checked) => handleEnergizationChange(index, "isHaveForm", !!checked)}
+                                className="w-4 border"
+                            />
+                            <Label htmlFor={`isHaveForm-${index}`}>Has Form?</Label>
+                        </div>
+                        <Button type="button" variant="ghost" size="icon" onClick={() => removeEnergization(index)} className="text-red-500 hover:bg-red-500 hover:text-white">
+                            <X className="h-4 w-4" />
+                        </Button>
+                    </div>
+                ))}
+            </Section>
 
             {/* Editors */}
-            <div className="grid gap-3">
-                <Label>Product Features</Label>
-                <TiptapEditor value={productFeatures} onChange={setProductFeatures} />
-            </div>
-            <Separator />
-
-            <div className="grid gap-3">
-                <Label>About Product</Label>
-                <TiptapEditor value={productAbout} onChange={setProductAbout} />
-            </div>
-            <Separator />
-
-            <div className="grid gap-3">
-                <Label>Benefits</Label>
-                <TiptapEditor value={productBenefits} onChange={setProductBenefits} />
-            </div>
-            <Separator />
-
-            <div className="grid gap-3">
-                <Label>FAQ's</Label>
-                <TiptapEditor value={productFaqs} onChange={setProductFaqs} />
-            </div>
-            <Separator />
-
-            <div className="grid gap-3">
-                <Label>Shipping & Return</Label>
-                <TiptapEditor value={productShipping} onChange={setProductShipping} />
-            </div>
+            <EditorSection label="Product Features" value={productFeatures} onChange={setProductFeatures} />
+            <EditorSection label="About Product" value={productAbout} onChange={setProductAbout} />
+            <EditorSection label="Benefits" value={productBenefits} onChange={setProductBenefits} />
+            <EditorSection label="FAQ's" value={productFaqs} onChange={setProductFaqs} />
+            <EditorSection label="Shipping & Return" value={productShipping} onChange={setProductShipping} />
 
             <Button type="submit" className="mt-4 ml-auto w-fit rounded bg-orange-600 px-6 py-2 font-bold text-white">
                 Update Product
             </Button>
         </form>
+    )
+}
+
+/* ---- Small Reusable Components ---- */
+function InputWithLabel({ id, label, ...props }) {
+    return (
+        <div className="grid gap-3">
+            <Label htmlFor={id}>{label}</Label>
+            <Input id={id} {...props} />
+        </div>
+    )
+}
+
+function EditorSection({ label, value, onChange }) {
+    return (
+        <div className="grid gap-3">
+            <Label>{label}</Label>
+            <TiptapEditor value={value} onChange={onChange} />
+            <Separator />
+        </div>
+    )
+}
+
+function Section({ label, onAdd, children }) {
+    return (
+        <div className="grid gap-3">
+            <div className="flex items-center justify-between">
+                <Label>{label}</Label>
+                <Button type="button" variant="ghost" className="border capitalize hover:bg-orange-500 hover:text-white" onClick={onAdd}>
+                    Add New
+                </Button>
+            </div>
+            {children}
+        </div>
     )
 }

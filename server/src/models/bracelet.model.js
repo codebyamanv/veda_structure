@@ -12,7 +12,6 @@ const braceletSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
-
         productPrice: {
             type: Number,
             required: true,
@@ -33,44 +32,37 @@ const braceletSchema = new mongoose.Schema(
                 required: true,
             },
         ],
-        productAbout: {
-            type: [String],
-        },
-        productFeatures: {
-            type: [String],
-        },
-        productBenefits: {
-            type: [String],
-        },
-        productFaqs: {
-            type: [String],
-        },
-        productShipping: {
-            type: [String],
-        },
-        withCertificate: {
-            type: Boolean,
-            default: false,
-        },
-        size: {
-            type: String,
-            enum: ['medium', 'large'],
-            default: 'medium',
-        },
+
+        // Rich text fields (from TipTap)
+        productAbout: { type: [String] },
+        productFeatures: { type: [String] },
+        productBenefits: { type: [String] },
+        productFaqs: { type: [String] },
+        productShipping: { type: [String] },
+
+        // ⚡ Energization options
         energization: [
             {
-                title: {
-                    type: String,
-                    required: true,
-                },
-                price: {
-                    type: Number,
-                    required: true,
-                },
-                isHaveForm: {
-                    type: Boolean,
-                    default: false,
-                },
+                title: { type: String, required: true },
+                price: { type: Number, required: true },
+                isHaveForm: { type: Boolean, default: false },
+            },
+        ],
+
+        // 📏 Size options
+        sizes: [
+            {
+                size: { type: String, required: true },
+                price: { type: Number, required: true },
+                stock: { type: Number, required: true, default: 0 },
+            },
+        ],
+
+        // 📜 Certificate options
+        certificates: [
+            {
+                type: { type: String, required: true },
+                price: { type: Number, required: true },
             },
         ],
     },
