@@ -5,7 +5,6 @@ export default function BraceletHero() {
         <section className="relative flex items-center justify-center h-[600px] bg-gradient-to-b from-[#0d0d0d] to-[#1a1a1a] overflow-hidden">
             <div className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 blur-3xl opacity-30 animate-pulse"></div>
 
-            {/* Floating Bracelet */}
             <motion.img
                 src="/images/brace.png"
                 alt="Spiritual Bracelet"
@@ -19,7 +18,6 @@ export default function BraceletHero() {
                 }}
             />
 
-            {/* Heading */}
             <motion.div
                 className="absolute bottom-4 text-center px-4"
                 initial={{ opacity: 0, y: 30 }}

@@ -5,7 +5,7 @@ function page() {
     return (
         <>
             <div>
-                <Image src="/images/all-products.jpeg" width={1920} height={1080} alt="all products" className="w-full" />
+                <Image src="/images/Artboard-4.jpg" width={1920} height={1080} alt="all products" className="w-full" />
             </div>
             <div className="mx-auto max-w-7xl px-4 py-10 md:py-12 lg:py-16">
                 <div className="mb-6 flex flex-col justify-between gap-2 border-b pb-4 sm:flex-row">

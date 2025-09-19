@@ -7,7 +7,10 @@ import Download from '@/components/Download'
 export default function Bracelet() {
     return (
         <>
-            <BraceletHero />
+            {/* <BraceletHero /> */}
+            <div>
+                <img src="/images/Artboard-1.jpg" className='max-h-[560px] w-full overflow-hidden object-cover object-center' alt="" />
+            </div>
             <BraceletCard />
             <BraceletGenstone />
             <BookSection />

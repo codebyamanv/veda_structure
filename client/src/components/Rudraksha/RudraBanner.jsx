@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function RudraBanner() {
     return (
-        <section className="bg-gray-50 pb-6 overflow-hidden">
+        <section>
             {/* <div className="flex justify-center items-end relative gap-2 flex-nowrap">
                 <img
                     src="images/r1.png"
@@ -41,7 +41,7 @@ export default function RudraBanner() {
                 </p>
             </div> */}
             <div>
-                <img src="/images/rudrakhsa-hero-img.png" className='max-h-[560px] w-full overflow-hidden object-cover object-center' alt="" />
+                <img src="/images/Artboard-3.jpg" className='max-h-[560px] w-full overflow-hidden object-cover object-center' alt="" />
             </div>
         </section>
     )
