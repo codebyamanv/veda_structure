@@ -1,5 +1,3 @@
-"use client"
-import { useState } from "react"
 import { Mail, Phone, MapPin, PhoneCall, Facebook, Instagram } from "lucide-react"
 
 function page() {
