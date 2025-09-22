@@ -154,7 +154,7 @@ export default function Navbar() {
                                 All Products
                             </a> */}
                             <Link href="/all-products" className="block px-4 py-2 hover:bg-yellow-100">
-                                Exclusive All
+                                Explore All
                             </Link>
                             <Link href="/rudraksha" className="block px-4 py-2 hover:bg-yellow-100">
                                 Rudraksha
@@ -287,18 +287,18 @@ export default function Navbar() {
                             Veda Store <FaAngleDown />
                         </button>
                         {openDropdown === "veda" && (
-                            <div className="space-y-1 pl-4">
+                            <div className="space-y-2 pl-4">
                                 <Link href="/all-products" className="block hover:text-yellow-600">
                                     Explore All
                                 </Link>
                                 <Link href="/rudraksha" className="block hover:text-yellow-600">
                                     Rudraksha
                                 </Link>
-                                <a href="#" className="block hover:text-yellow-600">
+                                {/* <a href="#" className="block hover:text-yellow-600">
                                     Gems
-                                </a>
+                                </a> */}
                                 <Link href="/bracelet" className="block hover:text-yellow-600">
-                                    Bracelet
+                                    Bracelets
                                 </Link>
                             </div>
                         )}

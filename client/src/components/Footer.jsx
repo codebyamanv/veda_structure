@@ -93,10 +93,10 @@ export default function Footer() {
                                 <Mail className="inline h-4 text-yellow-500" /> support@vedastructure.com
                             </li>
                             <li className="hover:text-yellow-300">
-                                <Phone className="inline h-4 text-yellow-500" /> +91 9621340116
+                                <Phone className="inline h-4 text-yellow-500" /> +91 9634876239
                             </li>
                             <li className="hover:text-yellow-300">
-                                <FaWhatsapp className="inline h-4 w-6 text-yellow-500" /> +91 9634876239
+                                <FaWhatsapp className="inline h-4 w-6 text-yellow-500" /> +91 9621340116
                             </li>
                         </ul>
                     </div>

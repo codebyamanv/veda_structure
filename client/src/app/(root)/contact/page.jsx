@@ -122,7 +122,7 @@ function page() {
                     <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-3">
                         {[
                             { icon: <Mail />, title: "Email", detail: "support@vedastructure.com" },
-                            { icon: <Phone />, title: "Phone", detail: "+91 9621340116" },
+                            { icon: <Phone />, title: "Phone", detail: "+91 9634876239" },
                             { icon: <MapPin />, title: "Address", detail: "Varanasi, Uttar Pradesh 221001" },
                         ].map((item, idx) => (
                             <div
