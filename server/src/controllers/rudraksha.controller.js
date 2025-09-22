@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import Rudraksha from '../models/rudraksha.model.js'
 import ApiResponse from '../utils/apiResponse.js'
-import ErrorResponse from '../utils/errorResponse.js'
 
 export const addRudraksha = async (req, res) => {
     const { body } = req
