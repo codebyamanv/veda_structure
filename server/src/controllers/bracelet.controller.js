@@ -5,13 +5,11 @@ import asyncHandler from '../utils/asyncHandler.js'
 
 export const addBracelet = asyncHandler(async (req, res) => {
     const { body } = req
-    // Parse JSON strings for arrays
-    const energization = body.energization ? JSON.parse(body.energization) : []
-    const sizes = body.sizes ? JSON.parse(body.sizes) : []
-    const certificates = body.certificates ? JSON.parse(body.certificates) : []
-    // Handle images
-    const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
-    const images = req.files
+    const energization = body?.energization ? JSON.parse(body?.energization) : []
+    const sizes = body?.sizes ? JSON.parse(body.sizes) : []
+    const certificates = body.certificates ? JSON.parse(body?.certificates) : []
+    const imagesPath = req?.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
+    const images = req?.files
         ? req.files.map(
               (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
           )

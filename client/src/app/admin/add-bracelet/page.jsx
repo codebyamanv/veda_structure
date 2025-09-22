@@ -17,6 +17,7 @@ export default function AddBracelet() {
     const [productBenefits, setProductBenefits] = useState("")
     const [productFaqs, setProductFaqs] = useState("")
     const [productShipping, setProductShipping] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const [energization, setEnergization] = useState([{ title: "", price: "", isHaveForm: false }])
     const [sizes, setSizes] = useState([{ size: "Small", price: "", stock: "" }])
@@ -62,6 +63,7 @@ export default function AddBracelet() {
         formData.append("energization", JSON.stringify(energization))
         formData.append("sizes", JSON.stringify(sizes))
         formData.append("certificates", JSON.stringify(certificates))
+        setLoading(true)
         try {
             const response = await postBracelet(formData)
             if (response.success) {
@@ -70,6 +72,8 @@ export default function AddBracelet() {
             }
         } catch (error) {
             toast.error(error.message)
+        } finally {
+            setLoading(false)
         }
     }
 
