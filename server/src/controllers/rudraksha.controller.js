@@ -1,11 +1,10 @@
 import fs from 'node:fs'
 import Rudraksha from '../models/rudraksha.model.js'
 import ApiResponse from '../utils/apiResponse.js'
-import ErrorResponse from '../utils/errorResponse.js'
 
 export const addRudraksha = async (req, res) => {
     const { body } = req
-    const energization = JSON.parse(req.body.energization)
+    const energization = body?.energization ? JSON.parse(body?.energization) : []
     const options = JSON.parse(req.body.options)
 
     const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []

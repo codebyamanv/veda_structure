@@ -4,17 +4,14 @@ const rudrakshaSchema = new mongoose.Schema(
     {
         stock: {
             type: Number,
-            required: true,
             default: 0,
         },
         productName: {
             type: String,
-            required: true,
             trim: true,
         },
         productPrice: {
             type: Number,
-            required: true,
         },
         productDiscount: {
             type: Number,
@@ -23,13 +20,11 @@ const rudrakshaSchema = new mongoose.Schema(
         productImage: [
             {
                 type: String,
-                required: true,
             },
         ],
         productPath: [
             {
                 type: String,
-                required: true,
             },
         ],
         productAbout: {

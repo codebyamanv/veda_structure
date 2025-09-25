@@ -36,13 +36,10 @@ app.use(
 
 app.use(helmet())
 app.use(morgan('dev'))
-app.use(express.json({ limit: '16kb' }))
+app.use(express.json({ limit: '100mb' }))
 app.use(express.urlencoded({ extended: true }))
-
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))
-
 app.use(cookieParser('Veda-Structure-secret-key-protected'))
-
 app.use('/', baseRouter)
 app.use('/api/users', userRouter)
 app.use('/api/bookings', bookingRouter)

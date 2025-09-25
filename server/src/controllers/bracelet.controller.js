@@ -1,39 +1,32 @@
 import fs from 'node:fs'
 import Bracelet from '../models/bracelet.model.js'
 import ApiResponse from '../utils/apiResponse.js'
+import asyncHandler from '../utils/asyncHandler.js'
 
-export const addBracelet = async (req, res) => {
-    try {
-        const { body } = req
+export const addBracelet = asyncHandler(async (req, res) => {
+    const { body } = req
+    const energization = body?.energization ? JSON.parse(body?.energization) : []
+    const sizes = body?.sizes ? JSON.parse(body.sizes) : []
+    const certificates = body.certificates ? JSON.parse(body?.certificates) : []
+    const imagesPath = req?.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
+    const images = req?.files
+        ? req.files.map(
+              (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
+          )
+        : []
 
-        // Parse JSON strings for arrays
-        const energization = body.energization ? JSON.parse(body.energization) : []
-        const sizes = body.sizes ? JSON.parse(body.sizes) : []
-        const certificates = body.certificates ? JSON.parse(body.certificates) : []
+    const product = new Bracelet({
+        ...body,
+        energization,
+        sizes,
+        certificates,
+        productImage: images,
+        productPath: imagesPath,
+    })
 
-        // Handle images
-        const imagesPath = req.files ? req.files.map((file) => file.path.replace(/\\/g, '/')) : []
-        const images = req.files
-            ? req.files.map(
-                  (file) => `${req.protocol}://${req.get('host')}/${file.path.replace(/\\/g, '/')}`,
-              )
-            : []
-
-        const product = new Bracelet({
-            ...body,
-            energization,
-            sizes,
-            certificates,
-            productImage: images,
-            productPath: imagesPath,
-        })
-
-        await product.save()
-        return ApiResponse.created({}, 'Bracelet added successfully').send(res)
-    } catch (error) {
-        return ApiResponse.serverError(error.message).send(res)
-    }
-}
+    await product.save()
+    return ApiResponse.created({}, 'Bracelet added successfully').send(res)
+})
 
 export const getBracelet = async (req, res) => {
     const bracelet = await Bracelet.find({})
