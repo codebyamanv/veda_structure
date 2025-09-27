@@ -1,6 +1,6 @@
-import AboutVidComp from "@/components/AboutVidComp";
-import Stat from "@/components/Stat";
-import Link from "next/link";
+import AboutVidComp from "@/components/AboutVidComp"
+import Stat from "@/components/Stat"
+import Link from "next/link"
 
 const features = [
     {
@@ -19,139 +19,106 @@ const features = [
         imageSrc: "https://image3.jdomni.in/banner/13062021/EB/99/EE/8B46027500E987A5142ECC1CE1_1623567959360.png?output-format=webp",
         title: "Expertise in Industry",
     },
-];
+]
 
 const images = [
     {
-        src: '/images/tp_img/rudraks.jpg',
+        src: "/images/tp_img/rudraks.jpg",
         alt: "Woman with a dog",
         rotation: "rotate-6",
-        link: '/rudraksha'
+        link: "/rudraksha",
     },
     {
-        src: '/images/tp_img/yantra.jpg',
+        src: "/images/tp_img/yantra.jpg",
         alt: "Man taking a photo",
         rotation: "-rotate-12",
-        link: '#'
+        link: "#",
     },
     {
-        src: '/images/tp_img/gemstone.jpg',
+        src: "/images/tp_img/gemstone.jpg",
         alt: "Cityscape at dusk",
         rotation: "rotate-6",
-        link: '#'
+        link: "#",
     },
     {
-        src: '/images/tp_img/seven_c.jpg',
+        src: "/images/tp_img/seven_c.jpg",
         alt: "Person sitting with a laptop",
         rotation: "-rotate-12",
-        link: '#'
+        link: "#",
     },
-];
+]
 
 const reviewsData = [
     {
-        name: 'Daniella Doe',
-        title: 'Mobile dev',
-        avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
-        review: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum aliquid quo eum quae quos
-    illo earum ipsa doloribus nostrum minus libero aspernatur laborum cum, a suscipit, ratione ea totam
-    ullam! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti
-    aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at
-    reprehenderit, veritatis harum et rerum.`,
+        name: "Ananya Sharma",
+        title: "Heartfelt & Simple",
+        avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+        review: `Every visit fills me with calmness and clarity. This place has given me strength in difficult times and joy in everyday life. It feels like a true home for my soul.`,
     },
     {
-        name: 'gayatri',
-        title: 'bracelete',
-        avatar: 'https://randomuser.me/api/portraits/women/14.jpg',
-        review: `Lorem ipsum dolor laboriosam deleniti aperiam ab veniam sint non cumque quis tempore
-    cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.`,
+        name: "Gayatri Iyer",
+        title: "Devotee",
+        avatar: "https://randomuser.me/api/portraits/women/14.jpg",
+        review: `The divine atmosphere here is beyond words. I always leave with a peaceful heart and renewed positivity to face life’s challenges.`,
     },
     {
-        name: 'Yanick Doe',
-        title: 'Developer',
-        avatar: 'https://randomuser.me/api/portraits/women/18.jpg',
-        review: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti
-    aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at
-    reprehenderit, veritatis harum et rerum.`,
+        name: "Rohan Verma",
+        title: "Spiritual Seeker",
+        avatar: "https://randomuser.me/api/portraits/men/18.jpg",
+        review: `Being connected here has been a turning point in my spiritual journey. The teachings are simple yet powerful, and they resonate with my daily life.`,
     },
     {
-        name: 'Jane Doe',
-        title: 'Mobile dev',
-        avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
-        review: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti
-    aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at
-    reprehenderit, veritatis harum et rerum.`,
+        name: "Meera Nair",
+        title: "Family-Oriented Devotee",
+        avatar: "https://randomuser.me/api/portraits/women/2.jpg",
+        review: `Visiting with my family has been a blessing. It brings us closer not only to the divine but also strengthens the love and harmony in our home.`,
     },
     {
-        name: 'Andy Doe',
-        title: 'Manager',
-        avatar: 'https://randomuser.me/api/portraits/women/62.jpg',
-        review: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam
-    deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at
-    reprehenderit, veritatis harum et rerum.`,
+        name: "Arjun Singh",
+        title: "Youth Devotee",
+        avatar: "https://randomuser.me/api/portraits/men/62.jpg",
+        review: `As a young devotee, I find the guidance here inspiring and practical. It motivates me to live with faith while staying grounded in today’s world.`,
     },
     {
-        name: 'Yanndy Doe',
-        title: 'Mobile dev',
-        avatar: 'https://randomuser.me/api/portraits/women/19.jpg',
-        review: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti
-    aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at
-    reprehenderit, veritatis harum et rerum.`,
+        name: "Kavya Deshmukh",
+        title: "Grateful Devotee",
+        avatar: "https://randomuser.me/api/portraits/women/19.jpg",
+        review: `This place feels like a sanctuary of love and light. Every prayer here fills me with gratitude and brings me a step closer to the divine.`,
     },
-];
+]
 
 function page() {
     return (
         <>
-            <div className="relative overflow-hidden min-h-[550px] sm:min-h-[560px] px-4 bg-gradient-to-r from-yellow-300 via-orange-200 to-yellow-300 bg-[length:200%_200%] animate-[gradient-animation_10s_ease-in-out_infinite] flex justify-center items-center dark:bg-gray-950 dark:text-white rounded-xl">
+            <div className="relative flex min-h-[550px] animate-[gradient-animation_10s_ease-in-out_infinite] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-yellow-300 via-orange-200 to-yellow-300 bg-[length:200%_200%] px-4 sm:min-h-[560px] dark:bg-gray-950 dark:text-white">
                 <div className="container pb-8 sm:pb-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="flex flex-col justify-center gap-4 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
-                            <h1
-                                data-aos="zoom-out"
-                                data-aos-duration="500"
-                                data-aos-once="true"
-                                className="text-5xl sm:text-6xl lg:text-7xl font-bold text-red-950/85"
-                            >
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div className="relative z-10 order-2 flex flex-col justify-center gap-4 text-center sm:order-1 sm:pt-0 sm:text-left">
+                            <h1 data-aos="zoom-out" data-aos-duration="500" data-aos-once="true" className="text-5xl font-bold text-red-950/85 sm:text-6xl lg:text-7xl">
                                 Your one-stop shop for all things Vedic
                             </h1>
-                            <p
-                                data-aos="fade-up"
-                                data-aos-duration="500"
-                                data-aos-delay="100"
-                                className="text-lg text-yellow-800"
-                            >
+                            <p data-aos="fade-up" data-aos-duration="500" data-aos-delay="100" className="text-lg text-yellow-800">
                                 From gemstones to yantras, explore our curated collection of authentic Vedic products.
                             </p>
                         </div>
                         <div className="order-1 sm:order-2">
-                            <div
-                                data-aos="zoom-in"
-                                data-aos-once="true"
-                                className="relative z-10"
-                            >
-                                <img
-                                    src={'/images/about-hero-img.png'}
-                                    alt=""
-                                    className="max-h-[400px] object-contain mx-auto "
-                                />
+                            <div data-aos="zoom-in" data-aos-once="true" className="relative z-10">
+                                <img src={"/images/about-hero-img.png"} alt="" className="mx-auto max-h-[400px] object-contain" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="text-gray-700 body-font">
-                <div className="flex justify-center mt-12 text-4xl font-semibold">
-                    Why Us?
-                </div>
-                <div className="container px-5 py-6 mx-auto">
-                    <div className="flex flex-wrap text-center justify-center">
+            {/* <div className="body-font text-gray-700">
+                <div className="mt-12 flex justify-center text-4xl font-semibold">Why Us?</div>
+                <div className="container mx-auto px-5 py-6">
+                    <div className="flex flex-wrap justify-center text-center">
                         {features.map((feature, index) => (
-                            <div className="p-4 md:w-1/4 sm:w-1/2" key={index}>
+                            <div className="p-4 sm:w-1/2 md:w-1/4" key={index}>
                                 <div className="duration-500">
                                     <div className="flex justify-center">
-                                        <img src={feature.imageSrc} className="w-32 mb-3" alt={feature.title} />
+                                        <img src={feature.imageSrc} className="mb-3 w-32" alt={feature.title} />
                                     </div>
                                     <h2 className="title-font font-regular text-xl text-neutral-800">{feature.title}</h2>
                                 </div>
@@ -159,21 +126,20 @@ function page() {
                         ))}
                     </div>
                 </div>
-            </div>
-
+            </div> */}
 
             <div className="bg-gray-100">
                 <div className="pt-10">
-                    <h3 className="text-4xl font-bold text-center text-red-800">Top Products</h3>
+                    <h3 className="text-center text-4xl font-bold text-red-800">Top Products</h3>
                 </div>
 
-                <div className="max-w-screen-xl 2xl:max-w-screen-3xl px-8 md:px-12 mx-auto py-12 lg:py-24 flex flex-col justify-center">
-                    <div className="flex flex-col sm:flex-row mx-auto">
+                <div className="2xl:max-w-screen-3xl mx-auto flex max-w-screen-xl flex-col justify-center px-8 py-12 md:px-12 lg:py-24">
+                    <div className="mx-auto flex flex-col sm:flex-row">
                         {images.map((image, index) => (
                             <Link key={index} href={image.link}>
                                 <img
                                     src={image.src}
-                                    className={`rounded-xl ${image.rotation} hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom`}
+                                    className={`rounded-xl ${image.rotation} h-full w-full origin-bottom transform object-cover duration-500 hover:-translate-y-12 hover:scale-150 hover:rotate-0`}
                                     alt={image.alt}
                                 />
                             </Link>
@@ -182,237 +148,223 @@ function page() {
                 </div>
             </div>
 
-            <div className="relative isolate overflow-hidden py-24 sm:py-32 bg-gradient-to-b from-gray-50 to-white">
+            <div className="relative isolate overflow-hidden bg-gradient-to-b from-gray-50 to-white sm:py-32">
                 <div className="absolute inset-0 -z-10">
                     <div className="absolute inset-y-0 right-1/2 -z-10 w-[200%] skew-x-[-30deg] bg-white shadow-xl shadow-gray-200/50 sm:right-1/2 sm:skew-x-0 md:right-2/3"></div>
-                    <div className="absolute left-0 top-0 -z-20 h-1/3 w-full rounded-b-full bg-gradient-to-r from-yellow-400/10 to-yellow-500/10 blur-3xl"></div>
+                    <div className="absolute top-0 left-0 -z-20 h-1/3 w-full rounded-b-full bg-gradient-to-r from-yellow-400/10 to-yellow-500/10 blur-3xl"></div>
                     <div className="absolute right-0 bottom-0 -z-20 h-1/3 w-full rounded-t-full bg-gradient-to-l from-yellow-400/10 to-yellow-500/10 blur-3xl"></div>
                 </div>
 
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fade-in [animation-fill-mode:both] [animation-delay:200ms]">
-                            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fbec4b] to-[#dccb1a]">Veda Structure</span>
+                    <div className="mb-16 text-center">
+                        <h2 className="animate-fade-in mb-4 text-4xl font-bold text-gray-900 [animation-delay:200ms] [animation-fill-mode:both] md:text-5xl">
+                            About <span className="bg-gradient-to-r from-[#fbec4b] to-[#dccb1a] bg-clip-text text-transparent">Veda Structure</span>
                         </h2>
-                        <div className="w-20 h-1.5 bg-gradient-to-r from-[#ebc622] to-[#e5c638] mx-auto mb-6 rounded-full animate-grow [animation-fill-mode:both] [animation-delay:400ms]"></div>
-                        <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in [animation-fill-mode:both] [animation-delay:600ms]">
-                            Veda Structure is your one-stop shop for all astrology needs. Established in 2022, we are a team of highly qualified astrologers, pundits, and experts dedicated to providing a safe, efficient, pleasant, and personalized experience in the field of astrology, numerology, horoscope prediction, Vedic Puja and various related products.
+                        <div className="animate-grow mx-auto mb-6 h-1.5 w-20 rounded-full bg-gradient-to-r from-[#ebc622] to-[#e5c638] [animation-delay:400ms] [animation-fill-mode:both]"></div>
+                        <p className="animate-fade-in mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 [animation-delay:600ms] [animation-fill-mode:both] md:text-xl">
+                            Veda Structure is your one-stop shop for all astrology needs. Established in 2022, we are a team of highly qualified astrologers, pundits, and experts dedicated to
+                            providing a safe, efficient, pleasant, and personalized experience in the field of astrology, numerology, horoscope prediction, Vedic Puja and various related products.
                         </p>
                     </div>
                     <AboutVidComp />
                 </div>
             </div>
 
-            <div className="container bg-red-900/5 w-[95%] justify-center items-center mx-auto my-12 pb-12 px-4 rounded-lg">
-                <div className='flex flex-col justify-center items-center py-12 p-6'>
-                    <h2 className='text-2xl font-bold mb-1 text-red-900'>Our Services</h2>
-                    <p className='text-orange-400 flex justify-center'>Explore our spiritual services to guide your journey toward inner peace and divine connection.
-                    </p>
+            <div className="container mx-auto my-12 w-[95%] items-center justify-center rounded-lg bg-red-900/5 px-4 pb-12">
+                <div className="flex flex-col items-center justify-center p-6 py-12">
+                    <h2 className="mb-1 text-2xl font-bold text-red-900">Our Services</h2>
+                    <p className="flex justify-center text-orange-400">Explore our spiritual services to guide your journey toward inner peace and divine connection.</p>
                 </div>
 
-                <div className='grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-6'>
-
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s1.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s1.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Astrology Consultations</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                                <p>Our experienced pandits offer personalized consultations to help you understand your unique astrological profile, navigate life challenges, and make informed decisions.</p>
-                            </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <h1 className="text-lg font-semibold text-red-900">Astrology Consultations</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    Our experienced pandits offer personalized consultations to help you understand your unique astrological profile, navigate life challenges, and make informed
+                                    decisions.
+                                </p>
+                            </div>
+                            <div className="pt-5 text-base leading-7 font-semibold">
+                                <p>
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s2.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s2.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Horoscope Predictions</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                            <h1 className="text-lg font-semibold text-red-900">Horoscope Predictions</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>Get regular horoscope predictions on our website to gain insights into your daily, weekly, monthly, and yearly outlooks.</p>
                             </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <div className="pt-5 text-base leading-7 font-semibold">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s3.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s3.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Vedic Products</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                                <p>Explore our wide range of authentic Vedic products, including gemstones, rudraksha beads, yantras, and other spiritual items, delivered conveniently to your doorstep.</p>
-                            </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <h1 className="text-lg font-semibold text-red-900">Vedic Products</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    Explore our wide range of authentic Vedic products, including gemstones, rudraksha beads, yantras, and other spiritual items, delivered conveniently to your
+                                    doorstep.
+                                </p>
+                            </div>
+                            <div className="pt-5 text-base leading-7 font-semibold">
+                                <p>
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s4.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s4.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Informative Blogs</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                            <h1 className="text-lg font-semibold text-red-900">Informative Blogs</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>Access our comprehensive library of informative blogs covering various aspects of astrology, spirituality, and Vedic wisdom to enhance your knowledge.</p>
                             </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <div className="pt-5 text-base leading-7 font-semibold">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s5.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s5.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Online Courses</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                            <h1 className="text-lg font-semibold text-red-900">Online Courses</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>Deepen your astrological knowledge and understanding with our comprehensive online courses led by our expert pandits.</p>
                             </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <div className="pt-5 text-base leading-7 font-semibold">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s6.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s6.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Online Puja Services</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                                <p>Experience the convenience of our online puja services. Our knowledgeable pandits will perform pujas on your behalf according to your specific needs and traditions.</p>
-                            </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <h1 className="text-lg font-semibold text-red-900">Online Puja Services</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    Experience the convenience of our online puja services. Our knowledgeable pandits will perform pujas on your behalf according to your specific needs and traditions.
+                                </p>
+                            </div>
+                            <div className="pt-5 text-base leading-7 font-semibold">
+                                <p>
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s7.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s7.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Online Pandit Services</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                                <p>Connect with our experienced pandits for personalized guidance and assistance with various aspects of Hinduism, including puja ceremonies, sloka recitations, and spiritual counseling.</p>
-                            </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <h1 className="text-lg font-semibold text-red-900">Online Pandit Services</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    Connect with our experienced pandits for personalized guidance and assistance with various aspects of Hinduism, including puja ceremonies, sloka recitations, and
+                                    spiritual counseling.
+                                </p>
+                            </div>
+                            <div className="pt-5 text-base leading-7 font-semibold">
+                                <p>
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s8.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s8.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Puja In Varanasi</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
-                                <p>Fulfill your desire to perform pujas in the holy city of Varanasi. We offer puja services performed by our pandits in Varanasi, adhering to the specific guidelines outlined in the Kashi Khand.</p>
-                            </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <h1 className="text-lg font-semibold text-red-900">Puja In Varanasi</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    Fulfill your desire to perform pujas in the holy city of Varanasi. We offer puja services performed by our pandits in Varanasi, adhering to the specific guidelines
+                                    outlined in the Kashi Khand.
+                                </p>
+                            </div>
+                            <div className="pt-5 text-base leading-7 font-semibold">
+                                <p>
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div
-                        className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
+                    <div className="group relative cursor-pointer overflow-hidden bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl sm:mx-auto sm:max-w-sm sm:rounded-lg sm:px-10">
                         <span className="absolute top-10 z-0 h-20 w-20 rounded-full bg-yellow-400 transition-all duration-300 group-hover:scale-[10]"></span>
                         <div className="relative z-10 mx-auto max-w-md">
                             <span className="grid h-20 w-20 place-items-center rounded-full bg-white transition-all duration-300 group-hover:bg-red-900">
-
-                                <img src={'/images/Services_img/s9.png'} alt="" className="h-15 w-15" />
+                                <img src={"/images/Services_img/s9.png"} alt="" className="h-15 w-15" />
                             </span>
-                            <h1 className='text-lg font-semibold text-red-900'>Rudraksha & Gemstones</h1>
-                            <div
-                                className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
+                            <h1 className="text-lg font-semibold text-red-900">Rudraksha & Gemstones</h1>
+                            <div className="space-y-6 pt-5 text-base leading-7 text-gray-600 transition-all duration-300 group-hover:text-white/90">
                                 <p>We provide a curated selection of authentic rudraksha beads and gemstones, each chosen for its specific qualities and potential benefits.</p>
                             </div>
-                            <div className="pt-5 text-base font-semibold leading-7">
+                            <div className="pt-5 text-base leading-7 font-semibold">
                                 <p>
-                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">Read the docs
-                                        &rarr;
+                                    <a href="#" className="text-yellow-500 transition-all duration-300 group-hover:text-white">
+                                        Read the docs &rarr;
                                     </a>
                                 </p>
                             </div>
@@ -423,36 +375,23 @@ function page() {
 
             <Stat />
 
-            <div className="text-gray-600 dark:text-gray-300 pt-8" id="reviews">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+            <div className="pt-8 text-gray-600 dark:text-gray-300" id="reviews">
+                <div className="mx-auto max-w-7xl px-6 md:px-12 xl:px-6">
                     <div className="mb-10 space-y-4 px-6 md:px-0">
-                        <h2 className="text-center text-2xl font-bold text-yellow-600 dark:text-white md:text-4xl pt-5">
-                            What Our Devotees Say.
-                        </h2>
+                        <h2 className="pt-5 text-center text-2xl font-bold text-yellow-600 md:text-4xl dark:text-white">What Our Devotees Say.</h2>
                     </div>
 
-                    <div className="md:columns-2 lg:columns-3 gap-8 space-y-8">
+                    <div className="gap-8 space-y-8 md:columns-2 lg:columns-3">
                         {reviewsData.map((review, index) => (
                             <div
                                 key={index}
-                                className="aspect-auto p-8 border border-gray-100 rounded-3xl bg-white dark:bg-gray-800 dark:border-gray-700 shadow-xl hover:scale-105 transition-transform hover:bg-red-900/15 hover:text-red-950"
+                                className="aspect-auto rounded-3xl border border-gray-100 bg-white p-8 shadow-xl transition-transform hover:scale-105 hover:bg-red-900/15 hover:text-red-950 dark:border-gray-700 dark:bg-gray-800"
                             >
                                 <div className="flex gap-4">
-                                    <img
-                                        className="w-12 h-12 rounded-full"
-                                        src={review.avatar}
-                                        alt="user avatar"
-                                        width="400"
-                                        height="400"
-                                        loading="lazy"
-                                    />
+                                    <img className="h-12 w-12 rounded-full" src={review.avatar} alt="user avatar" width="400" height="400" loading="lazy" />
                                     <div>
-                                        <h6 className="text-lg font-medium text-gray-700 dark:text-white">
-                                            {review.name}
-                                        </h6>
-                                        <p className="text-sm text-gray-500 dark:text-gray-300 ">
-                                            {review.title}
-                                        </p>
+                                        <h6 className="text-lg font-medium text-gray-700 dark:text-white">{review.name}</h6>
+                                        <p className="text-sm text-gray-500 dark:text-gray-300">{review.title}</p>
                                     </div>
                                 </div>
                                 <p className="mt-8">{review.review}</p>
@@ -462,30 +401,38 @@ function page() {
                 </div>
             </div>
 
-            <div className="p-4 mx-auto bg-white rounded-2xl shadow-md max-w-4xl sm:p-6 grid grid-cols-1 lg:grid-cols-6 gap-6 my-12 border border-yellow-500">
+            <div className="mx-auto my-12 grid max-w-4xl grid-cols-1 gap-6 rounded-2xl border border-yellow-500 bg-white p-4 shadow-md sm:p-6 lg:grid-cols-6">
                 {/* Review Form Section */}
-                <div className="lg:col-span-4 col-span-1">
+                <div className="col-span-1 lg:col-span-4">
                     <form action="" method="POST" className="space-y-4">
-                        <h2 className="text-2xl font-semibold text-gray-700 mb-4">
-                            Write a review
-                        </h2>
+                        <h2 className="mb-4 text-2xl font-semibold text-gray-700">Write a review</h2>
                         {/* Star Rating Inputs */}
-                        <div className="flex justify-start items-center space-x-1 mb-4">
+                        <div className="mb-4 flex items-center justify-start space-x-1">
                             {/* 5-star rating */}
                             <input type="radio" id="5-stars" name="rating" value="5" className="hidden" />
-                            <label htmlFor="5-stars" className="text-yellow-400 text-2xl cursor-pointer hover:scale-110">★</label>
+                            <label htmlFor="5-stars" className="cursor-pointer text-2xl text-yellow-400 hover:scale-110">
+                                ★
+                            </label>
                             {/* 4-star rating */}
                             <input type="radio" id="4-stars" name="rating" value="4" className="hidden" />
-                            <label htmlFor="4-stars" className="text-yellow-400 text-2xl cursor-pointer hover:scale-110">★</label>
+                            <label htmlFor="4-stars" className="cursor-pointer text-2xl text-yellow-400 hover:scale-110">
+                                ★
+                            </label>
                             {/* 3-star rating */}
                             <input type="radio" id="3-stars" name="rating" value="3" className="hidden" />
-                            <label htmlFor="3-stars" className="text-yellow-400 text-2xl cursor-pointer hover:scale-110">★</label>
+                            <label htmlFor="3-stars" className="cursor-pointer text-2xl text-yellow-400 hover:scale-110">
+                                ★
+                            </label>
                             {/* 2-star rating */}
                             <input type="radio" id="2-stars" name="rating" value="2" className="hidden" />
-                            <label htmlFor="2-stars" className="text-yellow-400 text-2xl cursor-pointer hover:scale-110">★</label>
+                            <label htmlFor="2-stars" className="cursor-pointer text-2xl text-yellow-400 hover:scale-110">
+                                ★
+                            </label>
                             {/* 1-star rating */}
                             <input type="radio" id="1-star" name="rating" value="1" className="hidden" />
-                            <label htmlFor="1-star" className="text-yellow-400 text-2xl cursor-pointer hover:scale-110">★</label>
+                            <label htmlFor="1-star" className="cursor-pointer text-2xl text-yellow-400 hover:scale-110">
+                                ★
+                            </label>
                         </div>
                         {/* Review Text Area */}
                         <textarea
@@ -493,15 +440,12 @@ function page() {
                             name="review"
                             rows="4"
                             required={true}
-                            className="block w-full p-3 text-sm text-gray-900 bg-gray-50 rounded-md border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                            className="block w-full rounded-md border border-gray-300 bg-gray-50 p-3 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                             placeholder="Write your review"
                         ></textarea>
                         {/* Action Button */}
-                        <div className="text-right py-4">
-                            <a
-                                href="/user"
-                                className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-lg text-sm px-5 py-3"
-                            >
+                        <div className="py-4 text-right">
+                            <a href="/user" className="rounded-lg bg-yellow-400 px-5 py-3 text-sm font-semibold text-white hover:bg-yellow-500 focus:ring-4 focus:ring-blue-300 focus:outline-none">
                                 Login to Post Review
                             </a>
                         </div>
@@ -509,72 +453,68 @@ function page() {
                 </div>
 
                 {/* Ratings Summary Section */}
-                <div className="lg:col-span-2 hidden lg:flex flex-col space-y-4">
+                <div className="hidden flex-col space-y-4 lg:col-span-2 lg:flex">
                     {/* Overall Rating */}
                     <div className="flex items-center">
-                        <span className="text-yellow-400 text-xl">★★★★★</span>
-                        <p className="ml-2 text-sm font-medium text-gray-900">0 out of 0</p>
+                        <span className="text-xl text-yellow-400">★★★★★</span>
+                        <p className="ml-2 text-sm font-medium text-gray-900">4.7 out of 5</p>
                     </div>
-                    <p className="text-sm font-medium text-gray-500">0 global ratings</p>
+                    <p className="text-sm font-medium text-gray-500">4.7 global ratings</p>
 
                     {/* Individual Star Ratings Progress Bars */}
-                    <div className="flex items-center mt-2">
-                        <span className="text-sm font-medium text-blue-600 hover:underline shrink-0">5 star</span>
-                        <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
-                            <div className="h-4 bg-yellow-400 rounded" style={{ width: '50%' }}></div>
+                    <div className="mt-2 flex items-center">
+                        <span className="shrink-0 text-sm font-medium text-blue-600 hover:underline">5 star</span>
+                        <div className="mx-2 h-4 w-3/4 rounded bg-gray-200">
+                            <div className="h-4 rounded bg-yellow-400" style={{ width: "50%" }}></div>
                         </div>
-                        <span className="text-sm font-medium text-gray-500">0%</span>
+                        <span className="text-sm font-medium text-gray-500">50%</span>
                     </div>
                     <div className="flex items-center">
-                        <span className="text-sm font-medium text-blue-600 hover:underline shrink-0">4 star</span>
-                        <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
-                            <div className="h-4 bg-yellow-400 rounded" style={{ width: '25%' }}></div>
+                        <span className="shrink-0 text-sm font-medium text-blue-600 hover:underline">4 star</span>
+                        <div className="mx-2 h-4 w-3/4 rounded bg-gray-200">
+                            <div className="h-4 rounded bg-yellow-400" style={{ width: "25%" }}></div>
                         </div>
-                        <span className="text-sm font-medium text-gray-500">0%</span>
+                        <span className="text-sm font-medium text-gray-500">25%</span>
                     </div>
                     <div className="flex items-center">
-                        <span className="text-sm font-medium text-blue-600 hover:underline shrink-0">3 star</span>
-                        <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
-                            <div className="h-4 bg-yellow-400 rounded" style={{ width: '10%' }}></div>
+                        <span className="shrink-0 text-sm font-medium text-blue-600 hover:underline">3 star</span>
+                        <div className="mx-2 h-4 w-3/4 rounded bg-gray-200">
+                            <div className="h-4 rounded bg-yellow-400" style={{ width: "10%" }}></div>
                         </div>
-                        <span className="text-sm font-medium text-gray-500">0%</span>
+                        <span className="text-sm font-medium text-gray-500">10%</span>
                     </div>
                     <div className="flex items-center">
-                        <span className="text-sm font-medium text-blue-600 hover:underline shrink-0">2 star</span>
-                        <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
-                            <div className="h-4 bg-yellow-400 rounded" style={{ width: '5%' }}></div>
+                        <span className="shrink-0 text-sm font-medium text-blue-600 hover:underline">2 star</span>
+                        <div className="mx-2 h-4 w-3/4 rounded bg-gray-200">
+                            <div className="h-4 rounded bg-yellow-400" style={{ width: "5%" }}></div>
                         </div>
-                        <span className="text-sm font-medium text-gray-500">0%</span>
+                        <span className="text-sm font-medium text-gray-500">5%</span>
                     </div>
                     <div className="flex items-center">
-                        <span className="text-sm font-medium text-blue-600 hover:underline shrink-0">1 star</span>
-                        <div className="w-3/4 h-4 mx-2 bg-gray-200 rounded">
-                            <div className="h-4 bg-yellow-400 rounded" style={{ width: '10%' }}></div>
+                        <span className="shrink-0 text-sm font-medium text-blue-600 hover:underline">1 star</span>
+                        <div className="mx-2 h-4 w-3/4 rounded bg-gray-200">
+                            <div className="h-4 rounded bg-yellow-400" style={{ width: "10%" }}></div>
                         </div>
-                        <span className="text-sm font-medium text-gray-500">0%</span>
+                        <span className="text-sm font-medium text-gray-500">10%</span>
                     </div>
                 </div>
             </div>
 
-            <div
-                className=" container mx-auto mt-10 mb-10 sm:h-[200px] h-[400px] max-w-4xl bg-gradient-to-r  from-yellow-400  via-orange-300  to-yellow-400  bg-[length:200%_200%]  animate-[gradient-animation_10s_ease-in-out_infinite] flex items-center justify-center  text-white  text-5xl  font-extrabold  rounded-xl
-        "
-            >
-                <div className='flex items-center gap-10 sm:flex-row flex-col justify-between'>
+            <div className="container mx-auto mt-10 mb-10 flex h-[400px] max-w-4xl animate-[gradient-animation_10s_ease-in-out_infinite] items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 via-orange-300 to-yellow-400 bg-[length:200%_200%] text-5xl font-extrabold text-white sm:h-[200px]">
+                <div className="flex flex-col items-center justify-between gap-10 sm:flex-row">
                     <div>
-                        <img src={'/images/phone_app/m_app.png'} alt="" className='w-30 h-50 align-left mt-[-40px] transform transition duration-300 ease-in-out hover:rotate-5' />
+                        <img src={"/images/phone_app/m_app.png"} alt="" className="align-left mt-[-40px] h-50 w-30 transform transition duration-300 ease-in-out hover:rotate-5" />
                     </div>
-                    <div className='text-center mt-[-40px]'>
-                        <h1 className='text-3xl font-bold text-red-900'>Download Our Mobile App</h1>
-                        <p className='text-lg text-white mt-2'>Get access to exclusive offers and a seamless shopping experience.</p>
-                        <div className='flex gap-4 justify-center mt-4'>
-                            <img src={'/images/phone_app/G_play.png'} alt="Google Play Store" className='w-32 h-10 cursor-pointer transform transition duration-300 ease-in-out hover:scale-105' />
-                            <img src={'/images/phone_app/App_store.png'} alt="Apple App Store" className='w-32 h-10 cursor-pointer transform transition duration-300 ease-in-out hover:scale-105' />
+                    <div className="mt-[-40px] text-center">
+                        <h1 className="text-3xl font-bold text-red-900">Download Our Mobile App</h1>
+                        <p className="mt-2 text-lg text-white">Get access to exclusive offers and a seamless shopping experience.</p>
+                        <div className="mt-4 flex justify-center gap-4">
+                            <img src={"/images/phone_app/G_play.png"} alt="Google Play Store" className="h-10 w-32 transform cursor-pointer transition duration-300 ease-in-out hover:scale-105" />
+                            <img src={"/images/phone_app/App_store.png"} alt="Apple App Store" className="h-10 w-32 transform cursor-pointer transition duration-300 ease-in-out hover:scale-105" />
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }
