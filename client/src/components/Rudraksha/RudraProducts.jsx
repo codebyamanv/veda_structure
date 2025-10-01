@@ -42,7 +42,7 @@ export default function RudraProducts() {
                                     <div className="flex items-end justify-center gap-2">
                                         <p className="mt-2 text-xl font-bold text-orange-500">₹{calculateDiscount(item.productPrice, item.productDiscount)}</p>
                                         <p className="mt-2 text-xl font-semibold text-gray-300 line-through">₹{item.productPrice}</p>
-                                        <p className="text-md mt-2 font-bold text-green-600">{item.productDiscount}% OFF</p>
+                                        <p className="text-md mt-2 font-bold text-green-600">{item.productDiscount && item.productDiscount + "% OFF"}</p>
                                     </div>
                                 </div>
                             </Link>

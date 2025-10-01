@@ -500,7 +500,7 @@ function page() {
                 </div>
             </div>
 
-            <div className="container mx-auto mt-10 mb-10 flex h-[400px] max-w-4xl animate-[gradient-animation_10s_ease-in-out_infinite] items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 via-orange-300 to-yellow-400 bg-[length:200%_200%] text-5xl font-extrabold text-white sm:h-[200px]">
+            {/* <div className="container mx-auto mt-10 mb-10 flex h-[400px] max-w-4xl animate-[gradient-animation_10s_ease-in-out_infinite] items-center justify-center rounded-xl bg-gradient-to-r from-yellow-400 via-orange-300 to-yellow-400 bg-[length:200%_200%] text-5xl font-extrabold text-white sm:h-[200px]">
                 <div className="flex flex-col items-center justify-between gap-10 sm:flex-row">
                     <div>
                         <img src={"/images/phone_app/m_app.png"} alt="" className="align-left mt-[-40px] h-50 w-30 transform transition duration-300 ease-in-out hover:rotate-5" />
@@ -514,7 +514,7 @@ function page() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     )
 }
