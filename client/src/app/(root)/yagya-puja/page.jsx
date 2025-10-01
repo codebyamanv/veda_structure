@@ -594,7 +594,7 @@ function page() {
                                         <p className="mt-4 font-serif text-base leading-relaxed text-gray-800">
                                             <span className="font-bold">{puja.title}</span>, {puja.desc}
                                         </p>
-                                        <button className="mt-5 w-full rounded-xl border-4 border-white bg-[#f6a623] py-3 font-semibold text-black transition hover:bg-[#e59410]">Book Now →</button>
+                                        {/* <button className="mt-5 w-full rounded-xl border-4 border-white bg-[#f6a623] py-3 font-semibold text-black transition hover:bg-[#e59410]">Book Now →</button> */}
                                     </div>
                                 ))
                             ) : (
