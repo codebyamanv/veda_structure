@@ -2,13 +2,15 @@
 import { getBraceletById } from "@/apis/controllers/braceletController.js"
 import { useCart } from "@/context/cartContext"
 import useBracelet from "@/hooks/useBracelet"
-import { calculateDiscount, handlePayment } from "@/utils/utils"
+import { calculateDiscount } from "@/utils/utils"
 import { Share } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import React, { useState, useEffect } from "react"
 import { toast } from "sonner"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { motion } from "framer-motion"
 
 function ProductDetails() {
     const { id } = useParams()
@@ -45,56 +47,13 @@ function ProductDetails() {
         const res = await getBraceletById(id)
         setProduct(res.data.bracelet)
     }
-    const tabData = [
-        {
-            key: "about",
-            label: "About Product",
-            content: (
-                <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>
-            ),
-        },
-        {
-            key: "benefits",
-            label: "Benefits",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productBenefits }}></div>,
-        },
-        {
-            key: "faq",
-            label: "FAQ's",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFaqs }}></div>,
-        },
-        {
-            key: "shipping",
-            label: "Shipping & Return",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productShipping }}></div>,
-        },
-        {
-            key: "reviews",
-            label: "Product reviews",
-            content: (
-                <div>
-                    <h2 className="text-lg font-bold">Customer Reviews</h2>
-                    <div className="mt-2 border-b pb-2">
-                        <p className="font-semibold"> Arpit Pandey - ⭐ ⭐ ⭐ ⭐ ⭐ </p>
-                        <p>Very beautiful and powerful bracelet. Helped me feel more energetic!</p>
-                    </div>
-                    <div className="mt-2">
-                        <p className="font-semibold">Harsh singh - ⭐ ⭐ ⭐ ⭐ ⭐</p>
-                        <p>Good quality stone and fast delivery. Highly recommended.</p>
-                    </div>
-                </div>
-            ),
-        },
-    ]
 
     useEffect(() => {
         fetchBracelet()
     }, [])
 
     const [mainImageIdx, setMainImageIdx] = useState(0)
-    const [fav, setFav] = useState(false)
     const [showShare, setShowShare] = useState(false)
-    const [tab, setTab] = useState("about")
 
     const copyLink = () => {
         navigator.clipboard.writeText(`https://vedastructure.com/bracelet/${id}`)
@@ -105,14 +64,13 @@ function ProductDetails() {
 
     const handleChange = (e) => {
         const selectedOption = e.target.options[e.target.selectedIndex]
-        const value = Number(selectedOption.value) // price
+        const value = Number(selectedOption.value)
         const isHaveForm = selectedOption.dataset.ishaveform === "true"
         setSelected({ value, isHaveForm })
     }
     const basePrice = product.productPrice || 0
     const energizationPrice = selected.value || 0
     const finalPrice = basePrice + energizationPrice
-    console.log(product)
     return (
         <>
             <div className="mx-auto max-w-7xl px-6 py-3 text-sm text-gray-600">
@@ -159,26 +117,7 @@ function ProductDetails() {
                     <marquee behavior="alternate" direction="right" className="font-bold text-red-500">
                         Offer Available: 25/08/25-20/09/25
                     </marquee>
-                    {/* <div className="border-t pt-4 text-sm">
-                        <ul className="grid grid-cols-2 gap-y-2 sm:grid-cols-3">
-                            <li>
-                                Width: <span className="font-semibold">00</span>
-                            </li>
-                            <li>
-                                Bead size: <span className="font-semibold">00</span>
-                            </li>
-                            <li>
-                                Origin: <span className="font-semibold">00</span>
-                            </li>
-                            <li className="col-span-2 sm:col-span-3">
-                                Certification / Energization process: <br />
-                                <span className="font-semibold">
-                                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta officiis provident quidem ex neque cupiditate nesciunt tempora commodi, recusandae repellendus,
-                                    eveniet nam enim iure porro.
-                                </span>
-                            </li>
-                        </ul>
-                    </div> */}
+
                     <div>
                         <label className="mt-4 block font-semibold">Pooja/Energization</label>
                         <select className="mt-1 w-full rounded-lg border p-2" onChange={handleChange}>
@@ -245,30 +184,6 @@ function ProductDetails() {
                             </div>
                         </div>
                     )}
-
-                    <div className="mt-4 flex items-center space-x-3">
-                        {/* <button
-                            className="px-3 py-1 border rounded-lg hover:bg-yellow-300"
-                            onClick={() => decreaseQty(product._id)}
-                        >
-                            -
-                        </button>
-                        <span id="qty">
-                            {cart.items.find((i) => i._id === product._id)?.quantity || 1}
-                        </span>
-                        <button
-                            className="px-3 py-1 border rounded-lg hover:bg-yellow-300"
-                            onClick={() => increaseQty(product._id)}
-                        >
-                            +
-                        </button> */}
-                        {/* <button
-                            onClick={() => addItem(product)}
-                            className="bg-yellow-600 px-6 py-3 rounded-lg text-white transition duration-300 hover:shadow-md hover:bg-yellow-500 font-semibold mt-4 w-full"
-                        >
-                            Add to Cart
-                        </button> */}
-                    </div>
 
                     <div className="my-2 flex flex-wrap gap-3">
                         {product?.sizes?.map((item) => (
@@ -362,7 +277,6 @@ function ProductDetails() {
                     <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFeatures }}></div>
                 </div>
             </section>
-            {/* Share Popup */}
             {showShare && (
                 <div className="bg-opacity-40 fixed inset-0 z-50 flex items-center justify-center bg-black/80">
                     <div className="animate-fadeIn w-80 rounded-xl border-2 border-yellow-500 bg-white p-6 shadow-lg">
@@ -398,15 +312,75 @@ function ProductDetails() {
                     </div>
                 </div>
             )}
-            <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
-                <div className="hideScrollbar flex space-x-6 overflow-auto border-b pb-2 font-semibold text-gray-600">
-                    {tabData.map((t) => (
-                        <button key={t.key} className={`tab-btn text-nowrap ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
-                            {t.label}
-                        </button>
-                    ))}
+            <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6">
+                <div className="mt-8">
+                    <Tabs defaultValue="about" className="w-full">
+                        <TabsList className="flex flex-wrap justify-start gap-2 rounded-2xl p-1">
+                            {[
+                                { value: "about", label: "About Product" },
+                                { value: "benefits", label: "Benefits" },
+                                { value: "faq", label: "FAQ's" },
+                                { value: "shipping", label: "Shipping & Return" },
+                                { value: "reviews", label: "Product Reviews" },
+                            ].map((tab) => (
+                                <TabsTrigger
+                                    key={tab.value}
+                                    value={tab.value}
+                                    className="relative rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-white/70 data-[state=active]:bg-yellow-500 data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600"
+                                >
+                                    {tab.label}
+                                    <motion.div
+                                        layoutId="activeTab"
+                                        className="absolute inset-0 -z-10 rounded-xl bg-white/40 backdrop-blur-sm"
+                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    />
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+
+                        <TabsContent value="about">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="benefits">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productBenefits }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="faq">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productFaqs }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="shipping">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productShipping }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="reviews">
+                            <div className="mt-6 space-y-4">
+                                <h2 className="text-lg font-semibold text-gray-900">Customer Reviews</h2>
+                                <div className="rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm backdrop-blur-sm transition hover:shadow-md">
+                                    <p className="font-semibold">Arpit Pandey - ⭐⭐⭐⭐⭐</p>
+                                    <p className="text-gray-700">Very beautiful and powerful rudraksha. Helped me feel more energetic!</p>
+                                </div>
+                                <div className="rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm backdrop-blur-sm transition hover:shadow-md">
+                                    <p className="font-semibold">Harsh Singh - ⭐⭐⭐⭐⭐</p>
+                                    <p className="text-gray-700">Good quality stone and fast delivery. Highly recommended.</p>
+                                </div>
+                            </div>
+                        </TabsContent>
+                    </Tabs>
                 </div>
-                <div className="mt-6 leading-relaxed text-gray-700">{tabData.find((t) => t.key === tab)?.content}</div>
             </div>
             <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
                 <p className="mb-4 text-2xl font-bold text-gray-800">Related Products</p>

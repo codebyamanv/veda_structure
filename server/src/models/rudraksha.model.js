@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const rudrakshaSchema = new mongoose.Schema(
     {
+        productType: {
+            type: String,
+            default: 'rudraksha',
+        },
         stock: {
             type: Number,
             default: 0,

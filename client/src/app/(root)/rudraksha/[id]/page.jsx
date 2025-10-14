@@ -9,6 +9,8 @@ import Link from "next/link"
 import { useParams, useRouter } from "next/navigation"
 import React, { useState, useEffect } from "react"
 import { toast } from "sonner"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { motion } from "framer-motion"
 
 function ProductDetails() {
     const { id } = useParams()
@@ -40,47 +42,6 @@ function ProductDetails() {
         const res = await getRudrakshaById(id)
         setProduct(res.data.rudraksha)
     }
-    const tabData = [
-        {
-            key: "about",
-            label: "About Product",
-            content: (
-                <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}></div>
-            ),
-        },
-        {
-            key: "benefits",
-            label: "Benefits",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productBenefits }}></div>,
-        },
-        {
-            key: "faq",
-            label: "FAQ's",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productFaqs }}></div>,
-        },
-        {
-            key: "shipping",
-            label: "Shipping & Return",
-            content: <div className="prose prose-gray mt-4 max-w-none [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc" dangerouslySetInnerHTML={{ __html: product.productShipping }}></div>,
-        },
-        {
-            key: "reviews",
-            label: "Product reviews",
-            content: (
-                <div>
-                    <h2 className="text-lg font-bold">Customer Reviews</h2>
-                    <div className="mt-2 border-b pb-2">
-                        <p className="font-semibold"> Arpit Pandey - ⭐ ⭐ ⭐ ⭐ ⭐ </p>
-                        <p>Very beautiful and powerful rudraksha. Helped me feel more energetic!</p>
-                    </div>
-                    <div className="mt-2">
-                        <p className="font-semibold">Harsh singh - ⭐ ⭐ ⭐ ⭐ ⭐</p>
-                        <p>Good quality stone and fast delivery. Highly recommended.</p>
-                    </div>
-                </div>
-            ),
-        },
-    ]
 
     useEffect(() => {
         fetchRudraksha()
@@ -88,7 +49,6 @@ function ProductDetails() {
 
     const [mainImageIdx, setMainImageIdx] = useState(0)
     const [showShare, setShowShare] = useState(false)
-    const [tab, setTab] = useState("about")
 
     const copyLink = () => {
         navigator.clipboard.writeText(`https://vedastructure.com/rudraksha/${id}`)
@@ -357,22 +317,83 @@ function ProductDetails() {
                     </div>
                 </div>
             )}
+
             <div className="mx-auto mt-10 max-w-7xl px-4 sm:px-6">
-                <div className="hideScrollbar flex space-x-6 overflow-auto border-b pb-2 font-semibold text-gray-600">
-                    {tabData.map((t) => (
-                        <button key={t.key} className={`tab-btn text-nowrap ${tab === t.key ? "border-b-2 border-yellow-600 text-yellow-600" : ""}`} onClick={() => setTab(t.key)}>
-                            {t.label}
-                        </button>
-                    ))}
+                <div className="mt-8">
+                    <Tabs defaultValue="about" className="w-full">
+                        <TabsList className="flex flex-wrap justify-start gap-2 rounded-2xl p-1">
+                            {[
+                                { value: "about", label: "About Product" },
+                                { value: "benefits", label: "Benefits" },
+                                { value: "faq", label: "FAQ's" },
+                                { value: "shipping", label: "Shipping & Return" },
+                                { value: "reviews", label: "Product Reviews" },
+                            ].map((tab) => (
+                                <TabsTrigger
+                                    key={tab.value}
+                                    value={tab.value}
+                                    className="relative rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 hover:bg-white/70 data-[state=active]:bg-yellow-500 data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600"
+                                >
+                                    {tab.label}
+                                    <motion.div
+                                        layoutId="activeTab"
+                                        className="absolute inset-0 -z-10 rounded-xl bg-white/40 backdrop-blur-sm"
+                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                    />
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+
+                        {/* About */}
+                        <TabsContent value="about">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productAbout?.[0] }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="benefits">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productBenefits }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="faq">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productFaqs }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="shipping">
+                            <div
+                                className="prose prose-gray mt-6 max-w-none text-gray-700 [&_li]:ml-5 [&_ol]:list-decimal [&_p]:mb-2 [&_ul]:list-disc"
+                                dangerouslySetInnerHTML={{ __html: product.productShipping }}
+                            ></div>
+                        </TabsContent>
+
+                        <TabsContent value="reviews">
+                            <div className="mt-6 space-y-4">
+                                <h2 className="text-lg font-semibold text-gray-900">Customer Reviews</h2>
+                                <div className="rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm backdrop-blur-sm transition hover:shadow-md">
+                                    <p className="font-semibold">Arpit Pandey - ⭐⭐⭐⭐⭐</p>
+                                    <p className="text-gray-700">Very beautiful and powerful rudraksha. Helped me feel more energetic!</p>
+                                </div>
+                                <div className="rounded-xl border border-gray-200 bg-white/60 p-4 shadow-sm backdrop-blur-sm transition hover:shadow-md">
+                                    <p className="font-semibold">Harsh Singh - ⭐⭐⭐⭐⭐</p>
+                                    <p className="text-gray-700">Good quality stone and fast delivery. Highly recommended.</p>
+                                </div>
+                            </div>
+                        </TabsContent>
+                    </Tabs>
                 </div>
-                <div className="mt-6 leading-relaxed text-gray-700">{tabData.find((t) => t.key === tab)?.content}</div>
             </div>
             <div className="mx-auto mt-10 max-w-7xl p-4 sm:px-6">
                 <p className="mb-4 text-2xl font-bold text-gray-800">Related Products</p>
                 <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-3 lg:grid-cols-4">
                     {rudraksha?.slice(0, 4).map((item) => (
                         <div key={item._id} className="relative overflow-hidden rounded-2xl bg-white shadow-md transition-all hover:scale-105 hover:shadow-xl">
-                            {/* Make image + text a clickable link */}
                             <Link href={`/rudraksha/${item._id}`}>
                                 <div className="relative h-64 w-full">
                                     <Image
@@ -394,11 +415,10 @@ function ProductDetails() {
                                 </div>
                             </Link>
 
-                            {/* Button OUTSIDE the Link so it only adds to cart */}
                             <div className="p-4 pt-0">
                                 <button
                                     onClick={(e) => {
-                                        e.stopPropagation() // stop click bubbling
+                                        e.stopPropagation()
                                         addItem(item)
                                         toast.success("Item added to cart!")
                                     }}

@@ -1,17 +1,23 @@
 import { getBracelet } from "@/apis/controllers/braceletController.js"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
+
+let cacheBracelet = null
 
 export default function useBracelet() {
-    const [bracelet, setBracelet] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [bracelet, setBracelet] = useState(cacheBracelet || [])
+    const [loading, setLoading] = useState(!cacheBracelet)
 
     useEffect(() => {
-        fetchBracelet()
+        if (!cacheBracelet) {
+            fetchBracelet()
+        }
     }, [])
+
     const fetchBracelet = async () => {
         try {
             setLoading(true)
             const res = await getBracelet()
+            cacheBracelet = res?.data?.bracelet || []
             setBracelet(res?.data?.bracelet || [])
         } catch (error) {
             console.log(error)
@@ -20,5 +26,7 @@ export default function useBracelet() {
         }
     }
 
-    return { bracelet, refetchBracelet: fetchBracelet, loading }
+    const memoizedBracelet = useMemo(() => bracelet, [bracelet])
+
+    return { bracelet: memoizedBracelet, refetchBracelet: fetchBracelet, loading }
 }

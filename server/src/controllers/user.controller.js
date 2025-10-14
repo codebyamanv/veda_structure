@@ -3,7 +3,10 @@ import User from '../models/user.model.js'
 import ApiResponse from '../utils/apiResponse.js'
 import asyncHandler from '../utils/asyncHandler.js'
 import ErrorResponse from '../utils/errorResponse.js'
+import { cookieOptions } from '../utils/misc.js'
 import { generateSessionToken } from '../utils/sessionUtils.js'
+
+
 
 export const register = asyncHandler(async (req, res) => {
     const { fullname, email, password } = req.body
@@ -40,14 +43,7 @@ export const login = asyncHandler(async (req, res) => {
         token: sessionToken,
         expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     })
-    res.cookie('sessionToken', sessionToken, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        path: '/',
-        domain: '.vedastructure.com',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
+    res.cookie('sessionToken', sessionToken, cookieOptions)
 
     return ApiResponse.success({ sessionToken }, 'Login successful').send(res)
 })
@@ -77,13 +73,7 @@ export const currentUser = asyncHandler(async (req, res) => {
 export const logout = asyncHandler(async (req, res) => {
     const sessionToken = req.cookies.sessionToken
     await Session.deleteOne({ token: sessionToken })
-    res.clearCookie('sessionToken', {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'none',
-        path: '/',
-        domain: '.vedastructure.com',
-    })
+    res.clearCookie('sessionToken', cookieOptions)
     return ApiResponse.success({}, 'Logout successful').send(res)
 })
 

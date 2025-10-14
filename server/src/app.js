@@ -13,6 +13,7 @@ import rudrakshaRouter from './routes/rudraksha.routes.js'
 import paymentRouter from './routes/payment.routes.js'
 import orderRouter from './routes/order.routes.js'
 import braceletRouter from './routes/bracelet.routes.js'
+import blogRouter from './routes/blog.routes.js'
 
 const app = express()
 
@@ -47,6 +48,7 @@ app.use('/api/product/rudraksha', rudrakshaRouter)
 app.use('/api/product/bracelet', braceletRouter)
 app.use('/api/payments', paymentRouter)
 app.use('/api/orders', orderRouter)
+app.use('/api/blogs', blogRouter)
 
 app.all(
     '/*catchAll',

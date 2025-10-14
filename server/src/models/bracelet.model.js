@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const braceletSchema = new mongoose.Schema(
     {
+        productType: {
+            type: String,
+            default: 'bracelet',
+        },
         stock: {
             type: Number,
             default: 0,

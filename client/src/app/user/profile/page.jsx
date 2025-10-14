@@ -38,8 +38,8 @@ export default function Profile() {
 
     return (
         <div>
-            <h1 className="text-xl font-bold mb-4">Profile Details</h1>
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-2xl grid md:grid-cols-2 gap-2">
+            <h1 className="mb-4 text-xl font-bold">Profile Details</h1>
+            <form onSubmit={handleSubmit} className="grid max-w-2xl gap-2 space-y-4 md:grid-cols-2">
                 <div>
                     <label className="block text-sm font-medium">Name</label>
                     <input
@@ -56,6 +56,7 @@ export default function Profile() {
                         type="email"
                         name="email"
                         value={form.email}
+                        readOnly
                         onChange={handleChange}
                         className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     />
@@ -70,10 +71,17 @@ export default function Profile() {
                         className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                <div className="md:col-span-2 border-t w-full"></div>
+                <div className="w-full border-t md:col-span-2"></div>
                 <div className="md:col-span-2">
                     <label className="block text-sm font-medium">Full Address</label>
-                    <textarea name="fulladdress" id="" value={form.fulladdress} onChange={handleChange} rows="3" className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"></textarea>
+                    <textarea
+                        name="fulladdress"
+                        id=""
+                        value={form.fulladdress}
+                        onChange={handleChange}
+                        rows="3"
+                        className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
+                    ></textarea>
                 </div>
                 <div>
                     <label className="block text-sm font-medium">Landmark</label>
@@ -117,10 +125,7 @@ export default function Profile() {
                         className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="md:col-span-2 mt-4 bg-[#f4b61e] text-white px-4 py-2 rounded-md hover:bg-[#f4b61e]/80"
-                >
+                <button type="submit" className="mt-4 rounded-md bg-[#f4b61e] px-4 py-2 text-white hover:bg-[#f4b61e]/80 md:col-span-2">
                     Save Changes
                 </button>
             </form>
