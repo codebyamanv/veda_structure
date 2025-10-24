@@ -1,5 +1,6 @@
 "use client"
 
+import { Download, Eye } from "lucide-react"
 import { useState } from "react"
 
 const categories = [
@@ -143,7 +144,19 @@ function page() {
                 </select>
 
                 {selectedCategory && (
-                    <div className="mt-6 flex items-center justify-center gap-4">
+                    <div className="mt-6 flex items-center justify-center sm:gap-4 gap-2 border-b pb-6">
+                        <p><Eye className="inline w-5 h-5" /> Preview</p>
+                        <a href={selectedCategory.brochures.hindi} target="_blank" className="rounded-xl bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700">
+                            Hindi
+                        </a>
+                        <a href={selectedCategory.brochures.english} target="_blank" className="rounded-xl bg-green-600 px-5 py-2 text-white transition hover:bg-green-700">
+                            English
+                        </a>
+                    </div>
+                )}
+                {selectedCategory && (
+                    <div className="mt-6 flex items-center justify-center sm:gap-4 gap-2">
+                        <p><Download className="inline w-5 h-5" /> Download</p>
                         <a href={selectedCategory.brochures.hindi} download className="rounded-xl bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700">
                             Hindi
                         </a>
