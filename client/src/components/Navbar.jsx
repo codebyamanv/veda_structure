@@ -127,6 +127,9 @@ export default function Navbar() {
                                                     <li>
                                                         <Link href="/bracelet">Bracelet</Link>
                                                     </li>
+                                                    <li>
+                                                        <Link href="/gemstone">Gemstone</Link>
+                                                    </li>
                                                 </ul>
                                             </CollapsibleContent>
                                         </Collapsible>
@@ -182,6 +185,9 @@ export default function Navbar() {
 
                             <Link href="/bracelet" className="block px-4 py-2 hover:bg-yellow-100">
                                 Bracelet
+                            </Link>
+                            <Link href="/gemstone" className="block px-4 py-2 hover:bg-yellow-100">
+                                Gemstone
                             </Link>
                         </div>
                     </li>
